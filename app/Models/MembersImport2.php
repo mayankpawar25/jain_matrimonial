@@ -4,10 +4,24 @@ namespace App\Models;
 use App\Models\Member;
 use App\Models\Package;
 use App\Models\User;
+use App\Models\State;
+use App\Models\Family;
+use App\Models\SpiritualBackground;
+use App\Models\PhysicalAttribute;
+use App\Models\Education;
+use App\Models\MemberOtherDetail;
+use App\Models\Transaction;
+use App\Models\Gender;
+use App\Models\MaritalStatus;
+use App\Models\OnBehalf;
+use App\Models\Astrology;
+use App\Models\Address;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Illuminate\Support\Str;
 use Auth;
+use DateTime;
+use DateTimeZone;
 use Hash;
 
 class MembersImport2 implements ToCollection
@@ -17,104 +31,116 @@ class MembersImport2 implements ToCollection
         foreach ($rows as $key => $row) {
             if ($key !== 0) {
                 try {
-                    $validity_days = 365;
-                    // Create User
-                    $user = User::create([
-                        'user_type'         => 'member',
-                        'code'              => unique_code(),
-                        'first_name'        => $row[0],
-                        'last_name'         => $row[1],
-                        'email'             => $row[3],
-                        'email_verified_at' => now(),
-                        'password'          => Hash::make($row[57]), // Assuming password is in the 58th column
-                        'phone'             => $row[2],
-                        'membership'        => $row[58] == '1' ? 1 : 2,
-                    ]);
+                    // Split full name into first name and last name
+                    $nameParts = explode(' ', $row[0], 2);
+                    $firstName = $nameParts[0];
+                    $lastName = isset($nameParts[1]) ? $nameParts[1] : '';
 
+                    // Create User
+                    $user = User::firstOrCreate(
+                        ['email' => $row[3]],
+                        [
+                            'user_type'         => 'member',
+                            'code'              => unique_code(),
+                            'first_name'        => $firstName,
+                            'last_name'         => $lastName,
+                            'email_verified_at' => date('Y-m-d H:m:s'),
+                            'password'          => Hash::make($row[54]), // Assuming password is in the 58th column
+                            'phone'             => $row[2],
+                            'membership'        => $row[53] == '1' ? 1 : $row[53],
+                        ]
+                    );
+                   
+                    $package = Package::where('id', $row[53])->first();
+                    $marital_status_id = MaritalStatus::where('name', 'LIKE', $row[17])->whereNull('deleted_at')->first()->id;
+                    
                     // Create Member
-                    $member = Member::create([
-                        'user_id'                 => $user->id,
-                        'gender'                  => Gender::where('name', $row[57])->first()->id, // Assuming Gender model exists
-                        'on_behalves_id'          => OnBehalf::where('name', $row[56])->first()->id, // Assuming OnBehalf model exists
-                        'birthday'                => date('Y-m-d', strtotime($row[4])),
-                        'current_package_id'      => Package::where('id', $row[55])->first()->id, // Assuming Package model exists
-                        'remaining_interest'      => $row[56],
-                        'remaining_contact_view'  => $row[57],
-                        'remaining_photo_gallery' => $row[58],
-                        'auto_profile_match'      => $row[59],
-                        'package_validity'        => now()->addDays($validity_days),
+                    Member::create([
+                        'user_id' => $user->id,
+                        'gender' => $row[51], // Assuming Gender model exists
+                        'on_behalves_id' => $row[52], // Assuming OnBehalf model exists
+                        'birthday' => date('Y-m-d', strtotime($row[4])),
+                        'current_package_id' => $package->id, // Assuming Package model exists
+                        'remaining_interest' => $package->express_interest,
+                        'remaining_contact_view' => $package->contact,
+                        'remaining_photo_gallery' => $package->photo_gallery,
+                        'auto_profile_match' => $package->auto_profile_match,
+                        'package_validity' => Date('Y-m-d', strtotime($package->validity . ' days')),
+                        'marital_status_id' => $marital_status_id,
                     ]);
 
                     // Create or update MemberOtherDetail
                     MemberOtherDetail::updateOrCreate(
                         ['user_id' => $user->id],
                         [
-                            'state_id'                  => State::where('name', $row[7])->first()->id, // Assuming State model exists
-                            'nationality'               => $row[8],
-                            'manglik'                   => $row[9],
-                            'self_gotra'                => $row[10],
-                            'nanihals_gotra'            => $row[11],
-                            'house'                     => $row[12],
-                            'qualification'             => $row[13],
-                            'occupation'                => $row[14],
-                            'job_description'           => $row[15],
-                            'position'                  => $row[16],
-                            'organization_name'         => $row[17],
-                            'annual_income'             => $row[18],
-                            'father_mobile_no_1'        => $row[19],
-                            'father_mobile_no_2'        => $row[20],
-                            'father_occupation'         => $row[21],
-                            'father_annual_income'      => $row[22],
-                            'mother_mobile_no_1'        => $row[23],
-                            'mother_mobile_no_2'        => $row[24],
-                            'mother_occupation'         => $row[25],
-                            'mother_annual_income'      => $row[26],
-                            'permanent_address'         => $row[41],
-                            'unmarried_brother'         => $row[42],
-                            'married_brother'           => $row[43],
-                            'unmarried_sister'          => $row[44],
-                            'married_sister'            => $row[45],
-                            'grandfather_uncle_info'    => $row[46],
-                            'known_person_1'            => $row[47],
-                            'known_person_2'            => $row[48],
-                            'known_member_digamber_jain_social_group' => $row[49],
-                            'candidates_guardian_name'  => $row[50],
-                            'relation_with_candidate'   => $row[51],
-                            'transaction_id'            => $row[52],
-                            'transaction_amount'        => $row[53],
-                            'transaction_date'          => date('Y-m-d', strtotime($row[54])),
-                        ]
+                            // 'state_id' => State::where('name', $row[7])->first()->id, // Assuming State model exists
+                            'nationality' => $row[8],
+                            'manglik' => $row[9],
+                            'self_gotra' => $row[10],
+                            'nanihals_gotra' => $row[11],
+                            'house' => $row[18],
+                            'occupation' => $row[21],
+                            'job_description' => $row[22],
+                            'position' => $row[23],
+                            'organization_name' => $row[24],
+                            'annual_income' => $row[25],
+                            'father_mobile_no_1' => $row[27],
+                            'father_mobile_no_2' => is_numeric($row[28]) ? $row[28] : null,
+                            'father_occupation' => $row[29],
+                            'father_annual_income' => is_numeric($row[30]) ? $row[30] : null,
+                            'mother_mobile_no_1' => is_numeric($row[32]) ? $row[32] : null,
+                            'mother_mobile_no_2' => is_numeric($row[33]) ? $row[33] : null,
+                            'mother_occupation' => $row[34],
+                            'mother_annual_income' => is_numeric($row[35]) ? $row[35] : null,
+                            'present_address' => $row[1],
+                            'permanent_address' => $row[36],
+                            'unmarried_brother' => is_numeric($row[37]) ? $row[37] : null,
+                            'married_brother' => is_numeric($row[38]) ? $row[38] : null,
+                            'unmarried_sister' => is_numeric($row[39]) ? $row[39] : null,
+                            'married_sister' => is_numeric($row[40]) ? $row[40] : null,
+                            'grandfather_uncle_info' => $row[41],
+                            'known_person_1' => $row[42],
+                            'known_person_2' => $row[43],
+                            'known_member_digamber_jain_social_group' => $row[44],
+                            'candidates_guardian_name' => $row[46],
+                            'relation_with_candidate' => $row[47],
+                            'transaction_id' => $row[48],
+                            'transaction_amount' => is_numeric($row[49]) ? $row[49] : null,
+                            'transaction_date' => date('Y-m-d', strtotime($row[50])),
+                        ],
                     );
 
                     // Create or update Family
                     Family::updateOrCreate(
                         ['user_id' => $user->id],
                         [
-                            'father'                => $row[27],
-                            'father_mobile_no_1'    => $row[28],
-                            'father_mobile_no_2'    => $row[29],
-                            'father_occupation'     => $row[30],
-                            'father_annual_income'  => $row[31],
-                            'mother'                => $row[32],
-                            'mother_mobile_no_1'    => $row[33],
-                            'mother_mobile_no_2'    => $row[34],
-                            'mother_occupation'     => $row[35],
-                            'mother_annual_income'  => $row[36],
-                        ]
+                            'father' => $row[26],
+                            'mother' => $row[31],
+                        ],
                     );
+
+                    $castdata = Caste::where('name', 'LIKE', $row[12])->whereNull('deleted_at')->first();
+                    $sub_caste_id = SubCaste::where('name', 'LIKE', $row[13])->whereNull('deleted_at')->first()->id; 
 
                     // Create or update SpiritualBackground
                     SpiritualBackground::updateOrCreate(
                         ['user_id' => $user->id],
                         [
-                            'caste_id'          => $row[37],
-                            'sub_caste_id'      => $row[38],
-                            'weight'            => $row[39],
-                            'height'            => $row[40],
-                            'complexion'        => $row[41],
-                            'marital_status_id' => MaritalStatus::where('name', $row[42])->first()->id, // Assuming MaritalStatus model exists
-                            'house'             => $row[43],
-                            'disability'        => $row[44],
+                            'religion_id' => $castdata->religion_id, 
+                            'caste_id' => $castdata->id, 
+                            'sub_caste_id' => $sub_caste_id, 
+                            'ethnicity'=> $row[8],
+                        ],
+                    );
+
+                    // Create or update PhysicalAttribute
+                    PhysicalAttribute::updateOrCreate(
+                        ['user_id' => $user->id],
+                        [
+                            'height'         => $row[15], // Assuming height column is in PhysicalAttribute model
+                            'weight'         => $row[14],
+                            'complexion'     => $row[16],
+                            'disability'     => $row[19],
                         ]
                     );
 
@@ -122,31 +148,46 @@ class MembersImport2 implements ToCollection
                     Education::updateOrCreate(
                         ['user_id' => $user->id],
                         [
-                            'degree' => $row[45],
-                        ]
+                            'degree' => $row[20],
+                            'present' => 1,
+                        ],
                     );
 
-                    // Create or update KnownPerson
-                    KnownPerson::updateOrCreate(
-                        ['user_id' => $user->id],
-                        [
-                            'name'  => $row[46],
-                            'phone' => $row[47],
-                        ]
-                    );
-
-                    // Create or update Transaction
+                    $additional_content = json_encode(['transaction_id' => $row[48], 'amount' => $row[55], 'date' => date('Y-m-d', strtotime($row[50]))]);
+                    // Update or create Transaction
                     Transaction::updateOrCreate(
                         ['user_id' => $user->id],
                         [
-                            'amount' => $row[53],
-                            'date'   => date('Y-m-d', strtotime($row[54])),
-                            'utr'    => $row[52],
-                        ]
+                            'gateway' => $row[56], 
+                            'payment_type' => $row[56],
+                            'additional_content' => $additional_content, 
+                        ],
                     );
 
+                    // Create or update Astrology
+                    Astrology::updateOrCreate(
+                        ['user_id' => $user->id],
+                        [
+                            'time_of_birth' => $row[5],
+                            'city_of_birth' => $row[6],
+                        ],
+                    );
+
+                    // Get state_id from State table
+                    $stateData = State::where('name', 'LIKE', $row[7])->first();
+
+                    // Create or update Address
+                    Address::updateOrCreate(
+                        ['user_id' => $user->id],
+                        [
+                            'type' => 'present',
+                            'state_id' => $stateData->id,
+                            'country_id' => $stateData->country_id,
+                        ],
+                    );
                 } catch (\Exception $e) {
                     // Handle exceptions
+                    dd($e);
                 }
             }
         }
@@ -189,6 +230,5 @@ class MembersImport2 implements ToCollection
             }
             $key = $key+1;
         } */
-
     }
 }

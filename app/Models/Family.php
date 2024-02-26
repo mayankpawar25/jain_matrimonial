@@ -10,6 +10,12 @@ class Family extends Model
 {
     use SoftDeletes;
 
+    protected $fillable = [
+        'user_id',
+        'father',
+        'mother',
+        
+    ];
     public function user()
     {
         return $this->belongsTo(User::class)->withTrashed();

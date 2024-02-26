@@ -10,6 +10,17 @@ class SpiritualBackground extends Model
 {
     use SoftDeletes;
 
+    protected $fillable = [
+        'user_id',
+        'religion_id',
+        'caste_id',
+        'sub_caste_id',
+        'ethnicity',
+        'personal_value',
+        'family_value_id',
+        'community_value',
+    ];
+
     public function user()
     {
         return $this->belongsTo(User::class)->withTrashed();

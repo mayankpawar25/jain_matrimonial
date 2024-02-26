@@ -10,6 +10,14 @@ class PhysicalAttribute extends Model
 {
     use SoftDeletes;
 
+    protected $fillable = [
+        'user_id',
+        'height',
+        'weight',
+        'complexion',
+        'disability',
+    ];
+
     public function user()
     {
         return $this->belongsTo(User::class)->withTrashed();
