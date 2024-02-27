@@ -1707,6 +1707,276 @@
                                     </div>
                                 @endif
 
+                             
+                                    <!-- Other Member Information -->
+                                    <div class="pb-4 accordion-item">
+                                        <div class="accordion-head c-pointer d-flex align-items-center mb-4"
+                                            data-toggle="collapse" data-target="#other-member-info">
+                                            <span
+                                                class="size-50px border rounded-circle d-flex align-items-center justify-content-center">
+                                                <svg xmlns="http://www.w3.org/2000/svg"
+                                                    xmlns:xlink="http://www.w3.org/1999/xlink" width="28.145" height="23.875"
+                                                    viewBox="0 0 28.145 23.875" class="fill-primary-grad">
+                                                    <g transform="translate(9.187 0)">
+                                                        <path
+                                                            d="M-8182.819-3893.283a2.421,2.421,0,0,0,.14-.813v-8.226a5.652,5.652,0,0,0-.344-1.946h2.176a4.067,4.067,0,0,1,4.063,4.063v4.485a2.442,2.442,0,0,1-2.438,2.438Zm-19.671,0a2.441,2.441,0,0,1-2.437-2.438v-4.485a4.067,4.067,0,0,1,4.063-4.063h2.177a5.64,5.64,0,0,0-.344,1.946v8.226a2.47,2.47,0,0,0,.14.813Zm18.774-12.31a3.657,3.657,0,0,1-1.783-1.641,3.627,3.627,0,0,1-.431-1.715,3.659,3.659,0,0,1,3.655-3.655,3.658,3.658,0,0,1,3.653,3.655,3.657,3.657,0,0,1-3.653,3.653A3.617,3.617,0,0,1-8183.716-3905.592Zm-19.373-3.356a3.656,3.656,0,0,1,3.652-3.655,3.657,3.657,0,0,1,3.653,3.655,3.62,3.62,0,0,1-.429,1.715,3.649,3.649,0,0,1-1.785,1.641,3.607,3.607,0,0,1-1.439.3A3.656,3.656,0,0,1-8203.089-3908.949Z"
+                                                            transform="translate(8195.741 3917.158)"
+                                                            fill="url(#primary-gradient)" />
+                                                        <path
+                                                            d="M145.868,234.815h-4.976a4.067,4.067,0,0,0-4.063,4.063V247.1a.813.813,0,0,0,.813.813h11.477a.813.813,0,0,0,.813-.813v-8.226A4.067,4.067,0,0,0,145.868,234.815Z"
+                                                            transform="translate(-138.494 -224.042)" class="fill-dark" />
+                                                        <path
+                                                            d="M172,38.84a4.885,4.885,0,1,0,4.886,4.886A4.892,4.892,0,0,0,172,38.84Z"
+                                                            transform="translate(-167.114 -38.84)" class="fill-dark" />
+                                                    </g>
+                                                </svg>
+                                            </span>
+                                            <div class="ml-4">
+                                                <span
+                                                    class="fs-18 fw-600 d-block">{{ translate('Other Member') }}</span>
+                                            </div>
+                                        </div>
+                                        <div id="other-member-info" class="collapse accordion-body ml-3 ml-md-5 pl-25px"
+                                            data-parent="#profile-accordion">
+                                            <div class="border p-3">
+                                                <div class="row no-gutters">
+                                                    <div class="col-md-6">
+                                                        <table class="w-100">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <th class="py-1">{{ translate('Nationality') }}</th>
+                                                                    <td class="py-1">
+                                                                        {{ $user->member_other_detail->nationality ?? '' }}
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th class="py-1">{{ translate('Manglik') }}
+                                                                    </th>
+                                                                    <td class="py-1">
+                                                                        {{ $user->member_other_detail->manglik ?? '' }}
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th class="py-1">{{ translate('Self Gotra') }}
+                                                                    </th>
+                                                                    <td class="py-1">
+                                                                        {{ $user->member_other_detail->self_gotra ?? '' }}
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th class="py-1">{{ translate('Nanihals Gotra') }}
+                                                                    </th>
+                                                                    <td class="py-1">
+                                                                        {{ $user->member_other_detail->nanihals_gotra ?? '' }}
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th class="py-1">{{ translate('House') }}
+                                                                    </th>
+                                                                    <td class="py-1">
+                                                                        {{ $user->member_other_detail->house ?? '' }}
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th class="py-1">{{ translate('	Qualification') }}
+                                                                    </th>
+                                                                    <td class="py-1">
+                                                                        {{ $user->member_other_detail->	qualification ?? '' }}
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th class="py-1">{{ translate('Occupation') }}
+                                                                    </th>
+                                                                    <td class="py-1">
+                                                                        {{ $user->member_other_detail->occupation ?? '' }}
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th class="py-1">{{ translate('Job Description') }}
+                                                                    </th>
+                                                                    <td class="py-1">
+                                                                        {{ $user->member_other_detail->job_description ?? '' }}
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th class="py-1">{{ translate('Position') }}
+                                                                    </th>
+                                                                    <td class="py-1">
+                                                                        {{ $user->member_other_detail->position ?? '' }}
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th class="py-1">{{ translate('Organization Name') }}
+                                                                    </th>
+                                                                    <td class="py-1">
+                                                                        {{ $user->member_other_detail->organization_name ?? '' }}
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th class="py-1">{{ translate('	Annual Income') }}
+                                                                    </th>
+                                                                    <td class="py-1">
+                                                                        {{ $user->member_other_detail->	annual_income ?? '' }}
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th class="py-1">{{ translate('	Father Mobile No 1') }}
+                                                                    </th>
+                                                                    <td class="py-1">
+                                                                        {{ $user->member_other_detail->	father_mobile_no_1 ?? '' }}
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th class="py-1">{{ translate('	Father Mobile No 2') }}
+                                                                    </th>
+                                                                    <td class="py-1">
+                                                                        {{ $user->member_other_detail->	father_mobile_no_2 ?? '' }}
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th class="py-1">{{ translate('Father Occupation') }}</th>
+                                                                    <td class="py-1">
+                                                                        {{ $user->member_other_detail->father_occupation ?? '' }}
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th class="py-1">{{ translate('Father Annual Income') }}
+                                                                    </th>
+                                                                    <td class="py-1">
+                                                                        {{ $user->member_other_detail->father_annual_income ?? '' }}
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th class="py-1">{{ translate('Mother Mobile No 1') }}
+                                                                    </th>
+                                                                    <td class="py-1">
+                                                                        {{ $user->member_other_detail->mother_mobile_no_1 ?? '' }}
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th class="py-1">{{ translate('Mother Mobile No 2') }}
+                                                                    </th>
+                                                                    <td class="py-1">
+                                                                        {{ $user->member_other_detail->mother_mobile_no_2 ?? '' }}
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th class="py-1">{{ translate('Mother Occupation') }}
+                                                                    </th>
+                                                                    <td class="py-1">
+                                                                        {{ $user->member_other_detail->mother_occupation ?? '' }}
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th class="py-1">{{ translate('	Mother Annual Income') }}
+                                                                    </th>
+                                                                    <td class="py-1">
+                                                                        {{ $user->member_other_detail->	mother_annual_income ?? '' }}
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                    <div class="col-sm-6 border-sm-left ">
+                                                        <table class="w-100 ml-sm-4">
+                                                            <tbody>
+                                                               
+                                                               
+                                                                <tr>
+                                                                    <th class="py-1">{{ translate('Unmarried Brother') }}
+                                                                    </th>
+                                                                    <td class="py-1">
+                                                                        {{ $user->member_other_detail->	unmarried_brother ?? '' }}
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th class="py-1">{{ translate('	Married Brother') }}
+                                                                    </th>
+                                                                    <td class="py-1">
+                                                                        {{ $user->member_other_detail->	married_brother ?? '' }}
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th class="py-1">{{ translate('	Unmarried Sister') }}
+                                                                    </th>
+                                                                    <td class="py-1">
+                                                                        {{ $user->member_other_detail->	unmarried_sister ?? '' }}
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th class="py-1">{{ translate('Married Sister') }}
+                                                                    </th>
+                                                                    <td class="py-1">
+                                                                        {{ $user->member_other_detail->married_sister ?? '' }}
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th class="py-1">{{ translate('Grandfather Uncle Info') }}
+                                                                    </th>
+                                                                    <td class="py-1">
+                                                                        {{ $user->member_other_detail->grandfather_uncle_info ?? '' }}
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th class="py-1">{{ translate('Known Person 1') }}
+                                                                    </th>
+                                                                    <td class="py-1">
+                                                                        {{ $user->member_other_detail->known_person_1 ?? '' }}
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th class="py-1">{{ translate('Known Person 2') }}
+                                                                    </th>
+                                                                    <td class="py-1">
+                                                                        {{ $user->member_other_detail->known_person_2 ?? '' }}
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th class="py-1">{{ translate('Known Member Digamber Jain Social Group') }}
+                                                                    </th>
+                                                                    <td class="py-1">
+                                                                        {{ $user->member_other_detail->known_member_digamber_jain_social_group ?? '' }}
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th class="py-1">{{ translate('Candidates Guardian Name') }}
+                                                                    </th>
+                                                                    <td class="py-1">
+                                                                        {{ $user->member_other_detail->candidates_guardian_name ?? '' }}
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th class="py-1">{{ translate('Relation With Candidate') }}
+                                                                    </th>
+                                                                    <td class="py-1">
+                                                                        {{ $user->member_other_detail->relation_with_candidate ?? '' }}
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th class="py-1">{{ translate('Present Address') }}
+                                                                    </th>
+                                                                    <td class="py-1">
+                                                                        {{ $user->member_other_detail->present_address ?? '' }}
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th class="py-1">{{ translate('Permanent Address') }}
+                                                                    </th>
+                                                                    <td class="py-1">
+                                                                        {{ $user->member_other_detail->permanent_address ?? '' }}
+                                                                    </td>
+                                                                </tr>
+                                                               
+                                                               
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                               
+                                    <!-- Other Member Information  -->
                             </div>
                         </div>
                         @if (get_setting('member_partner_expectation_section') == 'on')
