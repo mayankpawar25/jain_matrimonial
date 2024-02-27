@@ -10,6 +10,17 @@ class PackagePayment extends Model
 {
     use SoftDeletes;
 
+    protected $fillable = [
+        'user_id',
+        'package_id',
+        'payment_status',
+        'payment_method',
+        'payment_details',
+        'amount',
+        'payment_code',
+        'offline_payment'
+    ];
+
     public function user()
     {
         return $this->belongsTo(User::class)->withTrashed();

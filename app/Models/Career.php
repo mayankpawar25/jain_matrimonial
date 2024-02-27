@@ -12,6 +12,10 @@ class Career extends Model
 
     protected $guarded = [];
 
+    protected $fillable = [
+        'user_id', 'designation','company', 'present'
+    ];
+
     public function user()
     {
         return $this->belongsTo(User::class)->withTrashed();

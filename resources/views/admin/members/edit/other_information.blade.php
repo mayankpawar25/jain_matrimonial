@@ -1,13 +1,11 @@
-<div class="card">
-    <div class="card-header">
-        <h5 class="mb-0 h6">{{translate('Member Other Details')}}</h5>
-    </div>
-    <div class="card-body">
-        <form action="{{ route('member_other_details.update', $member->id) }}" method="POST">
-            <input name="_method" type="hidden" value="PATCH">
-            @csrf
-
-            <div class="form-group row">
+<div class="card-header bg-dark text-white">
+    <h5 class="mb-0 h6">{{translate('Other Information')}}</h5>
+</div>
+<div class="card-body">
+    <form action="{{ route('member_other_details.update', $member->id) }}" method="POST">
+        <input name="_method" type="hidden" value="PATCH">
+        @csrf
+        <div class="form-group row">
                 <div class="col-md-6">
                     <label for="nationality">{{translate('Nationality')}}</label>
                     <input type="text" name="nationality" value="{{ !empty($member->member_other_detail->nationality) ? $member->member_other_detail->nationality : ''}}" class="form-control" placeholder="{{translate('Nationality')}}">
@@ -160,7 +158,6 @@
                     <input type="text" name="candidates_guardian_name" value="{{ !empty($member->member_other_detail->candidates_guardian_name) ? $member->member_other_detail->candidates_guardian_name : '' }}" class="form-control" placeholder="{{translate('Candidate\'s Guardian Name')}}">
                 </div>
             </div>
-
             <div class="form-group row">
                 <div class="col-md-6">
                     <label for="relation_with_candidate">{{translate('Relation with Candidate')}}</label>
@@ -170,6 +167,7 @@
                     <label for="present_address">{{translate('Present Address')}}</label>
                     <textarea name="present_address" class="form-control" placeholder="{{translate('Present Address')}}">{{ !empty($member->member_other_detail->present_address) ? $member->member_other_detail->present_address : '' }}</textarea>
                 </div>
+                
             </div>
 
             <div class="form-group row">
@@ -194,9 +192,8 @@
                 </div>
             </div>
 
-            <div class="text-right">
-                <button type="submit" class="btn btn-primary btn-sm">{{translate('Update')}}</button>
-            </div>
-        </form>
-    </div>
+        <div class="text-right">
+            <button type="submit" class="btn btn-primary btn-sm">{{translate('Update')}}</button>
+        </div>
+    </form>
 </div>

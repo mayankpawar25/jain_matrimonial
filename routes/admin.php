@@ -60,7 +60,6 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function 
         Route::post('/members/package_info', 'package_info')->name('members.package_info');
         Route::post('/members/get_package', 'get_package')->name('members.get_package');
         Route::post('/members/package_do_update/{id}', 'package_do_update')->name('members.package_do_update');
-        Route::get('/package-payment-invoice/{id}', 'package_payment_invoice_admin')->name('package_payment.invoice_admin');
         Route::post('/members/wallet-balance-update', 'member_wallet_balance_update')->name('member.wallet_balance_update');
     });
 
@@ -83,6 +82,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function 
     // package Payments
     Route::resource('package-payments', 'PackagePaymentController');
     Route::get('/manual-payment-accept/{id}', 'PackagePaymentController@manual_payment_accept')->name('manual_payment_accept');
+    Route::get('/package-payment-invoice/{id}', 'PackagePaymentController@package_payment_invoice_admin')->name('package_payment.invoice_admin');
 
     // Wallet
     Route::get('/wallet-transaction-history', 'WalletController@wallet_transaction_history_admin')->name('wallet_transaction_history_admin');

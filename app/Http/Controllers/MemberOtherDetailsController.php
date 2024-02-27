@@ -104,6 +104,8 @@ class MemberOtherDetailsController extends Controller
             'known_member_digamber_jain_social_group' => ['nullable', 'max:255'],
             'candidates_guardian_name'                => ['nullable', 'max:255'],
             'relation_with_candidate'                 => ['nullable', 'max:255'],
+            'present_address'                         => ['nullable', 'max:255'],
+            'permanent_address'                       => ['nullable', 'max:255'],
             'transaction_id'                          => ['nullable', 'max:255'],
             'transaction_amount'                      => ['nullable', 'numeric'],
             'transaction_date'                        => ['nullable', 'date'],
@@ -140,6 +142,8 @@ class MemberOtherDetailsController extends Controller
             'known_member_digamber_jain_social_group.max'            => translate('Max 255 characters'),
             'candidates_guardian_name.max'                           => translate('Max 255 characters'),
             'relation_with_candidate.max'                            => translate('Max 255 characters'),
+            'present_address.max'                                    => translate('Max 255 characters'),
+            'permanent_address.max'                                  => translate('Max 255 characters'),
             'transaction_id.max'                                     => translate('Max 255 characters'),
             'transaction_amount.numeric'                             => translate('The transaction amount must be a number.'),
             'transaction_date.date'                                  => translate('The transaction date must be a date.'),
@@ -193,6 +197,8 @@ class MemberOtherDetailsController extends Controller
         $member_other_details->known_member_digamber_jain_social_group = $request->known_member_digamber_jain_social_group;
         $member_other_details->candidates_guardian_name = $request->candidates_guardian_name;
         $member_other_details->relation_with_candidate = $request->relation_with_candidate;
+        $member_other_details->present_address = $request->present_address;
+        $member_other_details->permanent_address = $request->permanent_address;
         $member_other_details->transaction_id = $request->transaction_id;
         $member_other_details->transaction_amount = $request->transaction_amount;
         $member_other_details->transaction_date = $request->transaction_date;

@@ -45,9 +45,9 @@ class MembersImport2 implements ToCollection
                             'first_name'        => $firstName,
                             'last_name'         => $lastName,
                             'email_verified_at' => date('Y-m-d H:m:s'),
-                            'password'          => Hash::make($row[54]), // Assuming password is in the 58th column
+                            'password'          => Hash::make($row[54]), // Assuming password is in the 54th column
                             'phone'             => $row[2],
-                            'membership'        => $row[53] == '1' ? 1 : $row[53],
+                            'membership'        => 2,
                         ]
                     );
                    
@@ -55,20 +55,22 @@ class MembersImport2 implements ToCollection
                     $marital_status_id = MaritalStatus::where('name', 'LIKE', $row[17])->whereNull('deleted_at')->first()->id;
                     
                     // Create Member
-                    Member::create([
-                        'user_id' => $user->id,
-                        'gender' => $row[51], // Assuming Gender model exists
-                        'on_behalves_id' => $row[52], // Assuming OnBehalf model exists
-                        'birthday' => date('Y-m-d', strtotime($row[4])),
-                        'current_package_id' => $package->id, // Assuming Package model exists
-                        'remaining_interest' => $package->express_interest,
-                        'remaining_contact_view' => $package->contact,
-                        'remaining_photo_gallery' => $package->photo_gallery,
-                        'auto_profile_match' => $package->auto_profile_match,
-                        'package_validity' => Date('Y-m-d', strtotime($package->validity . ' days')),
-                        'marital_status_id' => $marital_status_id,
-                    ]);
-
+                    Member::updateOrCreate(
+                        ['user_id' => $user->id],
+                        [
+                            'gender' => $row[51], // Assuming Gender model exists
+                            'on_behalves_id' => $row[52], // Assuming OnBehalf model exists
+                            'birthday' => date('Y-m-d', strtotime($row[4])),
+                            'current_package_id' => $package->id, // Assuming Package model exists
+                            'remaining_interest' => $package->express_interest,
+                            'remaining_contact_view' => $package->contact,
+                            'remaining_photo_gallery' => $package->photo_gallery,
+                            'auto_profile_match' => $package->auto_profile_match,
+                            'package_validity' => Date('Y-m-d', strtotime($package->validity . ' days')),
+                            'marital_status_id' => $marital_status_id ? $marital_status_id : null,
+                        ],
+                    );
+                    
                     // Create or update MemberOtherDetail
                     MemberOtherDetail::updateOrCreate(
                         ['user_id' => $user->id],
@@ -108,6 +110,16 @@ class MembersImport2 implements ToCollection
                             'transaction_amount' => is_numeric($row[49]) ? $row[49] : null,
                             'transaction_date' => date('Y-m-d', strtotime($row[50])),
                         ],
+                    );
+
+                    // Create or update Career
+                    Career::updateOrCreate(
+                        ['user_id' => $user->id], // Assuming designation is in the Career model
+                        [
+                            'designation' => $row[23],
+                            'company' => $row[24],
+                            'present' => 1, // Assuming present is a boolean in the Excel data
+                        ]
                     );
 
                     // Create or update Family
@@ -162,6 +174,22 @@ class MembersImport2 implements ToCollection
                             'payment_type' => $row[56],
                             'additional_content' => $additional_content, 
                         ],
+                    );
+
+                    // Create or update PackagePayment
+                    PackagePayment::updateOrCreate(
+                        [
+                            'user_id' => $user->id,
+                            'package_id' => $package->id,
+                        ],
+                        [
+                            'payment_method' => 'UPI',
+                            'payment_status' => 'Paid',
+                            'payment_details' => $additional_content,
+                            'amount' => $row[55],
+                            'payment_code' => $row[48],
+                            'offline_payment' => 1,
+                        ]
                     );
 
                     // Create or update Astrology

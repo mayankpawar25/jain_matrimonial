@@ -56,6 +56,7 @@
                                 @if(get_setting('member_partner_expectation_section') == 'on')
                                 <a class="nav-link" id="v-pills-tab-16" data-toggle="pill" href="#partner_expectation" role="tab" aria-controls="v-pills-settings" aria-selected="false">{{translate('Partner Expectation')}}</a>
                                 @endif
+                                <a class="nav-link" id="v-pills-tab-16" data-toggle="pill" href="#other_information" role="tab" aria-controls="v-pills-settings" aria-selected="false">{{translate('Other Informations')}}</a>
                             </div>
                         </div>
                         <div class="col-9">
@@ -167,6 +168,11 @@
                                             $partner_state_id      = $member->partner_expectations->preferred_state_id ?? "";
                                         @endphp
                                         @include('admin.members.edit.partner_expectation')
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="other_information" role="tabpanel" aria-labelledby="v-pills-settings-tab">
+                                    <div class="card">
+                                        @include('admin.members.edit.other_information')
                                     </div>
                                 </div>
                             </div>
