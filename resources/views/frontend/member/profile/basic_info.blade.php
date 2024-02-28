@@ -77,7 +77,7 @@
             </div>
             <div class="form-group row">
                 <div class="col-md-6">
-                    <label for="first_name" >{{translate('Marital  Status')}}
+                    <label for="first_name" >{{translate(' Marital  Status ')}}
                         <span class="text-danger">*</span>
                     </label>
                     <select class="form-control aiz-selectpicker" name="marital_status" data-selected="{{ $member->member->marital_status_id }}" data-live-search="true" required>
@@ -89,11 +89,19 @@
                         <small class="form-text text-danger">{{ $message }}</small>
                     @enderror
                 </div>
+            </div>
+            <div class="form-group row">
                 <div class="col-md-6">
-                    <label for="first_name" >{{translate('Number Of Children')}}
+                    <label for="first_name" >{{translate('Number Of Son')}}
                         <span class="text-danger">*</span>
                     </label>
-                    <input type="text" name="children" value="{{ $member->member->children }}" class="form-control" placeholder="{{translate('Number Of Children')}}" >
+                    <input type="text" name="children" value="{{ $member->member->children }}" class="form-control" placeholder="{{translate('Number Of Son')}}" >
+                </div>
+                <div class="col-md-6">
+                    <label for="first_name" >{{translate('Number Of Daughter')}}
+                        <span class="text-danger">*</span>
+                    </label>
+                    <input type="text" name="no_of_daughter" value="{{ $member->member->no_of_daughter }}" class="form-control" placeholder="{{translate('Number Of Daughter')}}" >
                 </div>
             </div>
 

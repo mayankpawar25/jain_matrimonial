@@ -520,7 +520,7 @@
                                                             </tr>
                                                             <tr>
                                                                 <td class="py-1 fw-600" style="width:55%">
-                                                                    {{ translate('No. of  Children') }}
+                                                                    {{ translate('No. of  Son') }}
                                                                 </td>
                                                                 <td class="py-1">{{ $user->member->children }}
                                                                 </td>
@@ -555,11 +555,19 @@
                                                                 </td>
                                                             </tr>
                                                             <tr>
+                                                                @dd($user->member->marital_status);
                                                                 <td class="py-1 fw-600" style="width:55%">
-                                                                    {{ translate('Marital Status') }}
+                                                                    {{ translate(' Marital Status ') }}
                                                                 </td>
                                                                 <td class="py-1">
                                                                     {{ $user->member->marital_status->name ?? '' }}
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="py-1 fw-600" style="width:55%">
+                                                                    {{ translate('No. of  Daughter') }}
+                                                                </td>
+                                                                <td class="py-1">{{ $user->member->no_of_daughter }}
                                                                 </td>
                                                             </tr>
                                                         </tbody>
