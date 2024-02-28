@@ -555,7 +555,6 @@
                                                                 </td>
                                                             </tr>
                                                             <tr>
-                                                                @dd($user->member->marital_status);
                                                                 <td class="py-1 fw-600" style="width:55%">
                                                                     {{ translate(' Marital Status ') }}
                                                                 </td>
@@ -1741,7 +1740,7 @@
                                             </span>
                                             <div class="ml-4">
                                                 <span
-                                                    class="fs-18 fw-600 d-block">{{ translate('Other Member') }}</span>
+                                                    class="fs-18 fw-600 d-block">{{ translate('Additional Information') }}</span>
                                             </div>
                                         </div>
                                         <div id="other-member-info" class="collapse accordion-body ml-3 ml-md-5 pl-25px"
