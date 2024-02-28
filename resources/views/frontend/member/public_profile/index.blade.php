@@ -2019,7 +2019,7 @@
                                         </tr>
 
                                         <tr>
-                                            <th>{{ translate('Marital Status') }}</th>
+                                            <th>{{ translate(' Marital Status ') }}</th>
                                             <td>{{ $user->partner_expectations->marital_status->name ?? '' }}
                                             </td>
 

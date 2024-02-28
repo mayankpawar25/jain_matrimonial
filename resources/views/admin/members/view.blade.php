@@ -86,7 +86,7 @@
                     @endif
                 </tr>
                 <tr>
-                    <th>{{translate('Marital Status')}}</th>
+                    <th>{{translate(' Marital Status ')}}</th>
                     <td>{{ $member->member->marital_status->name ?? ""  }}</td>
 
                     <th>{{translate('Number Of Son')}}</th>
@@ -687,7 +687,7 @@
                       </tr>
 
                       <tr>
-                          <th>{{translate('Marital Status')}}</th>
+                          <th>{{translate(' Manglik ')}}</th>
                           <td>{{ $member->member_other_detail->manglik ?? '' }}</td>
 
                           <th>{{translate('Qualification')}}</th>
