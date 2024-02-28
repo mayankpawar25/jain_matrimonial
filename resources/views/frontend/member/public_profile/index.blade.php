@@ -1788,7 +1788,7 @@
                                                                     <th class="py-1">{{ translate('	Qualification') }}
                                                                     </th>
                                                                     <td class="py-1">
-                                                                        {{ $user->member_other_detail->	qualification ?? '' }}
+                                                                        {{ $user->member_other_detail->qualification ?? '' }}
                                                                     </td>
                                                                 </tr>
                                                                 <tr>
@@ -1823,21 +1823,21 @@
                                                                     <th class="py-1">{{ translate('	Annual Income') }}
                                                                     </th>
                                                                     <td class="py-1">
-                                                                        {{ $user->member_other_detail->	annual_income ?? '' }}
+                                                                        {{ $user->member_other_detail->annual_income ?? '' }}
                                                                     </td>
                                                                 </tr>
                                                                 <tr>
                                                                     <th class="py-1">{{ translate('	Father Mobile No 1') }}
                                                                     </th>
                                                                     <td class="py-1">
-                                                                        {{ $user->member_other_detail->	father_mobile_no_1 ?? '' }}
+                                                                        {{ $user->member_other_detail->father_mobile_no_1 ?? '' }}
                                                                     </td>
                                                                 </tr>
                                                                 <tr>
                                                                     <th class="py-1">{{ translate('	Father Mobile No 2') }}
                                                                     </th>
                                                                     <td class="py-1">
-                                                                        {{ $user->member_other_detail->	father_mobile_no_2 ?? '' }}
+                                                                        {{ $user->member_other_detail->father_mobile_no_2 ?? '' }}
                                                                     </td>
                                                                 </tr>
                                                                 <tr>
@@ -1878,7 +1878,7 @@
                                                                     <th class="py-1">{{ translate('	Mother Annual Income') }}
                                                                     </th>
                                                                     <td class="py-1">
-                                                                        {{ $user->member_other_detail->	mother_annual_income ?? '' }}
+                                                                        {{ $user->member_other_detail->mother_annual_income ?? '' }}
                                                                     </td>
                                                                 </tr>
                                                             </tbody>
@@ -1893,21 +1893,21 @@
                                                                     <th class="py-1">{{ translate('Unmarried Brother') }}
                                                                     </th>
                                                                     <td class="py-1">
-                                                                        {{ $user->member_other_detail->	unmarried_brother ?? '' }}
+                                                                        {{ $user->member_other_detail->unmarried_brother ?? '' }}
                                                                     </td>
                                                                 </tr>
                                                                 <tr>
                                                                     <th class="py-1">{{ translate('	Married Brother') }}
                                                                     </th>
                                                                     <td class="py-1">
-                                                                        {{ $user->member_other_detail->	married_brother ?? '' }}
+                                                                        {{ $user->member_other_detail->married_brother ?? '' }}
                                                                     </td>
                                                                 </tr>
                                                                 <tr>
                                                                     <th class="py-1">{{ translate('	Unmarried Sister') }}
                                                                     </th>
                                                                     <td class="py-1">
-                                                                        {{ $user->member_other_detail->	unmarried_sister ?? '' }}
+                                                                        {{ $user->member_other_detail->unmarried_sister ?? '' }}
                                                                     </td>
                                                                 </tr>
                                                                 <tr>

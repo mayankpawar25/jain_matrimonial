@@ -89,10 +89,13 @@
                     <th>{{translate('Marital Status')}}</th>
                     <td>{{ $member->member->marital_status->name ?? ""  }}</td>
 
-                    <th>{{translate('Number Of Children')}}</th>
+                    <th>{{translate('Number Of Son')}}</th>
                     <td>{{ $member->member->children }}</td>
                 </tr>
                 <tr>
+									<th>{{translate('Number Of Daughter')}}</th>
+                    <td>{{ $member->member->no_of_daughter }}</td>
+
                     <th>{{translate('On Behalf')}}</th>
                     <td>{{ $member->member->on_behalves->name ?? ''}}</td>
                 </tr>
@@ -658,7 +661,136 @@
               </div>
           </div>
         @endif
+        
+        <!-- Additional information -->
+        <div class="card">
+              <div class="card-header bg-dark text-white">
+                  <h5 class="mb-0 h6">{{translate('Additional Information')}}</h5>
+              </div>
+              <div class="card-body">
+                  <table class="table">
+                      <tr>
+                          <th>{{translate('Nationality')}}</th>
+                          <td>{{ $member->member_other_detail->nationality ?? '' }}</td>
 
+                          <th>{{translate('Self Gotra')}}</th>
+                          <td>
+                              {{$member->member_other_detail->self_gotra ?? ''}}
+                          </td>
+                      </tr>
+                      <tr>
+                          <th>{{translate('Nanihals Gotra')}}</th>
+                          <td>{{ $member->member_other_detail->nanihals_gotra ?? "" }}</td>
+
+                          <th>{{translate('House')}}</th>
+                          <td>{{ $member->member_other_detail->house ?? "" }}</td>
+                      </tr>
+
+                      <tr>
+                          <th>{{translate('Marital Status')}}</th>
+                          <td>{{ $member->member_other_detail->manglik ?? '' }}</td>
+
+                          <th>{{translate('Qualification')}}</th>
+                          <td>{{ !empty($member->member_other_detail->qualification) ?? '' }}</td>
+                      </tr>
+
+                      <tr>
+                          <th>{{translate('Occupation')}}</th>
+                          <td>{{ $member->member_other_detail->occupation ?? "" }}</td>
+
+                          <th>{{translate('Job Description')}}</th>
+                          <td>{{ $member->member_other_detail->job_description ?? "" }}</td>
+                      </tr>
+
+                      <tr>
+                          <th>{{translate('Position')}}</th>
+                          <td>{{ $member->member_other_detail->position ?? "" }}</td>
+
+                          <th>{{translate('Organization Name')}}</th>
+                          <td>{{ $member->member_other_detail->organization_name ?? "" }}</td>
+                      </tr>
+
+                      <tr>
+                          <th>{{translate('Annual Income')}}</th>
+                          <td>{{ $member->member_other_detail->annual_income ?? "" }}</td>
+
+                          <th>{{translate('Father Mobile No 1')}}</th>
+                          <td>{{ $member->member_other_detail->father_mobile_no_1 ?? "" }}</td>
+                      </tr>
+
+                      <tr>
+                          <th>{{translate('	Father Mobile No 2')}}</th>
+                          <td>{{ $member->member_other_detail->father_mobile_no_2 ?? "" }}</td>
+
+                          <th>{{translate('Father Occupation')}}</th>
+                          <td>{{ $member->member_other_detail->father_occupation ?? "" }}</td>
+                      </tr>
+                      <tr>
+                          <th>{{translate('Diet')}}</th>
+                          <td>{{ !empty($member->partner_expectations->diet) ? attribute_text_format($member->partner_expectations->diet) : "" }}</td>
+
+                          <th>{{translate('Father Annual Income')}}</th>
+                          <td>{{ $member->member_other_detail->father_annual_income ?? "" }}</td>
+                      </tr>
+                      <tr>
+                          <th>{{translate('Mother Mobile No 1')}}</th>
+                          <td>{{ $member->member_other_detail->mother_mobile_no_1 ?? '' }}</td>
+                      
+                          <th>{{translate('Mother Mobile No 2')}}</th>
+                          <td>{{ $member->member_other_detail->mother_mobile_no_2 ?? '' }}</td>
+											</tr>
+											<tr>    
+                          <th>{{translate('Mother Occupation')}}</th>
+                          <td>{{ $member->member_other_detail->mother_occupation ?? '' }}</td>
+                      
+                          <th>{{translate('Mother Annual Income')}}</th>
+                          <td>{{ $member->member_other_detail->mother_annual_income->name ?? "" }}</td>
+											</tr>
+                      <tr>
+                          <th>{{translate('Unmarried Brother')}}</th>
+                          <td>{{ $member->member_other_detail->unmarried_brother ?? ''  }}</td>
+													
+                          <th>{{translate('Married Brother')}}</th>
+                          <td>{{ $member->member_other_detail->married_brother ?? "" }}</td>
+												</tr>
+												<tr>
+                          <th>{{translate('Unmarried Sister')}}</th>
+                          <td>{{ $member->member_other_detail->unmarried_sister ?? ''  }}</td>
+
+                          <th>{{translate('Married Sister')}}</th>
+                          <td>{{ $member->member_other_detail->married_sister ?? "" }}</td>
+												</tr>
+												<tr>
+                          <th>{{translate('Grandfather Uncle Info')}}</th>
+                          <td>{{ $member->member_other_detail->grandfather_uncle_info ?? ''  }}</td>
+
+                          <th>{{translate('Known Person 1')}}</th>
+                          <td>{{ $member->member_other_detail->known_person_1 ?? "" }}</td>
+												</tr>
+												<tr>
+                          <th>{{translate('Known Person 2')}}</th>
+                          <td>{{ $member->member_other_detail->known_person_2 ?? ''  }}</td>
+
+                          <th>{{translate('Known Member Digamber Jain Social Group')}}</th>
+                          <td>{{ $member->member_other_detail->known_member_digamber_jain_social_group ?? "" }}</td>
+												</tr>
+												<tr>
+                          <th>{{translate('Candidates Guardian Name')}}</th>
+                          <td>{{ $member->member_other_detail->candidates_guardian_name ?? ''  }}</td>
+
+                          <th>{{translate('Relation With Candidate')}}</th>
+                          <td>{{ $member->member_other_detail->relation_with_candidate ?? "" }}</td>
+												</tr>
+												<tr>
+													<th>{{translate('Present Address')}}</th>
+													<td>{{ $member->member_other_detail->present_address ?? ''  }}</td>
+
+                          <th>{{translate('Permanent Address')}}</th>
+                          <td>{{ $member->member_other_detail->permanent_address ?? "" }}</td>
+                      </tr>
+                  </table>
+              </div>
+          </div>
     </div>
 </div>
 @endsection
