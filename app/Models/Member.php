@@ -10,7 +10,7 @@ class Member extends Model
 {
     use SoftDeletes;
     protected $fillable = [
-        'user_id', 'gender','birthday', 'marital_status_id', 'on_behalves_id','current_package_id','remaining_interest','remaining_contact_view','remaining_photo_gallery','auto_profile_match','package_validity'
+        'user_id', 'gender','birthday', 'marital_status_id', 'children', 'on_behalves_id','current_package_id','remaining_interest','remaining_contact_view','remaining_photo_gallery','auto_profile_match','package_validity'
     ];
 
     public function user()

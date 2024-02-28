@@ -52,7 +52,17 @@ class MembersImport2 implements ToCollection
                     );
                    
                     $package = Package::where('id', $row[53])->first();
-                    $marital_status_id = MaritalStatus::where('name', 'LIKE', $row[17])->whereNull('deleted_at')->first()->id;
+                    $children = 0;
+                    if(in_array(strtolower($row[17]), ['married'])) {
+                        $input_marital_status = 'Married';
+                        $children = $row[45];
+                    } else if(in_array(strtolower($row[17]), ['unmarried'])) {
+                        $input_marital_status = 'Unmarried';
+                    } else {
+                        $input_marital_status = 'Divorcee';
+                        $children = $row[45];
+                    }
+                    $marital_status_id = MaritalStatus::where('name', 'LIKE', $input_marital_status)->whereNull('deleted_at')->first()->id;
                     
                     // Create Member
                     Member::updateOrCreate(
@@ -68,6 +78,7 @@ class MembersImport2 implements ToCollection
                             'auto_profile_match' => $package->auto_profile_match,
                             'package_validity' => Date('Y-m-d', strtotime($package->validity . ' days')),
                             'marital_status_id' => $marital_status_id ? $marital_status_id : null,
+                            'chiildren' => $children,
                         ],
                     );
                     
