@@ -73,7 +73,7 @@ class MembersImport2 implements ToCollection
                         [
                             'gender' => $row[52], // Assuming Gender model exists
                             'on_behalves_id' => $row[53], // Assuming OnBehalf model exists
-                            'birthday' => date('Y-m-d', strtotime($row[4])),
+                            'birthday' => date('Y-m-d', strpos($row[4], '/') !== false ? strtotime(str_replace('/', '-', $row[4])) : strtotime($row[4])),
                             'current_package_id' => $package->id, // Assuming Package model exists
                             'remaining_interest' => $package->express_interest,
                             'remaining_contact_view' => $package->contact,
@@ -123,7 +123,7 @@ class MembersImport2 implements ToCollection
                             'relation_with_candidate' => $row[48],
                             'transaction_id' => $row[49],
                             'transaction_amount' => is_numeric($row[50]) ? $row[50] : null,
-                            'transaction_date' => date('Y-m-d', strtotime($row[51])),
+                            'transaction_date' => date('Y-m-d', strpos($row[51], '/') !== false ? strtotime(str_replace('/', '-', $row[51])) : strtotime($row[51])),
                         ],
                     );
 
