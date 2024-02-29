@@ -1,5 +1,5 @@
 <div class="card">
-    <div class="card-header">
+    <div class="card-header bg-dark text-white">
         <h5 class="mb-0 h6">{{translate('Basic Information')}}</h5>
     </div>
     <div class="card-body">
