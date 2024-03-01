@@ -1834,7 +1834,7 @@
                                                                     </td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <th class="py-1">{{ translate('	Father Mobile No 2') }}
+                                                                    <th class="py-1">{{ translate('Father Mobile No 2') }}
                                                                     </th>
                                                                     <td class="py-1">
                                                                         {{ $user->member_other_detail->father_mobile_no_2 ?? '' }}

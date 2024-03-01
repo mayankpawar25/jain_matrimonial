@@ -719,7 +719,7 @@
                       </tr>
 
                       <tr>
-                          <th>{{translate('	Father Mobile No 2')}}</th>
+                          <th>{{translate('Father Mobile No 2')}}</th>
                           <td>{{ $member->member_other_detail->father_mobile_no_2 ?? "" }}</td>
 
                           <th>{{translate('Father Occupation')}}</th>
