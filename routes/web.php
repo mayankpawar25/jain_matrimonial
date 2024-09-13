@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AizUploadController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\ContactUsController;
 use App\Http\Controllers\DemoController;
 use App\Http\Controllers\HappyStoryController;
@@ -18,6 +19,14 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+//register
+Route::get('/form', function () {
+    return view('form');
+})->name('form.view');
+
+
+
+// Route::get('/resgistration', 'RegisterController@resgistration');
 
 //demo
 Route::controller(DemoController::class)->group(function () {
@@ -30,6 +39,11 @@ Auth::routes();
 //Home Page
 Route::get('/', 'HomeController@index')->name('index');
 Route::get('/', 'HomeController@index')->name('home');
+
+
+// resgistration 
+Route::get('/registration', 'Auth\RegisterController@resgistration')->name('form.resgistration');
+Route::post('/registration-save', 'Auth\RegisterController@resgistration_store')->name('form.resgistration_store');
 
 // fcm
 Route::post('/fcm-token', 'HomeController@updateToken')->name('fcmToken');
@@ -262,3 +276,4 @@ Route::get('/migrate/products/', 'ProfileMatchController@migrate_profiles');
 
 //Custom page
 Route::get('/{slug}', 'PageController@show_custom_page')->name('custom-pages.show_custom_page');
+
