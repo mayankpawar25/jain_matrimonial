@@ -24,13 +24,13 @@
 
 
 <!-- resources/views/form.blade.php -->
-<div class="py-4 py-lg-5">
+<div class="py-4 py-lg-5 mt-2">
     <div class="containter">
         <div class="row">
             <div class="form-wizard p-4 bg-white shadow rounded">
                 <h1 class="text-center mb-2" style="font-weight: bold; color: #ee2098;">अपनी जानकारी यहाँ डाले</h1>
 
-                <form action="{{ route('form.resgistration_store') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('form.resgistration_store') }}" method="POST" id="registration-form" enctype="multipart/form-data">
                     @csrf
 
                     <!-- Step 1 -->
@@ -438,9 +438,11 @@
                                     onclick="showStep(1)">पीछे</button>
                             </div>
                             <div class="col-md-6 d-flex justify-content-center">
-                                <button type="submit" class="btn btn-primary"
-                                    style="width: 100%; background-color: rgb(240, 53, 162); border: none; color: white;">जमा
-                                    करें</button>
+                                <button type="submit" class="btn btn-primary" id="submitButton"
+                                    style="width: 100%; background-color: rgb(240, 53, 162); border: none; color: white;">
+                                    <span id="buttonText">जमा करें</span>
+                                    <span id="loader" class="spinner-border spinner-border-sm" role="status" aria-hidden="true" style="display:none;"></span>
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -533,7 +535,7 @@
 
             switch (paymentValue) {
                 case 'General Listing':
-                    paymentAmount = 800;
+                    paymentAmount = 900;
                     break;
                 case 'Half-Page Listing':
                     paymentAmount = 4000;
@@ -590,6 +592,26 @@
         });
         document.getElementById(`step-${step}`).classList.add('active');
     }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const form = document.getElementById('registration-form');
+        const submitButton = document.getElementById('submitButton');
+        const loader = document.getElementById('loader');
+        const buttonText = document.getElementById('buttonText');
+
+        form.addEventListener('submit', function (event) {
+            event.preventDefault(); // Prevent default form submission
+
+            // Disable the submit button and show the loader
+            submitButton.disabled = true; // Disable the button
+            loader.style.display = 'inline-block'; // Show the loader
+            buttonText.style.display = 'none'; // Hide the button text
+           
+            setTimeout(() => {
+                form.submit();
+            }, 300);
+        });
+    });
 </script>
 
 @endsection
