@@ -52,7 +52,7 @@
                             </div>
                             <div class="col-md-4">
                                 <label for="mobile" class="form-label">मोबाइल नंबर</label>
-                                <input type="tel" class="form-control" pattern="[0-9]{10}" name="mobile" id="mobile" placeholder="" required>
+                                <input type="tel" class="form-control" pattern="^(?:\+?[0-9]{1,3})?0?[0-9]{10}$" name="mobile" id="mobile" placeholder="" required>
                             </div>
                             <div class="col-md-4">
                                 <label class="form-label">मांगलिक</label>
@@ -229,7 +229,7 @@
                             </div>
                             <div class="col-md-3">
                                 <label for="mob" class="form-label">मोबाइल नंबर</label>
-                                <input type="tel" class="form-control" id="mob" pattern="[0-9]{10}" name="father_mobile" required>
+                                <input type="tel" class="form-control" id="mob" pattern="^(?:\+?[0-9]{1,3})?0?[0-9]{10}$" name="father_mobile" required>
                             </div>
                             <div class="col-md-3">
                                 <label for="work" class="form-label">व्यवसाय</label>
@@ -254,7 +254,7 @@
                             </div>
                             <div class="col-md-3">
                                 <label for="mob2" class="form-label">मोबाइल नंबर</label>
-                                <input type="tel" class="form-control" pattern="[0-9]{10}" name="mother_mobile" id="mob2" required>
+                                <input type="tel" class="form-control" pattern="^(?:\+?[0-9]{1,3})?0?[0-9]{10}$" name="mother_mobile" id="mob2" required>
                             </div>
                             <div class="col-md-3">
                                 <label for="mother_occupation" class="form-label">व्यवसाय</label>
@@ -568,20 +568,63 @@
         if (step === 2) {
             const step1Fields = document.querySelectorAll('#step-1 [required]');
             let isValid = true;
+            let firstInvalidField = null;
 
             // Loop through required fields in Step 1
             step1Fields.forEach((field) => {
                 if (!field.value) {
                     isValid = false;
                     field.classList.add('is-invalid'); // Highlight invalid field
+                    if (!firstInvalidField) {
+                        firstInvalidField = field; // Capture the first invalid field
+                    }
                 } else {
                     field.classList.remove('is-invalid'); // Remove highlight if valid
+                }
+
+                // Additional validation for specific field types
+                if (field.type === 'email') {
+                    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    if (!emailPattern.test(field.value)) {
+                        isValid = false;
+                        field.classList.add('is-invalid'); // Highlight invalid email
+                        if (!firstInvalidField) {
+                            firstInvalidField = field; // Capture the first invalid email field
+                        }
+                    } else {
+                        field.classList.remove('is-invalid');
+                    }
+                }
+
+                if (field.type === 'tel') {
+                    const mobilePattern = /^(?:\+?[0-9]{1,3})?0?[0-9]{10}$/;
+                    if (!mobilePattern.test(field.value)) {
+                        isValid = false;
+                        field.classList.add('is-invalid'); // Highlight invalid mobile number
+                        if (!firstInvalidField) {
+                            firstInvalidField = field; // Capture the first invalid email field
+                        }
+                    } else {
+                        field.classList.remove('is-invalid');
+                    }
+                }
+
+                if (field.type === 'number') {
+                    if (field.value <= 0) {
+                        isValid = false;
+                        field.classList.add('is-invalid'); // Highlight invalid number
+                        if (!firstInvalidField) {
+                            firstInvalidField = field; // Capture the first invalid email field
+                        }
+                    } else {
+                        field.classList.remove('is-invalid');
+                    }
                 }
             });
 
             // Prevent moving to Step 2 if any required field is not filled
-            if (!isValid) {
-                // alert('Please fill all required fields in Step 1 before proceeding.');
+            if (!isValid && firstInvalidField) {
+                firstInvalidField.focus();
                 return;
             }
         }
@@ -591,22 +634,28 @@
             el.classList.remove('active');
         });
         document.getElementById(`step-${step}`).classList.add('active');
+
+        // Focus on the first input field of the new step
+        const firstInputInStep = document.querySelector(`#step-${step} input`);
+        if (firstInputInStep) {
+            firstInputInStep.focus();
+        }
     }
 
-    document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('DOMContentLoaded', function() {
         const form = document.getElementById('registration-form');
         const submitButton = document.getElementById('submitButton');
         const loader = document.getElementById('loader');
         const buttonText = document.getElementById('buttonText');
 
-        form.addEventListener('submit', function (event) {
+        form.addEventListener('submit', function(event) {
             event.preventDefault(); // Prevent default form submission
 
             // Disable the submit button and show the loader
             submitButton.disabled = true; // Disable the button
             loader.style.display = 'inline-block'; // Show the loader
             buttonText.style.display = 'none'; // Hide the button text
-           
+
             setTimeout(() => {
                 form.submit();
             }, 300);
