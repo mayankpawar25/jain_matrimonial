@@ -1323,7 +1323,7 @@ function CreateHindiTextBox(elementId)
 {
     CreateCustomHindiTextBox(elementId,"",60,false);
 }
-function CreateCustomHindiTextBox(elementId,defaultValue,textBoxSize,showHelp)
+function CreateCustomHindiTextBox(elementId,defaultValue,textBoxSize,showHelp, className='', placholder='', required='false')
 {
     hinTextBoxObj= new TextBoxInput();
     hinTextBoxObj.Id=elementId;
@@ -1332,6 +1332,9 @@ function CreateCustomHindiTextBox(elementId,defaultValue,textBoxSize,showHelp)
     //alert(hinTextBoxObj.Value);
     hinTextBoxObj.Size=textBoxSize;
     hinTextBoxObj.Help=showHelp;
+    hinTextBoxObj.Class=className;
+    hinTextBoxObj.Placeholder=placholder;
+    hinTextBoxObj.Required=required;
     if(!showHelp)
     {
         hinTextBoxObj.Logo=false;
@@ -1375,6 +1378,16 @@ function CreateHindiTextBoxSelectedParam(textBoxParam)
     if(textBoxParam.Name!=null)
     {
         document.write(" Name='"+textBoxParam.Name+"'");
+    }
+
+    if(textBoxParam.Placeholder!=null)
+    {
+        document.write(" placeholder='"+textBoxParam.Placeholder+"'");
+    }
+
+    if(textBoxParam.Required!=null)
+    {
+        document.write(" required='"+textBoxParam.Required+"'");
     }
 
     document.write(" id='"+textBoxParam.Id+"'");
