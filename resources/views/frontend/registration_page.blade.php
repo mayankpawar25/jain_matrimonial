@@ -746,6 +746,7 @@
 
  
     document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('bank_transfer_div').style.display = 'none';
     document.getElementById('payment_mode').addEventListener('change', function() {
         var paymentMode = this.value;
 
