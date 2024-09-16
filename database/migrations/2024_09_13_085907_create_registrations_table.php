@@ -59,7 +59,6 @@ return new class extends Migration
             $table->string('total_payment')->nullable(); // Added field for total payment
             $table->boolean('is_courier')->default(false); // Added field for courier option
             $table->string('payment_mode')->nullable(); // Added field for payment mode
-            $table->integer('trem_condition')->nullable()->default(0);
             $table->timestamps();
         });
     }

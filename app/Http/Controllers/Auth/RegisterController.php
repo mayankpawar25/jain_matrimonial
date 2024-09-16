@@ -349,8 +349,6 @@ class RegisterController extends Controller
         $registration->total_payment = $request->input('total_payment');
         $registration->is_courier = $request->input('is_courier');
         $registration->payment_mode = $request->input('payment_mode');
-        $registration->term_condition = $request->input('trem_condition');
-
         // dd($registration);
 
         // Save the registration record
