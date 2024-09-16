@@ -17,6 +17,7 @@ class Registration extends Model
         'doc_date', 
         'time', 
         'ampm',
+        'citizenship',
         'place_of_birth', 
         'state', 
         'gotra_self', 
@@ -53,5 +54,6 @@ class Registration extends Model
         'total_payment', // Added for total payment
         'is_courier', // Added for courier option
         'payment_mode', // Added for payment mode
+        'trem_condition',
     ];
 }

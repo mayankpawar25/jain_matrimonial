@@ -262,6 +262,8 @@ class RegisterController extends Controller
 
     public function resgistration_store(Request $request)
     {
+
+        // dd($request->all());
         // Create necessary directories if they don't exist
         $directories = [
             'img/photos/profile',
@@ -297,6 +299,12 @@ class RegisterController extends Controller
 
         // Create a new Registration record
         $registration = new Registration();
+
+        // $term_condition = 0;
+        // if($request->trem_condition){
+        //    $term_condition = (int)$request->input('trem_condition');
+        // }
+// dd($term_condition);
         $registration->name = $request->input('name');
         $registration->email = $request->input('email');
         $registration->mobile = $request->input('mobile');
@@ -304,6 +312,7 @@ class RegisterController extends Controller
         $registration->doc_date = Carbon::createFromFormat('d-m-Y', $request->input('doc_date'))->format('Y-m-d');
         $registration->time = $request->input('time');
         $registration->ampm = $request->input('ampm');
+        $registration->citizenship = $request->input('citizenship');
         $registration->place_of_birth = $request->input('place_of_birth');
         $registration->state = $request->input('state');
         $registration->gotra_self = $request->input('gotra_self');
@@ -340,6 +349,9 @@ class RegisterController extends Controller
         $registration->total_payment = $request->input('total_payment');
         $registration->is_courier = $request->input('is_courier');
         $registration->payment_mode = $request->input('payment_mode');
+        $registration->term_condition = $request->input('trem_condition');
+
+        // dd($registration);
 
         // Save the registration record
         $result = $registration->save();

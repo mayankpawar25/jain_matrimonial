@@ -30,7 +30,8 @@
             <div class="form-wizard p-4 bg-white shadow rounded">
                 <h1 class="text-center mb-2" style="font-weight: bold; color: #ee2098;">अपनी जानकारी यहाँ डाले</h1>
 
-                <form action="{{ route('form.resgistration_store') }}" method="POST" id="registration-form" enctype="multipart/form-data">
+                <form action="{{ route('form.resgistration_store') }}" method="POST" id="registration-form"
+                    enctype="multipart/form-data">
                     @csrf
 
                     <!-- Step 1 -->
@@ -48,17 +49,20 @@
                         <div class="row mb-3">
                             <div class="col-md-4">
                                 <label for="email" class="form-label">ईमेल आईडी</label>
-                                <input type="email" class="form-control" name="email" id="email" placeholder="" required>
+                                <input type="email" class="form-control" name="email" id="email" placeholder=""
+                                    required>
                             </div>
                             <div class="col-md-4">
                                 <label for="mobile" class="form-label">मोबाइल नंबर</label>
-                                <input type="tel" class="form-control" pattern="^(?:\+?[0-9]{1,3})?0?[0-9]{10}$" name="mobile" id="mobile" placeholder="" required>
+                                <input type="tel" class="form-control" pattern="^(?:\+?[0-9]{1,3})?0?[0-9]{10}$"
+                                    name="mobile" id="mobile" placeholder="" maxlength="10" required>
                             </div>
                             <div class="col-md-4">
                                 <label class="form-label">मांगलिक</label>
                                 <div class="d-flex justify-content-start form-control">
                                     <div class="form-check mr-3">
-                                        <input class="form-check-input " type="radio" name="marriage" id="yes" value="yes">
+                                        <input class="form-check-input " type="radio" name="marriage" id="yes"
+                                            value="yes">
                                         <label class="form-check-label " for="yes">हा</label>
                                     </div>
                                     <div class="form-check mr-3">
@@ -66,7 +70,8 @@
                                         <label class="form-check-label" for="no">नहीं</label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="marriage" id="maybe" value="aanshik">
+                                        <input class="form-check-input" type="radio" name="marriage" id="maybe"
+                                            value="aanshik">
                                         <label class="form-check-label" for="maybe">आंशिक</label>
                                     </div>
                                 </div>
@@ -74,10 +79,11 @@
                         </div>
                         <div class="row mb-3">
                             <div class="col-md-4">
-                                <div class="mb-3 calendar-container">
-                                    <label for="doc_date" class="form-label">जन्म तिथि</label>
-                                    <input type="text" class="form-control" name="doc_date" id="doc_date" placeholder="dd-mm-yyyy" required>
-                                </div>
+                                <!-- <div class="calendar-container"> -->
+                                <label for="doc_date" class="form-label">जन्म तिथि</label>
+                                <input type="text" class="form-control" name="doc_date" id="doc_date"
+                                    placeholder="dd-mm-yyyy" required>
+                                <!-- </div> -->
                             </div>
 
                             <div class="col-md-4">
@@ -85,10 +91,10 @@
                                 <input type="time" class="form-control" id="time" name="time" required>
                             </div>
                             <div class="col-md-4">
-                                <label for="ampm" class="form-label">AM/PM</label>
-                                <select class="form-select form-control" id="ampm" name="ampm">
-                                    <option value="am">AM</option>
-                                    <option value="pm">PM</option>
+                                <label for="ampm" class="form-label">नागरिकता</label>
+                                <select class="form-select form-control" id="citizenship" name="citizenship" required>
+                                    <option value="भारतीय">भारतीय</option>
+                                    <option value="अप्रवासी भारतीय">अप्रवासी भारतीय</option>
                                 </select>
                             </div>
                         </div>
@@ -148,15 +154,23 @@
                             <div class="col-md-3">
                                 <label for="complexion" class="form-label">वर्ण</label>
                                 <!-- <input type="text" class="form-control" id="complexion" name="complexion" required> -->
-                                <script>
+                                <select class="form-select form-control" id="complexion" name="complexion" required>
+                                    <option value="गोरा">गोरा</option>
+                                    <option value="गेहुँआ">गेहुँआ</option>
+                                    <option value="सांवला">सांवला</option>
+                                    <option value="श्याम">श्याम</option>
+                                </select>
+                                <!-- <script>
                                     CreateCustomHindiTextBox('complexion', '', '', false, 'form-control', '', true)
-                                </script>
+                                </script> -->
                             </div>
                             <div class="col-md-3">
                                 <label class="form-label">श्रेणी</label>
                                 <select class="form-select form-control" id="category" name="category" required>
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
+                                    <option value="अविवाहित">अविवाहित</option>
+                                    <option value="तलाकशुदा">तलाकशुदा</option>
+                                    <option value="विधवा">विधवा</option>
+                                    <option value="विधुर">विधुर</option>
                                 </select>
                             </div>
                         </div>
@@ -172,11 +186,13 @@
                                 <label class="form-label">शारीरिक दोष</label>
                                 <div class="d-flex form-control justify-content-start">
                                     <div class="form-check mr-3">
-                                        <input class="form-check-input" type="radio" name="dosh" id="dosh-yes" value="yes">
+                                        <input class="form-check-input" type="radio" name="dosh" id="dosh-yes"
+                                            value="yes">
                                         <label class="form-check-label" for="dosh-yes">हा</label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="dosh" id="dosh-no" value="no">
+                                        <input class="form-check-input" type="radio" name="dosh" id="dosh-no"
+                                            value="no">
                                         <label class="form-check-label" for="dosh-no">नहीं</label>
                                     </div>
                                 </div>
@@ -229,7 +245,9 @@
                             </div>
                             <div class="col-md-3">
                                 <label for="mob" class="form-label">मोबाइल नंबर</label>
-                                <input type="tel" class="form-control" id="mob" pattern="^(?:\+?[0-9]{1,3})?0?[0-9]{10}$" name="father_mobile" required>
+                                <input type="tel" class="form-control" id="mob"
+                                    pattern="^(?:\+?[0-9]{1,3})?0?[0-9]{10}$" name="father_mobile" maxlength="10"
+                                    required>
                             </div>
                             <div class="col-md-3">
                                 <label for="work" class="form-label">व्यवसाय</label>
@@ -254,7 +272,8 @@
                             </div>
                             <div class="col-md-3">
                                 <label for="mob2" class="form-label">मोबाइल नंबर</label>
-                                <input type="tel" class="form-control" pattern="^(?:\+?[0-9]{1,3})?0?[0-9]{10}$" name="mother_mobile" id="mob2" required>
+                                <input type="tel" class="form-control" pattern="^(?:\+?[0-9]{1,3})?0?[0-9]{10}$"
+                                    name="mother_mobile" id="mob2" maxlength="10" required>
                             </div>
                             <div class="col-md-3">
                                 <label for="mother_occupation" class="form-label">व्यवसाय</label>
@@ -329,7 +348,8 @@
                         </div>
                         <div class="row mb-3">
                             <div class="col-md-12 mb-3">
-                                <label for="social-group" class="form-label">सोशल ग्रुप से सम्बन्धता हे? तो ग्रूप का नाम</label>
+                                <label for="social-group" class="form-label">सोशल ग्रुप से सम्बन्धता हे? तो ग्रूप का
+                                    नाम</label>
                                 <!-- <input type="text" class="form-control" id="social-group" name="social_group" placeholder=""> -->
                                 <script>
                                     CreateCustomHindiTextBox('social_group', '', '', false, 'form-control', '', false)
@@ -341,7 +361,8 @@
                             <label for="payment" class="form-label">
                                 फोटो अपलोड</label>
                             <div class="custom-upload-box">
-                                <input type="file" accept="image/*" class="form-control" id="image-input" name="profile_picture">
+                                <input type="file" accept="image/*" class="form-control" id="image-input"
+                                    name="profile_picture">
                                 <div class="custom-upload-icon">
 
                                     <svg height="50" width="50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
@@ -363,27 +384,9 @@
 
                         <div class="container my-5">
                             <div class="row">
-                                <div class="col-md-3">
-                                    <label for="payment" class="form-label">
-                                        भुगतान रसीद</label>
-                                    <div class="upload-box">
-                                        <input type="file" accept="image/*" class="form-control" id="image-inputs" name="payment_picture">
-                                        <div class="upload-icon">
 
-                                            <svg height="50" width="50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-                                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                                stroke-linejoin="round">
-                                                <path d="M12 3v12"></path>
-                                                <path d="M6 9l6-6 6 6"></path>
-                                                <path d="M6 21h12a2 2 0 0 0 2-2v-6H4v6a2 2 0 0 0 2 2z"></path>
-                                            </svg>
-                                        </div>
-                                        <img id="preview-images" src="#" alt="Image Previews"
-                                            style="display: none; max-width: 100%; height: auto; margin-top: 10px;">
-                                    </div>
-                                </div>
 
-                                <div class="col-md-6">
+                                <div class="col-md-12">
                                     <div class="custom-input-row">
                                         <div class="form-group mb-3">
                                             <label for="payment" class="form-label">भुगतान</label>
@@ -396,40 +399,118 @@
                                         </div>
                                         <div class="form-group mb-3">
                                             <label for="total-payment" class="form-label">कुल भुगतान</label>
-                                            <input type="number" class="form-control" id="total-payment" name="total_payment" readonly>
+                                            <input type="number" class="form-control" id="total-payment"
+                                                name="total_payment" readonly>
                                         </div>
                                     </div>
-                                    <div class="custom-input-row">
-                                        <div class="row">
-                                            <div class="col-md-6 mb-3">
-                                                <label for="courier_details" class="form-label">कूरियर द्वारा स्मारिका</label>
-                                                <input type="text" class="form-control" id="courier_details" name="courier_details" readonly>
-                                                <div class="form-check  mt-2">
-                                                    <input type="checkbox" class="form-check-input" id="courier-checkbox" name="is_courier" value="1">
-                                                    <label class="form-check-label" for="courier-checkbox">चेक करें</label>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6 mb-3">
-                                                <label for="payment_mode" class="form-label">पेमेंट मॉड</label>
-                                                <!-- <input type="text" class="form-control" id="payment-mode" name="payment_mode" placeholder=""> -->
-                                                <script>
-                                                    CreateCustomHindiTextBox('payment_mode', '', '', false, 'form-control', '', false)
-                                                </script>
+                                    <div class="row ">
+
+                                        <div class="col-md-6 mb-3">
+                                            <label for="courier_details" class="form-label">कूरियर द्वारा
+                                                स्मारिका</label>
+                                            <input type="text" class="form-control" id="courier_details"
+                                                name="courier_details" readonly>
+                                            <div class="form-check  mt-2">
+                                                <input type="checkbox" class="form-check-input" id="courier-checkbox"
+                                                    name="is_courier" value="1">
+                                                <label class="form-check-label" for="courier-checkbox">चेक
+                                                    करें</label>
                                             </div>
                                         </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="payment_mode" class="form-label">पेमेंट मॉड</label>
+                                            <!-- <input type="text" class="form-control" id="payment-mode" name="payment_mode" placeholder=""> -->
+                                            <select class="form-select form-control" id="payment_mode"
+                                                name="payment_mode" required>
+                                                <!-- <option value="cash">Cash</option> -->
+                                                <option value="qr_code">QR Code</option>
+                                                <option value="bank_transfer">Bank Transfer</option>
+                                            </select>
+
+                                            <!-- <script>
+                                                    CreateCustomHindiTextBox('payment_mode', '', '', false, 'form-control', '', false)
+                                                </script> -->
+                                        </div>
+
                                     </div>
                                 </div>
 
-                                <div class="col-md-3">
-                                    <label for="payment" class="form-label">क्यू आर संहिता</label>
-                                    <div class="custom-qr-code">
-                                        <img src="{{ static_asset('assets/img/payment_qr.jpg') }}" alt="QR Code"
-                                            id="custom-qr-code-image">
+
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 mb-2">
+                                    <div id="qr_code_div">
+                                        <label for="payment" class="form-label">क्यू आर संहिता</label>
+                                        <div class="custom-qr-code">
+                                            <img src="{{ static_asset('assets/img/payment_qr.jpg') }}" alt="QR Code"
+                                                id="custom-qr-code-image">
+                                        </div>
+                                    </div>
+                                    <div id="bank_transfer_div">
+                                        <label for="payment" class="form-label">बैंक विवरण</label>
+                                        <br>
+                                        <label for="payment" class="form-label">बैंक : </label>बैंक ऑफ़ महाराष्ट्र
+                                        <br>
+                                        <label for="payment" class="form-label">अकाउण्ट  नं. : </label>60066639454
+                                        <br>
+                                        <label for="payment" class="form-label">IFSC Code : </label>MAHEO001765
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="payment" class="form-label">
+                                        भुगतान रसीद</label>
+                                    <div class="upload-box">
+                                        <input type="file" accept="image/*" class="form-control" id="image-inputs"
+                                            name="payment_picture">
+                                        <div class="upload-icon">
+
+                                            <svg height="50" width="50" xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                                stroke-linecap="round" stroke-linejoin="round">
+                                                <path d="M12 3v12"></path>
+                                                <path d="M6 9l6-6 6 6"></path>
+                                                <path d="M6 21h12a2 2 0 0 0 2-2v-6H4v6a2 2 0 0 0 2 2z"></path>
+                                            </svg>
+                                        </div>
+                                        <img id="preview-images" src="#" alt="Image Previews"
+                                            style="display: none; max-width: 100%; height: auto; margin-top: 10px;">
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <!-- Additional Fields <img src="assets/img/shared%20image.jpg" alt="Description of image"> -->
+
+                        <!-- condition start -->
+                        <div class="container my-5">
+                            <div class="row">
+                                <div class="term_condition text-justify">
+                                    हम शपथपूर्वक घोषणा करते हैं कि हमारे पुत्र/पुत्री के वैवाहिक सम्बन्ध हेतु दी गई
+                                    जानकारी
+                                    पूर्णतः सही व सत्य है एवं इसकी प्रमाणिकता के लिये हम स्वयं उत्तरदायी होंगे। आयोजक
+                                    संस्था
+                                    व पदाधिकारी किसी भी प्रकार से इस सम्बन्ध में उत्तरदायी नहीं होंगे। हम संस्था एवं
+                                    उसके
+                                    पदाधिकारियों को किसी भी प्रकार की क्षति/ वाद / दावा / विवाद से पूर्णतः मुक्त घोषित
+                                    करते
+                                    हैं। हम दिगम्बर जैन सोशल ग्रुप फेडरेशन द्वारा इस आयोजन के सम्बन्ध में समय-समय पर दी
+                                    गई
+                                    व्यवस्था / नियम / शर्तों का पूर्णतः पालन करेंगे। हम आयोजन संस्था को अनुमति प्रदान
+                                    करते
+                                    हैं कि इस अवसर पर प्रकाशित होने वाली परिचय पुस्तिका एवं सोशल मीडिया पर प्रचार-प्रसार
+                                    हेतु उक्त विवरण का उपयोग कर सकेंगे।
+
+                                    <p> <br>
+                                        <label>
+                                            <input type="checkbox" value="1" name="trem_condition" class="mr-2" required/> <strong>उक्त वर्णित सत्यापन
+                                                मैनें पूर्णतः पढ़ व समझ लिया
+                                                हैं</strong>
+                                        </label>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
 
                         <div class="row mb-6">
                             <div class="col-md-6 d-flex justify-content-center">
@@ -441,7 +522,8 @@
                                 <button type="submit" class="btn btn-primary" id="submitButton"
                                     style="width: 100%; background-color: rgb(240, 53, 162); border: none; color: white;">
                                     <span id="buttonText">जमा करें</span>
-                                    <span id="loader" class="spinner-border spinner-border-sm" role="status" aria-hidden="true" style="display:none;"></span>
+                                    <span id="loader" class="spinner-border spinner-border-sm" role="status"
+                                        aria-hidden="true" style="display:none;"></span>
                                 </button>
                             </div>
                         </div>
@@ -476,14 +558,14 @@
         }
     }
     //for image upload
-    document.getElementById('image-input').addEventListener('change', function(event) {
+    document.getElementById('image-input').addEventListener('change', function (event) {
         const file = event.target.files[0];
         const previewImage = document.getElementById('preview-image');
 
         if (file) {
             const reader = new FileReader();
 
-            reader.onload = function(e) {
+            reader.onload = function (e) {
                 previewImage.src = e.target.result;
                 previewImage.style.display = 'block'; // Show the image preview
             };
@@ -498,15 +580,15 @@
 
     // second image 
 
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
         const imageInput = document.getElementById('image-inputs');
         const previewImage = document.getElementById('preview-images');
 
-        imageInput.addEventListener('change', function(event) {
+        imageInput.addEventListener('change', function (event) {
             const file = event.target.files[0];
             if (file) {
                 const reader = new FileReader();
-                reader.onload = function(e) {
+                reader.onload = function (e) {
                     previewImage.src = e.target.result;
                     previewImage.style.display = 'block'; // Show the image
                 };
@@ -642,13 +724,13 @@
         }
     }
 
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
         const form = document.getElementById('registration-form');
         const submitButton = document.getElementById('submitButton');
         const loader = document.getElementById('loader');
         const buttonText = document.getElementById('buttonText');
 
-        form.addEventListener('submit', function(event) {
+        form.addEventListener('submit', function (event) {
             event.preventDefault(); // Prevent default form submission
 
             // Disable the submit button and show the loader
@@ -661,6 +743,24 @@
             }, 300);
         });
     });
+
+ 
+    document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('payment_mode').addEventListener('change', function() {
+        var paymentMode = this.value;
+
+        // Hide both divs initially
+        document.getElementById('qr_code_div').style.display = 'none';
+        document.getElementById('bank_transfer_div').style.display = 'none';
+
+        // Show the relevant div based on the selected payment mode
+        if (paymentMode === 'qr_code') {
+            document.getElementById('qr_code_div').style.display = 'block';
+        } else if (paymentMode === 'bank_transfer') {
+            document.getElementById('bank_transfer_div').style.display = 'block';
+        }
+    });
+});
 </script>
 
 @endsection

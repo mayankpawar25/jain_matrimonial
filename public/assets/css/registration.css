@@ -27,8 +27,8 @@
 .upload-box{
     border: 2px solid #6c757d;
     border-radius: 10px;
-    width: 150px;
-    height: 150px;
+    width: 100%;
+    height: auto;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -36,6 +36,7 @@
     cursor: pointer;
     transition: border-color 0.3s;
     overflow: hidden;
+    min-height: 200px;
 }
 .custom-upload-box {
     border: 2px solid #6c757d;
@@ -80,8 +81,8 @@
 }
 
 .custom-qr-code {
-    width: 150px;
-    height: 150px;
+    width: 100%;
+    height: quto;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -168,4 +169,9 @@ body, html {
 .payment-section img {
     max-width: 100%;
     height: auto;
+}
+
+.term_condition {
+    font-weight: bold;
+    color: #e41412;
 }

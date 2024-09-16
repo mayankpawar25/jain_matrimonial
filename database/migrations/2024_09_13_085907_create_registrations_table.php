@@ -21,7 +21,8 @@ return new class extends Migration
             $table->string('marriage');
             $table->date('doc_date');
             $table->time('time');
-            $table->string('ampm');
+            $table->string('ampm')->nullable();
+            $table->string('citizenship')->nullable();
             $table->string('place_of_birth');
             $table->string('state');
             $table->string('gotra_self');
@@ -31,7 +32,7 @@ return new class extends Migration
             $table->string('weight');
             $table->string('height');
             $table->string('complexion');
-            $table->integer('category');
+            $table->string('category');
             $table->string('residence');
             $table->string('dosh')->nullable(); // Added 'dosh' field
             $table->string('education')->nullable();
@@ -58,6 +59,7 @@ return new class extends Migration
             $table->string('total_payment')->nullable(); // Added field for total payment
             $table->boolean('is_courier')->default(false); // Added field for courier option
             $table->string('payment_mode')->nullable(); // Added field for payment mode
+            $table->integer('trem_condition')->nullable()->default(0);
             $table->timestamps();
         });
     }
