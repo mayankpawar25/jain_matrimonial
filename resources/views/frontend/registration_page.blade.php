@@ -149,7 +149,7 @@
                             </div>
                             <div class="col-md-3">
                                 <label for="height" class="form-label">ऊंचाई</label>
-                                <input type="number" class="form-control" id="height" name="height" required>
+                                <input type="number" class="form-control" id="height" name="height" step="0.01"  min="0" required>
                             </div>
                             <div class="col-md-3">
                                 <label for="complexion" class="form-label">वर्ण</label>
@@ -449,11 +449,11 @@
                                     <div id="bank_transfer_div">
                                         <label for="payment" class="form-label">बैंक विवरण</label>
                                         <br>
-                                        <label for="payment" class="form-label">बैंक : </label>बैंक ऑफ़ महाराष्ट्र
+                                        <label for="payment" class="form-label">बैंक : </label> बैंक ऑफ़ महाराष्ट्र
                                         <br>
-                                        <label for="payment" class="form-label">अकाउण्ट  नं. : </label>60066639454
+                                        <label for="payment" class="form-label">अकाउण्ट  नं. : </label> 60066639454
                                         <br>
-                                        <label for="payment" class="form-label">IFSC Code : </label>MAHEO001765
+                                        <label for="payment" class="form-label">IFSC Code : </label> MAHEO001765
                                     </div>
                                 </div>
 

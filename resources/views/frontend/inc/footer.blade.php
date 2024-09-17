@@ -1,6 +1,10 @@
 <footer class="aiz-footer fs-13 mt-auto text-white fw-400 pt-5">
     <div class="container">
-
+    <div class="row">
+            <div class="col-12">
+            <img src="{{ static_asset('assets/img/wc-bnr.png') }}" alt="{{ env('APP_NAME') }}" class="w-100" >
+            </div>
+        </div>
         <div class="row mb-4">
             <div class="col-xxl-6 col-xl-7 col-lg-8 col-md-10 text-center mx-auto">
                 <div class="logo mb-4">
