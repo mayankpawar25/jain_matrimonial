@@ -145,7 +145,7 @@
                         </li>
                         <li class="list-inline-item ml-3">
                             <a class="btn btn-sm bg-primary-grad text-white fw-600 py-1 border"
-                                href="{{ route('register') }}">{{ translate('Registration') }}</a>
+                                href="{{ route('form.resgistration') }}">{{ translate('Registration') }}</a>
                         </li>
                         @endif
                     </ul>
