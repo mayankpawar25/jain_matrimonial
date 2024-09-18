@@ -378,7 +378,90 @@
     @endif
 
 
-
+    <section class="pt-7 bg-white">
+        <div class="container samiti-text text-center">
+            <div class="row">
+                <div class="col-lg-12 col-xl-12 col-xxl-12 mx-auto">
+                <h2 class="fw-600 mb-3 text-dark ">कार्यकरिणी  समिति</h2>
+                <div class="row">
+                    <div class="col-md-3 mb-2">
+                        <div class="card">
+                        <h4>शिरोमणि संरक्षक</h4>
+                        <h5><strong>श्रीमती पुष्पा प्रदीप जी कासलीवाल</strong></h4>
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-2">
+                        <div class="cord"><h4>राष्ट्रीय अध्यक्ष</h4>
+                        <h5><strong>राकेश विनायकका</strong></h5></div>
+                    </div>
+                    <div class="col-md-3 mb-2">
+                        <div class="card">
+                        <h4>राष्ट्रीय महासचिव</h4>
+                        <h5><strong>विपुल बॉझल</strong></h5>
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-2">
+                        <div class="cord">
+                        <h4>राष्ट्रीय कोषाध्यक्ष</h4>
+                        <h5><strong>अतुल बिटलता</strong></h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                    <div class="cord">
+                        <h4>मुख्य सूत्रधार</h4>
+                        <h5><strong>यशकमल अजमेरा - जयपुर</strong></h5>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                    <div class="cord">
+                        <h4>सूत्रधार</h4>
+                        <h5><strong>जे. के. जैन - कोटा, ममता जैन - रायपुर</strong></h5>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                    <div class="cord">
+                        <h4>मुख्य संयोजक</h4>
+                        <h5><strong>प्रदीप गंगवाल - इंदौर, राजीव गिरधरताल - भोपाल</strong></h5>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                    <div class="cord">
+                        <h4>सूत्रधार</h4>
+                        <h5><strong>प्रशांत जैन - जबलपुर, संजय पापड़ीवाल - इंदौर</strong></h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 textcenter">
+                        <h4>फोन नंबर</h4>
+                    </div>
+                    <div class="col-md-3">
+                    <div class="cord">
+                        <h5><strong>प्रदीप गंगवाल - इंदौर: 98260-30053</strong></h5>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                    <div class="cord">
+                        <h5><strong>राजीव गिरधरताल - भोपाल: 88717-13822</strong></h5>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                    <div class="cord">
+                        <h5><strong>प्रशांत जैन - जबलपुर: 94250-22806    </strong></h5>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                    <div class="cord">
+                        <h5><strong>संजय पापड़ीवाल - इंदौर: 94253-48014</strong></h5>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+    </section>
     <!-- premium member Section -->
     @if (get_setting('show_premium_member_section') == 'on')
         <section class="pt-7 bg-white">
@@ -464,6 +547,41 @@
                             </div>
                         </div>
                     @endforeach
+                </div>
+            </div>
+            <div class="text-center"><a href="{{ route('form.resgistration') }}" class="btn btn-primary">Register Now</a></div>
+            <div class="container info-text22">
+                <div class="row">
+                    <div class="col-md-12 ">
+                    <h2 class="fw-600 mb-3 text-dark text-center ">आवश्यक जानकारी / निर्देश</h2>
+                        <ul>
+                            <li>पूर्ण भरे हुए फार्म नीचे दर्शाए गए कार्यालयों पर रविवार को छोड़कर कार्यालय के समय प्रातः 10 से सायं 5 बजे तक दिनांक 1 दिसंबर 2024 तक जमा हो सकेंगे।
+                                <br>
+                                <strong>इंदौर कार्यालय पता:</strong> मनीष जैन, 63, शील चौराहा, क्वींस स्टन्टम, इंदौर - 452001 (म.प्र.),
+                                मो.: 9926008080<br>
+                                <strong>जयपुर कार्यालय पता:</strong> पारस कुमार जैन, महावीर जी की नसिया, नारायण सिंह सर्कल, जयपुर (राज.),
+                                मो.: 8233200009<br>
+                                <strong>जबलपुर कार्यालय पता:</strong> प्रशांत जैन, महावीर मेडिका, शॉप नं. 5, डी.डी. जैन मार्केट, गोल बाजार, जबलपुर - 02 (म.प्र.) मो.: 9425022806<br>
+                                <strong>भोपाल कार्यालय पता:</strong> राजीव गिरधरवाल, शॉप नं. 4, शालीमार कॉम्प्लेक्स, स्टेट बैंक चौराहा, सुल्तानिया रोड, भोपालमो.: 8871713822<br>
+                                <strong>उज्जैन कार्यालय पता:</strong> जस्सु धवल, (धवल पापड़) 26/3, धवलम, निजातपुरा, उज्जैन (म.प्र.)
+                                मो.: 9479513338 <br>
+                                <strong>कोटा कार्यालय पता:</strong> श्री. जे.के. जैन, 476, तलवंडी मेन रोड, कोटा,
+                                मो.: 7977063207<br>
+                                <strong>उत्तरप्रदेश कार्यालय पता:</strong> आलोक जैन, उत्तरप्रदेश (झांसी)
+                                मो.: 9415073930 <br>
+                               <strong> रायपुर (छ.ग.) कार्यालय पता:</strong>
+                                ममता जैन, रायपुर (छ.ग.) मो.: 9827160774
+                            </li>
+                            <li>
+                            इंदौर से समारोह में आने वाले प्रतिभागियों हेतु आवास व्यवस्था पूर्व सूचना पर शुल्क सहित उपलब्ध रहेगी।
+                            </li>
+                           <li>प्रतिभागी का विवरण उपलब्ध कराई गई सूचना के आधार पर प्रकाशित किया जाएगा, किसी भी प्रकार की गलत सूचना व तथ्यों के लिए आयोजक संस्था जिम्मेदार नहीं होगी।</li>
+                           <li>कार्यक्रम में प्रतिभागी की उपलब्धता के अनुसार मंच पर परिचय प्रस्तुत करने हेतु अभिभावक सहित उपस्थिति की अनुमति होगी। प्रतिभागी की उपलब्धता मंच पर प्रस्तुत करने हेतु आवश्यक होगी।</li>
+                           <li>सभी प्रतिभागियों को नाम के साथ मंच पर बुलाया जाएगा।</li>
+                           <li>सभी सूचना, अपडेट तथा कार्यक्रम से संबंधित जानकारी हमारे वेबसाइट पर उपलब्ध रहेगी।</li>
+                           <li>किसी भी प्रकार की अप्रिय घटना के परिवर्तन की सम्पूर्ण जानकारी सुनिश्चित की जाएगी।</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </section>
