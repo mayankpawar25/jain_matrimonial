@@ -29,6 +29,7 @@
         <div class="row">
             <div class="form-wizard p-4 bg-white shadow rounded">
                 <h1 class="text-center mb-2" style="font-weight: bold; color: #ee2098;">अपनी जानकारी यहाँ डाले</h1>
+                <p class="text-center "><strong>* कृपया फॉर्म हिंदी में भरे</strong> </p>
 
                 <form action="{{ route('form.resgistration_store') }}" method="POST" id="registration-form"
                     enctype="multipart/form-data">
@@ -63,7 +64,7 @@
                                     <div class="form-check mr-3">
                                         <input class="form-check-input " type="radio" name="marriage" id="yes"
                                             value="yes">
-                                        <label class="form-check-label " for="yes">हा</label>
+                                        <label class="form-check-label " for="yes">हाँ</label>
                                     </div>
                                     <div class="form-check mr-3">
                                         <input class="form-check-input" type="radio" name="marriage" id="no" value="no">
@@ -188,7 +189,7 @@
                                     <div class="form-check mr-3">
                                         <input class="form-check-input" type="radio" name="dosh" id="dosh-yes"
                                             value="yes">
-                                        <label class="form-check-label" for="dosh-yes">हा</label>
+                                        <label class="form-check-label" for="dosh-yes">हाँ</label>
                                     </div>
                                     <div class="form-check">
                                         <input class="form-check-input" type="radio" name="dosh" id="dosh-no"

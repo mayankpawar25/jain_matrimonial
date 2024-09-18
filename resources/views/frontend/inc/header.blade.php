@@ -1,22 +1,26 @@
 <div class="@if(get_setting('header_stikcy') == 'on') position-fixed @else position-absolute @endif w-100 top-0 z-1020">
-    <div class="top-navbar bg-white border-bottom z-1035 py-2 d-none d-lg-block">
+    <div class="top-navbar bg-white border-bottom z-1035 py-2 ">
         <div class="container">
             <div class="row align-items-center">
-                <div class="col-lg-5 col">
+                <div class="col-lg-6 col">
                     <ul class="list-inline d-flex justify-content-between justify-content-lg-start mb-0">
                         <li class="list-inline-item">
                           <a href="{{ get_setting('header_left_quick_link1') }}" class="text-reset opacity-60">
                             <span>{{ get_setting('header_left_quick_link1_text') }}</span>
                           </a>
                         </li>
-                    </ul>
-                </div>
-                <div class="col-lg-7 col">
-                    <ul class="list-inline mb-0 d-flex align-items-center justify-content-end ">
-                        <li class="list-inline-item mr-3 pr-3 border-right text-reset opacity-60">
+                        <li class="list-inline-item  pr-3 border-right text-reset opacity-60">
                             <span>{{ translate(' Help Line') }}</span>
                             <span>{{ get_setting('header_helpline_no') }}</span>
                         </li>
+                    </ul>
+                </div>
+                <div class="col-lg-6 col">
+                    <ul class="list-inline mb-0 d-flex align-items-center justify-content-end ">
+                        <!-- <li class="list-inline-item mr-3 pr-3 border-right text-reset opacity-60">
+                            <span>{{ translate(' Help Line') }}</span>
+                            <span>{{ get_setting('header_helpline_no') }}</span>
+                        </li> -->
                         @if (Auth::check())
                         <li class="list-inline-item dropdown">
                             @php
@@ -122,7 +126,7 @@
                                 </div>
                             </div>
                         </li>
-                        <li class="list-inline-item mx-4">
+                        <!-- <li class="list-inline-item mx-4">
                             <a href="{{ route('dashboard') }}" class="d-flex align-items-center text-reset">
                                 <img src="{{ uploaded_asset(Auth::user()->photo) }}"
                                     class="size-30px rounded-circle img-fit mr-2"
@@ -134,15 +138,15 @@
                                     {{ Auth::user()->first_name }}
                                 </span>
                             </a>
-                        </li>
-                        <li class="list-inline-item">
+                        </li> -->
+                        <!-- <li class="list-inline-item">
                             <a href="{{ route('logout') }}"
                                 class="btn btn-sm bg-primary-grad text-white fw-600 py-1 border">{{translate('Logout')}}</a>
-                        </li>
+                        </li> -->
                         @else
-                        <li class="list-inline-item ml-4">
+                        <!-- <li class="list-inline-item ml-4">
                             <a class="text-reset opacity-60" href="{{ route('login') }}">{{ translate('Log In') }}</a>
-                        </li>
+                        </li> -->
                         <li class="list-inline-item ml-3">
                             <a class="btn btn-sm bg-primary-grad text-white fw-600 py-1 border"
                                 href="{{ route('form.resgistration') }}">{{ translate('Registration') }}</a>

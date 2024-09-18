@@ -1,3 +1,23 @@
+<!-- custom modal -->
+<div class="modal fade" id="myModal">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5> Register Now</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body text-center">
+                
+                <img src="{{ static_asset('assets/img/modal-bnr.png') }}" class="w-100 mb-3" alt="">
+                <a href="{{ route('form.resgistration') }}" class="btn btn-primary">Register Now</a>
+            </div>
+            
+        </div>
+    </div>
+</div>
+
 @extends('frontend.layouts.app')
 @section('content')
 
