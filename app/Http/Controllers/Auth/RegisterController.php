@@ -24,6 +24,8 @@ use App\Http\Controllers\OTPVerificationController;
 use App\Http\Controllers\AizUploadController;
 use Carbon\Carbon;
 
+use function PHPUnit\Framework\isNull;
+
 class RegisterController extends Controller
 {
 
@@ -347,7 +349,7 @@ class RegisterController extends Controller
         $registration->payment_picture = $receipt_pic_path;
         $registration->payment_type = $request->input('payment_type');
         $registration->total_payment = $request->input('total_payment');
-        $registration->is_courier = $request->input('is_courier');
+        $registration->is_courier = !isNull($request->input('is_courier')) ? $request->input('is_courier') : 0 ;
         $registration->payment_mode = $request->input('payment_mode');
         // dd($registration);
 
