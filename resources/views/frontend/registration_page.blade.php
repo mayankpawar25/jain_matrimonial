@@ -7,20 +7,7 @@
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-<style>
-    .calendar-container {
-        position: relative;
-        display: inline-block;
-    }
 
-    .calendar-icon {
-        position: absolute;
-        right: 10px;
-        top: 50%;
-        transform: translateY(-50%);
-        cursor: pointer;
-    }
-</style>
 
 
 <!-- resources/views/form.blade.php -->
@@ -63,11 +50,11 @@
                                 <div class="d-flex justify-content-start form-control">
                                     <div class="form-check mr-3">
                                         <input class="form-check-input " type="radio" name="marriage" id="yes"
-                                            value="yes">
+                                            value="yes" >
                                         <label class="form-check-label " for="yes">हाँ</label>
                                     </div>
                                     <div class="form-check mr-3">
-                                        <input class="form-check-input" type="radio" name="marriage" id="no" value="no">
+                                        <input class="form-check-input" type="radio" name="marriage" id="no" value="no" >
                                         <label class="form-check-label" for="no">नहीं</label>
                                     </div>
                                     <div class="form-check">
@@ -150,7 +137,7 @@
                             </div>
                             <div class="col-md-3 mb-3">
                                 <label for="height" class="form-label">ऊंचाई</label>
-                                <input type="number" class="form-control" id="height" name="height" step="0.01"  min="0" required>
+                                <input type="number" class="form-control" id="height" name="height" step="0.01" min="0" required>
                             </div>
                             <div class="col-md-3 mb-3">
                                 <label for="complexion" class="form-label">वर्ण</label>
@@ -359,25 +346,29 @@
                         </div>
 
                         <div class="container my-5">
-                            <label for="payment" class="form-label">
-                                फोटो अपलोड</label>
-                            <div class="custom-upload-box">
-                                <input type="file" accept="image/*" class="form-control" id="image-input"
-                                    name="profile_picture">
+                            <label for="payment" class="form-label">फोटो अपलोड</label>
+                            <div class="custom-upload-box" style="position: relative;">
+                                <input type="file" accept="image/*" class="form-control" id="image-input" name="profile_picture" required>
                                 <div class="custom-upload-icon">
-
                                     <svg height="50" width="50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                        stroke-linejoin="round">
+                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                         <path d="M12 3v12"></path>
                                         <path d="M6 9l6-6 6 6"></path>
                                         <path d="M6 21h12a2 2 0 0 0 2-2v-6H4v6a2 2 0 0 0 2 2z"></path>
                                     </svg>
                                 </div>
-                                <img id="preview-image" src="#" alt="Image Preview"
-                                    style="display: none; max-width: 100%; height: auto; margin-top: 10px;">
+                                <img id="preview-image" src="#" alt="Image Preview" style="display: none; max-width: 100%; height: auto; margin-top: 10px;">
+
+                                <!-- Cross (X) icon as remove button -->
+                                <button id="remove-image" class="remove-image"  style="display:none;" title="Remove Image">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="red" class="bi bi-x-circle" viewBox="0 0 16 16">
+                                        <path d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zm3.646 9.354a.5.5 0 0 1-.707 0L8 8.707l-2.939 2.939a.5.5 0 1 1-.707-.707l2.939-2.939L4.354 5.354a.5.5 0 1 1 .707-.707L8 7.293l2.939-2.939a.5.5 0 1 1 .707.707L8.707 8l2.939 2.939a.5.5 0 0 1 0 .707z"></path>
+                                    </svg>
+                                </button>
                             </div>
                         </div>
+
+
 
 
 
@@ -452,32 +443,36 @@
                                         <br>
                                         <label for="payment" class="form-label">बैंक : </label> बैंक ऑफ़ महाराष्ट्र
                                         <br>
-                                        <label for="payment" class="form-label">अकाउण्ट  नं. : </label> 60066639454
+                                        <label for="payment" class="form-label">अकाउण्ट नं. : </label> 60066639454
                                         <br>
                                         <label for="payment" class="form-label">IFSC Code : </label> MAHEO001765
                                     </div>
                                 </div>
 
                                 <div class="col-md-6 mb-3">
-                                    <label for="payment" class="form-label">
-                                        भुगतान रसीद</label>
+                                    <label for="payment" class="form-label">भुगतान रसीद</label>
                                     <div class="upload-box">
-                                        <input type="file" accept="image/*" class="form-control" id="image-inputs"
-                                            name="payment_picture">
+                                        <input type="file" accept="image/*" class="form-control" id="image-inputs" name="payment_picture" required>
                                         <div class="upload-icon">
-
-                                            <svg height="50" width="50" xmlns="http://www.w3.org/2000/svg"
-                                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                                stroke-linecap="round" stroke-linejoin="round">
+                                            <svg height="50" width="50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                stroke-linejoin="round">
                                                 <path d="M12 3v12"></path>
                                                 <path d="M6 9l6-6 6 6"></path>
                                                 <path d="M6 21h12a2 2 0 0 0 2-2v-6H4v6a2 2 0 0 0 2 2z"></path>
                                             </svg>
                                         </div>
-                                        <img id="preview-images" src="#" alt="Image Previews"
-                                            style="display: none; max-width: 100%; height: auto; margin-top: 10px;">
+                                        <img id="preview-images" src="#" alt="Image Preview" style="display: none; max-width: 100%; height: auto; margin-top: 10px;">
+                                        <!-- Add a cross (X) icon for removing the uploaded image -->
+                                        <button id="remove-images" class="remove-image" style="display:none;" title="Remove Image">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="red" class="bi bi-x-circle"
+                                                viewBox="0 0 16 16">
+                                                <path d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zm3.646 9.354a.5.5 0 0 1-.707 0L8 8.707l-2.939 2.939a.5.5 0 1 1-.707-.707l2.939-2.939L4.354 5.354a.5.5 0 1 1 .707-.707L8 7.293l2.939-2.939a.5.5 0 1 1 .707.707L8.707 8l2.939 2.939a.5.5 0 0 1 0 .707z"></path>
+                                            </svg>
+                                        </button>
                                     </div>
                                 </div>
+
                             </div>
                         </div>
                         <!-- Additional Fields <img src="assets/img/shared%20image.jpg" alt="Description of image"> -->
@@ -503,7 +498,7 @@
 
                                     <p> <br>
                                         <label>
-                                            <input type="checkbox" value="1" name="trem_condition" class="mr-2" required/> <strong>उक्त वर्णित सत्यापन
+                                            <input type="checkbox" value="1" name="trem_condition" class="mr-2" required /> <strong>उक्त वर्णित सत्यापन
                                                 मैनें पूर्णतः पढ़ व समझ लिया
                                                 हैं</strong>
                                         </label>
@@ -558,48 +553,78 @@
             datePicker.open();
         }
     }
-    //for image upload
-    document.getElementById('image-input').addEventListener('change', function (event) {
-        const file = event.target.files[0];
-        const previewImage = document.getElementById('preview-image');
 
+
+    // Handling for 'फोटो अपलोड' section
+    const imageInputPhoto = document.getElementById('image-input');
+    const previewImagePhoto = document.getElementById('preview-image');
+    const removeButtonPhoto = document.getElementById('remove-image');
+
+    imageInputPhoto.addEventListener('change', function(event) {
+        const file = event.target.files[0];
         if (file) {
             const reader = new FileReader();
-
-            reader.onload = function (e) {
-                previewImage.src = e.target.result;
-                previewImage.style.display = 'block'; // Show the image preview
+            reader.onload = function(e) {
+                previewImagePhoto.src = e.target.result;
+                previewImagePhoto.style.display = 'block'; // Show the image
+                removeButtonPhoto.style.display = 'inline-block'; // Show the remove button
             };
-
             reader.readAsDataURL(file);
-        } else {
-            previewImage.src = '#'; // Reset image src if no file is selected
-            previewImage.style.display = 'none'; // Hide the image preview
+            imageInputPhoto.disabled = true; // Disable the input field after upload
         }
     });
 
+    removeButtonPhoto.addEventListener('click', function() {
+        previewImagePhoto.src = '#';
+        previewImagePhoto.style.display = 'none';
+        imageInputPhoto.value = '';
+        imageInputPhoto.disabled = false;
+        removeButtonPhoto.style.display = 'none';
+    });
 
-    // second image 
 
-    document.addEventListener('DOMContentLoaded', function () {
+    // second image payment upload
+
+    document.addEventListener('DOMContentLoaded', function() {
         const imageInput = document.getElementById('image-inputs');
         const previewImage = document.getElementById('preview-images');
+        const removeButton = document.getElementById('remove-images'); // Select the remove button
 
-        imageInput.addEventListener('change', function (event) {
+        imageInput.addEventListener('change', function(event) {
             const file = event.target.files[0];
             if (file) {
                 const reader = new FileReader();
-                reader.onload = function (e) {
+                reader.onload = function(e) {
                     previewImage.src = e.target.result;
                     previewImage.style.display = 'block'; // Show the image
+                    removeButton.style.display = 'inline-block'; // Show the remove button (cross icon)
                 };
                 reader.readAsDataURL(file);
+
+                // Disable the input field after an image is uploaded
+                imageInput.disabled = true;
             } else {
                 previewImage.src = '#';
                 previewImage.style.display = 'none'; // Hide the image if no file is selected
+                removeButton.style.display = 'none'; // Hide the remove button
             }
         });
+
+        // Add functionality for the remove button (cross icon)
+        removeButton.addEventListener('click', function() {
+            // Clear the image preview
+            previewImage.src = '#';
+            previewImage.style.display = 'none';
+
+            // Enable the file input again
+            imageInput.value = ''; // Reset the file input value
+            imageInput.disabled = false; // Enable the file input
+
+            // Hide the remove button
+            removeButton.style.display = 'none';
+        });
     });
+
 
 
 
@@ -725,13 +750,13 @@
         }
     }
 
-    document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('DOMContentLoaded', function() {
         const form = document.getElementById('registration-form');
         const submitButton = document.getElementById('submitButton');
         const loader = document.getElementById('loader');
         const buttonText = document.getElementById('buttonText');
 
-        form.addEventListener('submit', function (event) {
+        form.addEventListener('submit', function(event) {
             event.preventDefault(); // Prevent default form submission
 
             // Disable the submit button and show the loader
@@ -745,24 +770,24 @@
         });
     });
 
- 
+
     document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('bank_transfer_div').style.display = 'none';
-    document.getElementById('payment_mode').addEventListener('change', function() {
-        var paymentMode = this.value;
+        document.getElementById('payment_mode').addEventListener('change', function() {
+            var paymentMode = this.value;
 
-        // Hide both divs initially
-        document.getElementById('qr_code_div').style.display = 'none';
-        document.getElementById('bank_transfer_div').style.display = 'none';
+            // Hide both divs initially
+            document.getElementById('qr_code_div').style.display = 'none';
+            document.getElementById('bank_transfer_div').style.display = 'none';
 
-        // Show the relevant div based on the selected payment mode
-        if (paymentMode === 'qr_code') {
-            document.getElementById('qr_code_div').style.display = 'block';
-        } else if (paymentMode === 'bank_transfer') {
-            document.getElementById('bank_transfer_div').style.display = 'block';
-        }
+            // Show the relevant div based on the selected payment mode
+            if (paymentMode === 'qr_code') {
+                document.getElementById('qr_code_div').style.display = 'block';
+            } else if (paymentMode === 'bank_transfer') {
+                document.getElementById('bank_transfer_div').style.display = 'block';
+            }
+        });
     });
-});
 </script>
 
 @endsection

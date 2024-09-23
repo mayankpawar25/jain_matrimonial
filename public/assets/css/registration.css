@@ -11,6 +11,7 @@
     opacity: 0;
     cursor: pointer;
 }
+
 .custom-upload-box input[type="file"] {
     position: absolute;
     width: 100%;
@@ -24,7 +25,7 @@
 
 
 
-.upload-box{
+.upload-box {
     border: 2px solid #6c757d;
     border-radius: 10px;
     width: 100%;
@@ -38,6 +39,7 @@
     overflow: hidden;
     min-height: 200px;
 }
+
 .custom-upload-box {
     border: 2px solid #6c757d;
     border-radius: 10px;
@@ -50,21 +52,28 @@
     cursor: pointer;
     transition: border-color 0.3s;
     overflow: hidden;
-    
+
 }
+
 .upload-icon svg {
-    max-width: 80%; /* Adjust size as needed */
-    max-height: 80%; /* Adjust size as needed */
+    max-width: 80%;
+    /* Adjust size as needed */
+    max-height: 80%;
+    /* Adjust size as needed */
 }
+
 #preview-image {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover; /* Ensures the image fits within the box */
-    display: none; /* Hide initially */
+    object-fit: cover;
+    /* Ensures the image fits within the box */
+    display: none;
+    /* Hide initially */
 }
+
 .custom-upload-box:hover {
     border-color: #007bff;
 }
@@ -101,6 +110,7 @@
     align-items: center;
     justify-content: space-between;
 }
+
 .custom-input-row .form-group {
     flex: 1;
     margin-right: 10px;
@@ -110,7 +120,8 @@
     margin-right: 0;
 }
 
-body, html {
+body,
+html {
     height: 100%;
 }
 
@@ -148,7 +159,7 @@ body, html {
 
 .form-check-input:checked {
     background-color: #007bff;
-    border-color: #007bff; 
+    border-color: #007bff;
 }
 
 .payment-section {
@@ -174,4 +185,14 @@ body, html {
 .term_condition {
     font-weight: bold;
     color: #e41412;
+}
+
+.remove-image {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    background: none;
+    border: none;
+    background-color: #fff;
+    border-radius: 8px;
 }
