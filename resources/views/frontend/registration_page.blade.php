@@ -24,7 +24,7 @@
 
 
 <!-- resources/views/form.blade.php -->
-<div class="py-4 py-lg-5 mt-2">
+<div class="py-5 mt-5 py-lg-5 mt-2">
     <div class="containter">
         <div class="row">
             <div class="form-wizard p-4 bg-white shadow rounded">
@@ -47,18 +47,18 @@
                                 CreateCustomHindiTextBox('name', '', '', false, 'form-control', '', true)
                             </script>
                         </div>
-                        <div class="row mb-3">
-                            <div class="col-md-4">
+                        <div class="row ">
+                            <div class="col-md-4 mb-3">
                                 <label for="email" class="form-label">ईमेल आईडी</label>
                                 <input type="email" class="form-control" name="email" id="email" placeholder=""
                                     required>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-4 mb-3">
                                 <label for="mobile" class="form-label">मोबाइल नंबर</label>
                                 <input type="tel" class="form-control" pattern="^(?:\+?[0-9]{1,3})?0?[0-9]{10}$"
                                     name="mobile" id="mobile" placeholder="" maxlength="10" required>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-4 mb-3">
                                 <label class="form-label">मांगलिक</label>
                                 <div class="d-flex justify-content-start form-control">
                                     <div class="form-check mr-3">
@@ -78,8 +78,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row mb-3">
-                            <div class="col-md-4">
+                        <div class="row ">
+                            <div class="col-md-4 mb-3">
                                 <!-- <div class="calendar-container"> -->
                                 <label for="doc_date" class="form-label">जन्म तिथि</label>
                                 <input type="text" class="form-control" name="doc_date" id="doc_date"
@@ -87,11 +87,11 @@
                                 <!-- </div> -->
                             </div>
 
-                            <div class="col-md-4">
+                            <div class="col-md-4 mb-3">
                                 <label for="time" class="form-label">समय</label>
                                 <input type="time" class="form-control" id="time" name="time" required>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-4 mb-3">
                                 <label for="ampm" class="form-label">नागरिकता</label>
                                 <select class="form-select form-control" id="citizenship" name="citizenship" required>
                                     <option value="भारतीय">भारतीय</option>
@@ -99,27 +99,27 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="row mb-3">
-                            <div class="col-md-3">
+                        <div class="row ">
+                            <div class="col-md-3 mb-3">
                                 <label for="place_of_birth" class="form-label">जन्म स्थान</label>
                                 <script>
                                     CreateCustomHindiTextBox('place_of_birth', '', '', false, 'form-control', '', true)
                                 </script>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-3 mb-3">
                                 <label for="state" class="form-label">राज्य</label>
                                 <script>
                                     CreateCustomHindiTextBox('state', '', '', false, 'form-control', '', true)
                                 </script>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-3 mb-3">
                                 <label for="gotra_self" class="form-label">गोत्र स्व</label>
                                 <!-- <input type="text" class="form-control" id="gotraSelf" name="gotra_self" required> -->
                                 <script>
                                     CreateCustomHindiTextBox('gotra_self', '', '', false, 'form-control', '', true)
                                 </script>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-3 mb-3">
                                 <label for="gotra_mama" class="form-label">गोत्र मामा</label>
                                 <!-- <input type="text" class="form-control" id="gotraMama" name="gotra_mama" required> -->
                                 <script>
@@ -127,15 +127,15 @@
                                 </script>
                             </div>
                         </div>
-                        <div class="row mb-3">
-                            <div class="col-md-6">
+                        <div class="row ">
+                            <div class="col-md-6 mb-3">
                                 <label for="caste" class="form-label">जाति</label>
                                 <!-- <input type="text" class="form-control" id="caste" name="caste" required> -->
                                 <script>
                                     CreateCustomHindiTextBox('caste', '', '', false, 'form-control', '', true)
                                 </script>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-6 mb-3">
                                 <label for="subcaste" class="form-label">उपजाति</label>
                                 <!-- <input type="text" class="form-control" id="subCaste" name="subcaste" required> -->
                                 <script>
@@ -143,16 +143,16 @@
                                 </script>
                             </div>
                         </div>
-                        <div class="row mb-3">
-                            <div class="col-md-3">
+                        <div class="row ">
+                            <div class="col-md-3 mb-3">
                                 <label for="weight" class="form-label">वज़न</label>
                                 <input type="number" class="form-control" id="weight" name="weight" required>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-3 mb-3">
                                 <label for="height" class="form-label">ऊंचाई</label>
                                 <input type="number" class="form-control" id="height" name="height" step="0.01"  min="0" required>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-3 mb-3">
                                 <label for="complexion" class="form-label">वर्ण</label>
                                 <!-- <input type="text" class="form-control" id="complexion" name="complexion" required> -->
                                 <select class="form-select form-control" id="complexion" name="complexion" required>
@@ -165,7 +165,7 @@
                                     CreateCustomHindiTextBox('complexion', '', '', false, 'form-control', '', true)
                                 </script> -->
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-3 mb-3">
                                 <label class="form-label">श्रेणी</label>
                                 <select class="form-select form-control" id="category" name="category" required>
                                     <option value="अविवाहित">अविवाहित</option>
@@ -175,15 +175,15 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="row mb-3">
-                            <div class="col-md-9">
+                        <div class="row ">
+                            <div class="col-md-9 mb-3">
                                 <label for="residence" class="form-label">निवास</label>
                                 <!-- <input type="text" class="form-control" id="residence" placeholder="house" name="residence" required> -->
                                 <script>
                                     CreateCustomHindiTextBox('residence', '', 'house', false, 'form-control', '', true)
                                 </script>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-3 mb-3">
                                 <label class="form-label">शारीरिक दोष</label>
                                 <div class="d-flex form-control justify-content-start">
                                     <div class="form-check mr-3">
@@ -199,29 +199,29 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row mb-3">
-                            <div class="col-md-3">
+                        <div class="row ">
+                            <div class="col-md-3 mb-3">
                                 <label for="education" class="form-label">शिक्षा</label>
                                 <!-- <input type="text" class="form-control" id="education" name="education" required> -->
                                 <script>
                                     CreateCustomHindiTextBox('education', '', '', false, 'form-control', '', true)
                                 </script>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-3 mb-3">
                                 <label for="occupation" class="form-label">व्यवसाय</label>
                                 <!-- <input type="text" class="form-control" id="occupation" name="occupation" required> -->
                                 <script>
                                     CreateCustomHindiTextBox('occupation', '', '', false, 'form-control', '', true)
                                 </script>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-3 mb-3">
                                 <label for="name_of_org" class="form-label">सस्थान का नाम</label required>
                                 <!-- <input type="text" class="form-control" id="name_of_org" name="name_of_org"> -->
                                 <script>
                                     CreateCustomHindiTextBox('name_of_org', '', '', false, 'form-control', '', false)
                                 </script>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-3 mb-3">
                                 <label for="annual_income" class="form-label">वार्षिक आय</label>
                                 <input type="text" class="form-control" id="annual_income" name="annual_income">
                             </div>
@@ -236,60 +236,60 @@
                     <!-- Step 2 -->
                     <div class="form-step" id="step-2">
                         <h5 style="font-weight: bold; color: #000000;">पारिवारिक विवरण</h5>
-                        <div class="row mb-3">
-                            <div class="col-md-3">
+                        <div class="row ">
+                            <div class="col-md-3 mb-3">
                                 <label for="fathername" class="form-label">पिता का नाम</label>
                                 <!-- <input type="text" class="form-control" id="fatherName" name="father_name" required> -->
                                 <script>
                                     CreateCustomHindiTextBox('fatherName', '', '', false, 'form-control', '', true)
                                 </script>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-3 mb-3">
                                 <label for="mob" class="form-label">मोबाइल नंबर</label>
                                 <input type="tel" class="form-control" id="mob"
                                     pattern="^(?:\+?[0-9]{1,3})?0?[0-9]{10}$" name="father_mobile" maxlength="10"
                                     required>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-3 mb-3">
                                 <label for="work" class="form-label">व्यवसाय</label>
                                 <!-- <input type="text" class="form-control" id="work" name="father_occupation" required> -->
                                 <script>
                                     CreateCustomHindiTextBox('father_occupation', '', '', false, 'form-control', '', true)
                                 </script>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-3 mb-3">
                                 <label for="father_income" class="form-label">वार्षिक आय</label>
                                 <input type="text" class="form-control" id="father_income" name="father_income">
                             </div>
                         </div>
 
-                        <div class="row mb-3">
-                            <div class="col-md-3">
+                        <div class="row ">
+                            <div class="col-md-3 mb-3">
                                 <label for="mothername" class="form-label">माँ का नाम</label>
                                 <!-- <input type="text" class="form-control" id="mothername" required> -->
                                 <script>
                                     CreateCustomHindiTextBox('mothername', '', '', false, 'form-control', '', true)
                                 </script>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-3 mb-3">
                                 <label for="mob2" class="form-label">मोबाइल नंबर</label>
                                 <input type="tel" class="form-control" pattern="^(?:\+?[0-9]{1,3})?0?[0-9]{10}$"
                                     name="mother_mobile" id="mob2" maxlength="10" required>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-3 mb-3">
                                 <label for="mother_occupation" class="form-label">व्यवसाय</label>
                                 <!-- <input type="text" class="form-control" id="work2" name="mobile_occupation"> -->
                                 <script>
                                     CreateCustomHindiTextBox('mother_occupation', '', '', false, 'form-control', '', false)
                                 </script>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-3 mb-3">
                                 <label for="mother_income" class="form-label">वार्षिक आय</label>
                                 <input type="text" class="form-control" id="mother_income" name="mother_income">
                             </div>
 
                         </div>
-                        <div class="row mb-3">
+                        <div class="row ">
                             <div class="col-md-12 mb-3">
                                 <label for="permanent_address" class="form-label">स्थायी पता</label>
                                 <!-- <input type="text" class="form-control" id="addres" name="permanent_address" placeholder=""> -->
@@ -306,29 +306,29 @@
                             </div>
                         </div>
 
-                        <div class="row mb-3">
-                            <div class="col-md-3">
+                        <div class="row ">
+                            <div class="col-md-3 mb-3">
                                 <label for="married-brother" class="form-label">विवाहित भाई</label>
                                 <!-- <input type="text" class="form-control" id="married-brother" name="married_brother"> -->
                                 <script>
                                     CreateCustomHindiTextBox('married_brother', '', '', false, 'form-control', '', false)
                                 </script>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-3 mb-3">
                                 <label for="unmarried-brother" class="form-label">अविवाहित भाई</label>
                                 <!-- <input type="text" class="form-control" id="unmarried-brother" name="unmarried_brother"> -->
                                 <script>
                                     CreateCustomHindiTextBox('unmarried_brother', '', '', false, 'form-control', '', false)
                                 </script>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-3 mb-3">
                                 <label for="married-sister" class="form-label">विवाहित बहन</label>
                                 <!-- <input type="text" class="form-control" id="married-sister" name="married_sister"> -->
                                 <script>
                                     CreateCustomHindiTextBox('married_sister', '', '', false, 'form-control', '', false)
                                 </script>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-3 mb-3">
                                 <label for="unmarried-sister" class="form-label">अविवाहित बहन</label>
                                 <!-- <input type="text" class="form-control" id="unmarried-sister" name="unmarried_sister"> -->
                                 <script>
@@ -338,7 +338,7 @@
 
 
                         </div>
-                        <div class="row mb-3">
+                        <div class="row ">
                             <div class="col-md-12 mb-3">
                                 <label for="contact" class="form-label">सम्पर्क सूत्र</label>
                                 <!-- <input type="text" class="form-control" id="contact" placeholder="" name="contact" required> -->
@@ -387,7 +387,7 @@
                             <div class="row">
 
 
-                                <div class="col-md-12">
+                                <div class="col-md-12 mb-3">
                                     <div class="custom-input-row">
                                         <div class="form-group mb-3">
                                             <label for="payment" class="form-label">भुगतान</label>
@@ -458,7 +458,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-6">
+                                <div class="col-md-6 mb-3">
                                     <label for="payment" class="form-label">
                                         भुगतान रसीद</label>
                                     <div class="upload-box">

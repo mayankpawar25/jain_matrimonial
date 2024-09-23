@@ -2,16 +2,16 @@
     <div class="top-navbar bg-white border-bottom z-1035 py-2 ">
         <div class="container">
             <div class="row align-items-center">
-                <div class="col-lg-6 col">
+                <div class="col-lg-6 col-7">
                     <ul class="list-inline d-flex justify-content-between justify-content-lg-start mb-0">
-                        <li class="list-inline-item">
+                        <!-- <li class="list-inline-item">
                           <a href="{{ get_setting('header_left_quick_link1') }}" class="text-reset opacity-60">
                             <span>{{ get_setting('header_left_quick_link1_text') }}</span>
                           </a>
-                        </li>
-                        <li class="list-inline-item  pr-3 border-right text-reset opacity-60">
+                        </li> -->
+                        <li class="list-inline-item   border-right text-reset opacity-60">
                             <span>{{ translate(' Help Line') }}</span>
-                            <span>{{ get_setting('header_helpline_no') }}</span>
+                            <span><a href="tel:{{ get_setting('header_helpline_no') }}">{{ get_setting('header_helpline_no') }}</a></span>
                         </li>
                     </ul>
                 </div>
