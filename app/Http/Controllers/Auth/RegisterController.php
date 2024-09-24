@@ -322,7 +322,7 @@ class RegisterController extends Controller
         $registration->caste = $request->input('caste');
         $registration->subCaste = $request->input('subcaste');
         $registration->weight = $request->input('weight');
-        $registration->height = $request->input('height');
+        $registration->height = $request->input('height_feet')."'' ".$request->input('height_inches')."'";
         $registration->complexion = $request->input('complexion');
         $registration->category = $request->input('category');
         $registration->residence = $request->input('residence');

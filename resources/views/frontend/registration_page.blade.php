@@ -45,11 +45,11 @@
                                 <div class="d-flex justify-content-start form-control">
                                     <div class="form-check mr-3">
                                         <input class="form-check-input " type="radio" name="marriage" id="yes"
-                                            value="yes" >
+                                            value="yes">
                                         <label class="form-check-label " for="yes">हाँ</label>
                                     </div>
                                     <div class="form-check mr-3">
-                                        <input class="form-check-input" type="radio" name="marriage" id="no" value="no" >
+                                        <input class="form-check-input" type="radio" name="marriage" id="no" value="no">
                                         <label class="form-check-label" for="no">नहीं</label>
                                     </div>
                                     <div class="form-check">
@@ -116,7 +116,11 @@
                             </div>
                             <div class="col-md-3 mb-3">
                                 <label for="height" class="form-label">ऊंचाई</label>
-                                <input type="number" class="form-control" id="height" name="height" step="0.01" min="0" required>
+                                <!-- <input type="number" class="form-control" id="height" name="height" step="0.01" min="0" required> -->
+                                <div class="d-flex">
+                                    <input type="number" class="form-control" id="height-feet" name="height-feet" placeholder="फीट" min="0" required style="margin-right: 5px;">
+                                    <input type="number" class="form-control" id="height-inches" name="height-inches" placeholder="इंच" min="0" max="11" required>
+                                </div>
                             </div>
                             <div class="col-md-3 mb-3">
                                 <label for="complexion" class="form-label">वर्ण</label>
@@ -140,7 +144,7 @@
                         <div class="row ">
                             <div class="col-md-9 mb-3">
                                 <label for="residence" class="form-label">निवास</label>
-                                <input type="text" class="form-control" id="residence"  name="residence" required>
+                                <input type="text" class="form-control" id="residence" name="residence" required>
                             </div>
                             <div class="col-md-3 mb-3">
                                 <label class="form-label">शारीरिक दोष</label>
@@ -285,7 +289,7 @@
                                 <img id="preview-image" src="#" alt="Image Preview" style="display: none; max-width: 100%; height: auto; margin-top: 10px;">
 
                                 <!-- Cross (X) icon as remove button -->
-                                <button id="remove-image" class="remove-image"  style="display:none;" title="Remove Image">
+                                <button id="remove-image" class="remove-image" style="display:none;" title="Remove Image">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="red" class="bi bi-x-circle" viewBox="0 0 16 16">
                                         <path d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zm3.646 9.354a.5.5 0 0 1-.707 0L8 8.707l-2.939 2.939a.5.5 0 1 1-.707-.707l2.939-2.939L4.354 5.354a.5.5 0 1 1 .707-.707L8 7.293l2.939-2.939a.5.5 0 1 1 .707.707L8.707 8l2.939 2.939a.5.5 0 0 1 0 .707z"></path>
                                     </svg>
