@@ -44,6 +44,7 @@ Route::get('/', 'HomeController@index')->name('home');
 // resgistration 
 Route::get('/registration', 'Auth\RegisterController@resgistration')->name('form.resgistration');
 Route::post('/registration-save', 'Auth\RegisterController@resgistration_store')->name('form.resgistration_store');
+Route::get('/registration/success/{id}', 'Auth\RegisterController@registrationSuccess')->name('registration.success');
 
 // fcm
 Route::post('/fcm-token', 'HomeController@updateToken')->name('fcmToken');

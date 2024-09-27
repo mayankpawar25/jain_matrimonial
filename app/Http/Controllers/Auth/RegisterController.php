@@ -265,7 +265,6 @@ class RegisterController extends Controller
     public function resgistration_store(Request $request)
     {
 
-        // dd($request->all());
         // Create necessary directories if they don't exist
         $directories = [
             'img/photos/profile',
@@ -302,11 +301,6 @@ class RegisterController extends Controller
         // Create a new Registration record
         $registration = new Registration();
 
-        // $term_condition = 0;
-        // if($request->trem_condition){
-        //    $term_condition = (int)$request->input('trem_condition');
-        // }
-// dd($term_condition);
         $registration->name = $request->input('name');
         $registration->email = $request->input('email');
         $registration->mobile = $request->input('mobile');
@@ -322,7 +316,7 @@ class RegisterController extends Controller
         $registration->caste = $request->input('caste');
         $registration->subCaste = $request->input('subcaste');
         $registration->weight = $request->input('weight');
-        $registration->height = $request->input('height_feet')."'' ".$request->input('height_inches')."'";
+        $registration->height = $request->input('height_feet') . "'' " . $request->input('height_inches') . "'";
         $registration->complexion = $request->input('complexion');
         $registration->category = $request->input('category');
         $registration->residence = $request->input('residence');
@@ -349,17 +343,25 @@ class RegisterController extends Controller
         $registration->payment_picture = $receipt_pic_path;
         $registration->payment_type = $request->input('payment_type');
         $registration->total_payment = $request->input('total_payment');
-        $registration->is_courier = !isNull($request->input('is_courier')) ? $request->input('is_courier') : 0 ;
+        $registration->is_courier = !isNull($request->input('is_courier')) ? $request->input('is_courier') : 0;
         $registration->payment_mode = $request->input('payment_mode');
         // dd($registration);
 
         // Save the registration record
         $result = $registration->save();
 
+        // if ($result) {
+        //     flash(translate('Registration successful!'))->success();
+        // } else {
+        //     flash(translate('Oops!!! Something went wrong'))->error();
+        // }
+
         if ($result) {
-            flash(translate('Registration successful!'))->success();
+            // Redirect to a new view with the registration ID
+            return redirect()->route('registration.success', ['id' => $registration->id]);
         } else {
             flash(translate('Oops!!! Something went wrong'))->error();
+            return redirect()->route('form.registration');
         }
 
         return redirect()->route('form.resgistration');
@@ -457,6 +459,18 @@ class RegisterController extends Controller
                 $upload->save();
             }
             return '{}';
+        }
+    }
+
+    public function registrationSuccess($id)
+    {
+        $registration = Registration::find($id);
+
+        if ($registration) {
+            return view('frontend.registration_success', compact('registration'));
+        } else {
+            flash(translate('Registration not found!'))->error();
+            return redirect()->route('form.registration');
         }
     }
 }

@@ -4,6 +4,10 @@
             <div class="col-12">
             <img src="{{ static_asset('assets/img/wc-bnr.png') }}" alt="{{ env('APP_NAME') }}" class="w-100" >
             </div>
+            <div class="col-md-12">
+            <h3 class="text-center mb-2 mt-5" style="font-weight: bold; color:fff;  line-height: 1.5;">किसी भी प्रकार की जानकारी हेतु निम्न मोबाइल नंबरो पर संपर्क करें </h3>
+            <h4 class="text-center mb-5"><a href="tel:+916232324246">62323 24246</a>, <a href="tel:+919425348014">94253 48014</a>, <a href="tel:+9194250 22806">94250 22806</a>, <a href="tel:+919926008080">99260 08080</a></h4>
+            </div>
         </div>
         <div class="row mb-4">
             <div class="col-xxl-6 col-xl-7 col-lg-8 col-md-10 text-center mx-auto">

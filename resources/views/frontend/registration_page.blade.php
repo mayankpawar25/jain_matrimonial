@@ -118,8 +118,8 @@
                                 <label for="height" class="form-label">ऊंचाई</label>
                                 <!-- <input type="number" class="form-control" id="height" name="height" step="0.01" min="0" required> -->
                                 <div class="d-flex">
-                                    <input type="number" class="form-control" id="height-feet" name="height-feet" placeholder="फीट" min="0" required style="margin-right: 5px;">
-                                    <input type="number" class="form-control" id="height-inches" name="height-inches" placeholder="इंच" min="0" max="11" required>
+                                    <input type="number" class="form-control mr-1" id="height-feet" name="height_feet" placeholder="फीट" min="0" max="10" required>
+                                    <input type="number" class="form-control" id="height-inches" name="height_inches" placeholder="इंच" min="0" max="11" required>
                                 </div>
                             </div>
                             <div class="col-md-3 mb-3">
@@ -449,6 +449,9 @@
                         </div>
                     </div>
                 </form>
+                <h3 class="text-center mb-2 mt-4" style="font-weight: bold;  line-height: 1.5;">किसी भी प्रकार की जानकारी हेतु निम्न मोबाइल नंबरो पर संपर्क करें </h3>
+                <h4 class="text-center"><a href="tel:+916232324246">62323 24246</a>, <a href="tel:+919425348014">94253 48014</a>, <a href="tel:+9194250 22806">94250 22806</a>, <a href="tel:+919926008080">99260 08080</a></h4>
+
             </div>
         </div>
     </div>
@@ -647,6 +650,33 @@
                         field.classList.add('is-invalid'); // Highlight invalid number
                         if (!firstInvalidField) {
                             firstInvalidField = field; // Capture the first invalid email field
+                        }
+                    } else {
+                        field.classList.remove('is-invalid');
+                    }
+                }
+
+                // Specific validation for height-feet and height-inches fields
+                if (field.id === 'height-feet') {
+                    const feetValue = parseInt(field.value, 10);
+                    if (feetValue < 0 || feetValue > 7) { // Maximum 7 feet
+                        isValid = false;
+                        field.classList.add('is-invalid'); // Highlight invalid feet input
+                        if (!firstInvalidField) {
+                            firstInvalidField = field; // Capture the first invalid field
+                        }
+                    } else {
+                        field.classList.remove('is-invalid');
+                    }
+                }
+
+                if (field.id === 'height-inches') {
+                    const inchesValue = parseInt(field.value, 10);
+                    if (inchesValue < 0 || inchesValue > 11) { // Maximum 11 inches
+                        isValid = false;
+                        field.classList.add('is-invalid'); // Highlight invalid inches input
+                        if (!firstInvalidField) {
+                            firstInvalidField = field; // Capture the first invalid field
                         }
                     } else {
                         field.classList.remove('is-invalid');
