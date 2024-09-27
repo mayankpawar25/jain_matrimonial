@@ -34,6 +34,7 @@ use App\Models\PartnerExpectation;
 use App\Models\PhysicalAttribute;
 use App\Models\ProfileMatch;
 use App\Models\Recidency;
+use App\Models\Registration;
 use App\Models\ReportedUser;
 use App\Models\Setting;
 use App\Models\Shortlist;
@@ -66,7 +67,7 @@ class MemberController extends Controller
         $this->middleware(['permission:show_unapproved_profile_picrures'])->only('unapproved_profile_pictures');
         $this->middleware(['permission:approve_profile_picrures'])->only('approve_profile_image');
         $this->middleware(['permission:approve_member'])->only('show_verification_info');
-        
+        $this->middleware(['permission:registered_members_show'])->only('registered_members');
 
         $this->rules = [
             'first_name'        => ['required', 'max:255'],
@@ -461,6 +462,20 @@ class MemberController extends Controller
     }
 
 
+
+
+    public function registered_members(Request $request)
+    {
+
+        $members = Registration::all();
+      
+        return view('admin.members.registered_members',  ['members' => $members]);
+   
+      
+    }
+
+
+    
     /**
      * Update the specified resource in storage.
      *

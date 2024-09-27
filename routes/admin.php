@@ -54,7 +54,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function 
         Route::get('/member/show-verification-info/{id}', 'show_verification_info')->name('member.show_verification_info');
         Route::get('/member/approve-verification/{id}', 'approve_verification')->name('member.approve_verification');
         Route::get('/member/reject-verification/{id}', 'reject_verification')->name('member.reject_verification');
-
+        Route::get('/registered_members', 'registered_members')->name('registered_members');
 
         // member's package manage
         Route::post('/members/package_info', 'package_info')->name('members.package_info');

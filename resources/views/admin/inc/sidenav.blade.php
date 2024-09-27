@@ -7,9 +7,8 @@
         </div>
         <div class="aiz-side-nav-wrap">
             <div class="px-20px mb-3">
-                <input class="form-control bg-soft-secondary border-0 form-control-sm text-white" type="text"
-                    name="" placeholder="{{ translate('Search in menu') }}" id="menu-search"
-                    onkeyup="menuSearch()">
+                <input class="form-control bg-soft-secondary border-0 form-control-sm text-white" type="text" name=""
+                    placeholder="{{ translate('Search in menu') }}" id="menu-search" onkeyup="menuSearch()">
             </div>
             <ul class="aiz-side-nav-list" id="search-menu">
             </ul>
@@ -171,7 +170,7 @@
                                 </a>
                             </li>
                         @endcan
-                        
+
                         @if(get_setting('member_verification'))
                             @can('manage_member_verification_form')
                                 <li class="aiz-side-nav-item">
@@ -179,6 +178,14 @@
                                         <span class="aiz-side-nav-text">{{ translate('Member Verification Form') }}</span>
                                     </a>
                                 </li>
+                            @endcan
+
+                            @can('deleted_member_show')
+                                <li class="aiz-side-nav-item">
+                                    <a href="{{ route('registered_members') }}" class="aiz-side-nav-link">
+                                        <span class="aiz-side-nav-text">{{ translate('Registered Members') }}</span>
+                                    </a>
+                               </li>
                             @endcan
                         @endif
 
@@ -207,36 +214,34 @@
                 @endcan
 
                 @if (get_setting('wallet_system'))
-                    @if (auth()->user()->can('wallet_transaction_history') ||
-                            auth()->user()->can('offline_wallet_recharge_requests'))
-                        <li class="aiz-side-nav-item">
-                            <a href="#" class="aiz-side-nav-link">
-                                <i class="las la-dollar-sign aiz-side-nav-icon"></i>
-                                <span class="aiz-side-nav-text">{{ translate('Wallet') }}</span>
-                                <span class="aiz-side-nav-arrow"></span>
-                            </a>
-                            <ul class="aiz-side-nav-list level-2">
-                                @can('wallet_transaction_history')
-                                    <li class="aiz-side-nav-item">
-                                        <a href="{{ route('wallet_transaction_history_admin') }}"
-                                            class="aiz-side-nav-link">
-                                            <span
-                                                class="aiz-side-nav-text">{{ translate('Wallet Transaction History') }}</span>
-                                        </a>
-                                    </li>
-                                @endcan
-                                @can('offline_wallet_recharge_requests')
-                                    <li class="aiz-side-nav-item">
-                                        <a href="{{ route('manual_wallet_recharge_requests') }}"
-                                            class="aiz-side-nav-link">
-                                            <span
-                                                class="aiz-side-nav-text">{{ translate('Manual Wallet Recharge Request') }}</span>
-                                        </a>
-                                    </li>
-                                @endcan
-                            </ul>
-                        </li>
-                    @endif
+                                @if (
+                                        auth()->user()->can('wallet_transaction_history') ||
+                                        auth()->user()->can('offline_wallet_recharge_requests')
+                                    )
+                                                <li class="aiz-side-nav-item">
+                                                    <a href="#" class="aiz-side-nav-link">
+                                                        <i class="las la-dollar-sign aiz-side-nav-icon"></i>
+                                                        <span class="aiz-side-nav-text">{{ translate('Wallet') }}</span>
+                                                        <span class="aiz-side-nav-arrow"></span>
+                                                    </a>
+                                                    <ul class="aiz-side-nav-list level-2">
+                                                        @can('wallet_transaction_history')
+                                                            <li class="aiz-side-nav-item">
+                                                                <a href="{{ route('wallet_transaction_history_admin') }}" class="aiz-side-nav-link">
+                                                                    <span class="aiz-side-nav-text">{{ translate('Wallet Transaction History') }}</span>
+                                                                </a>
+                                                            </li>
+                                                        @endcan
+                                                        @can('offline_wallet_recharge_requests')
+                                                            <li class="aiz-side-nav-item">
+                                                                <a href="{{ route('manual_wallet_recharge_requests') }}" class="aiz-side-nav-link">
+                                                                    <span class="aiz-side-nav-text">{{ translate('Manual Wallet Recharge Request') }}</span>
+                                                                </a>
+                                                            </li>
+                                                        @endcan
+                                                    </ul>
+                                                </li>
+                                @endif
                 @endif
 
                 {{-- Happy Stories --}}
@@ -251,33 +256,35 @@
                 @endcan
 
                 <!--Blog System-->
-                @if (auth()->user()->can('show_blog_categories') ||
-                        auth()->user()->can('show_blogs'))
-                    <li class="aiz-side-nav-item">
-                        <a href="#" class="aiz-side-nav-link">
-                            <i class="las la-blog aiz-side-nav-icon"></i>
-                            <span class="aiz-side-nav-text">{{ translate('Blog System') }}</span>
-                            <span class="aiz-side-nav-arrow"></span>
-                        </a>
-                        <ul class="aiz-side-nav-list level-2">
-                            @can('show_blogs')
-                                <li class="aiz-side-nav-item">
-                                    <a href="{{ route('blog.index') }}"
-                                        class="aiz-side-nav-link {{ areActiveRoutes(['blog.create', 'blog.edit']) }}">
-                                        <span class="aiz-side-nav-text">{{ translate('All Posts') }}</span>
-                                    </a>
-                                </li>
-                            @endcan
-                            @can('show_blog_categories')
-                                <li class="aiz-side-nav-item">
-                                    <a href="{{ route('blog-category.index') }}"
-                                        class="aiz-side-nav-link {{ areActiveRoutes(['blog-category.create', 'blog-category.edit']) }}">
-                                        <span class="aiz-side-nav-text">{{ translate('Categories') }}</span>
-                                    </a>
-                                </li>
-                            @endcan
-                        </ul>
-                    </li>
+                @if (
+                        auth()->user()->can('show_blog_categories') ||
+                        auth()->user()->can('show_blogs')
+                    )
+                                    <li class="aiz-side-nav-item">
+                                        <a href="#" class="aiz-side-nav-link">
+                                            <i class="las la-blog aiz-side-nav-icon"></i>
+                                            <span class="aiz-side-nav-text">{{ translate('Blog System') }}</span>
+                                            <span class="aiz-side-nav-arrow"></span>
+                                        </a>
+                                        <ul class="aiz-side-nav-list level-2">
+                                            @can('show_blogs')
+                                                <li class="aiz-side-nav-item">
+                                                    <a href="{{ route('blog.index') }}"
+                                                        class="aiz-side-nav-link {{ areActiveRoutes(['blog.create', 'blog.edit']) }}">
+                                                        <span class="aiz-side-nav-text">{{ translate('All Posts') }}</span>
+                                                    </a>
+                                                </li>
+                                            @endcan
+                                            @can('show_blog_categories')
+                                                <li class="aiz-side-nav-item">
+                                                    <a href="{{ route('blog-category.index') }}"
+                                                        class="aiz-side-nav-link {{ areActiveRoutes(['blog-category.create', 'blog-category.edit']) }}">
+                                                        <span class="aiz-side-nav-text">{{ translate('Categories') }}</span>
+                                                    </a>
+                                                </li>
+                                            @endcan
+                                        </ul>
+                                    </li>
                 @endif
 
                 <!-- Messaging -->
@@ -311,169 +318,173 @@
 
 
                 @if (addon_activation('referral_system'))
-                    @if (auth()->user()->can('set_referral_commission') ||
-                            auth()->user()->can('view_refferal_users') ||
-                            auth()->user()->can('view_refferal_earnings') ||
-                            auth()->user()->can('manage_wallet_withdraw_requests'))
-                        <li class="aiz-side-nav-item">
-                            <a href="#" class="aiz-side-nav-link">
-                                <i class="las la-money-bill aiz-side-nav-icon"></i>
-                                <span class="aiz-side-nav-text">{{ translate('Referral') }}</span>
-                                @if (env('DEMO_MODE') == 'On')
-                                    <span class="badge badge-inline badge-danger">{{ translate('Addon') }}</span>
+                                @if (
+                                        auth()->user()->can('set_referral_commission') ||
+                                        auth()->user()->can('view_refferal_users') ||
+                                        auth()->user()->can('view_refferal_earnings') ||
+                                        auth()->user()->can('manage_wallet_withdraw_requests')
+                                    )
+                                                <li class="aiz-side-nav-item">
+                                                    <a href="#" class="aiz-side-nav-link">
+                                                        <i class="las la-money-bill aiz-side-nav-icon"></i>
+                                                        <span class="aiz-side-nav-text">{{ translate('Referral') }}</span>
+                                                        @if (env('DEMO_MODE') == 'On')
+                                                            <span class="badge badge-inline badge-danger">{{ translate('Addon') }}</span>
+                                                        @endif
+                                                        <span class="aiz-side-nav-arrow"></span>
+                                                    </a>
+                                                    <ul class="aiz-side-nav-list level-2">
+                                                        @can('set_referral_commission')
+                                                            <li class="aiz-side-nav-item">
+                                                                <a href="{{ route('set_referral_commission') }}" class="aiz-side-nav-link">
+                                                                    <span class="aiz-side-nav-text">{{ translate('Set Referral Comission') }}</span>
+                                                                </a>
+                                                            </li>
+                                                        @endcan
+                                                        @can('view_refferal_users')
+                                                            <li class="aiz-side-nav-item">
+                                                                <a href="{{ route('referals.users') }}" class="aiz-side-nav-link">
+                                                                    <span class="aiz-side-nav-text">{{ translate('Referral Users') }}</span>
+                                                                </a>
+                                                            </li>
+                                                        @endcan
+                                                        @can('view_refferal_earnings')
+                                                            <li class="aiz-side-nav-item">
+                                                                <a href="{{ route('referal.earnings_admin') }}" class="aiz-side-nav-link">
+                                                                    <span class="aiz-side-nav-text">{{ translate('Referral Earnings') }}</span>
+                                                                </a>
+                                                            </li>
+                                                        @endcan
+                                                        @can('manage_wallet_withdraw_requests')
+                                                            <li class="aiz-side-nav-item">
+                                                                <a href="{{ route('wallet-withdraw-requests.index') }}" class="aiz-side-nav-link">
+                                                                    <span class="aiz-side-nav-text">{{ translate('Wallet Withdraw Request') }}</span>
+                                                                </a>
+                                                            </li>
+                                                        @endcan
+                                                    </ul>
+                                                </li>
                                 @endif
-                                <span class="aiz-side-nav-arrow"></span>
-                            </a>
-                            <ul class="aiz-side-nav-list level-2">
-                                @can('set_referral_commission')
-                                    <li class="aiz-side-nav-item">
-                                        <a href="{{ route('set_referral_commission') }}" class="aiz-side-nav-link">
-                                            <span
-                                                class="aiz-side-nav-text">{{ translate('Set Referral Comission') }}</span>
-                                        </a>
-                                    </li>
-                                @endcan
-                                @can('view_refferal_users')
-                                    <li class="aiz-side-nav-item">
-                                        <a href="{{ route('referals.users') }}" class="aiz-side-nav-link">
-                                            <span class="aiz-side-nav-text">{{ translate('Referral Users') }}</span>
-                                        </a>
-                                    </li>
-                                @endcan
-                                @can('view_refferal_earnings')
-                                    <li class="aiz-side-nav-item">
-                                        <a href="{{ route('referal.earnings_admin') }}" class="aiz-side-nav-link">
-                                            <span class="aiz-side-nav-text">{{ translate('Referral Earnings') }}</span>
-                                        </a>
-                                    </li>
-                                @endcan
-                                @can('manage_wallet_withdraw_requests')
-                                    <li class="aiz-side-nav-item">
-                                        <a href="{{ route('wallet-withdraw-requests.index') }}"
-                                            class="aiz-side-nav-link">
-                                            <span
-                                                class="aiz-side-nav-text">{{ translate('Wallet Withdraw Request') }}</span>
-                                        </a>
-                                    </li>
-                                @endcan
-                            </ul>
-                        </li>
-                    @endif
                 @endif
 
                 <!-- Support Ticket Addon -->
                 @if (addon_activation('support_tickets'))
-                    @if (auth()->user()->can('show_active_tickets') ||
-                            auth()->user()->can('show_my_tickets') ||
-                            auth()->user()->can('show_solved_tickets') ||
-                            auth()->user()->can('show_support_categories') ||
-                            auth()->user()->can('default_ticket_assigned_agent'))
-                        <li class="aiz-side-nav-item">
-                            <a href="#" class="aiz-side-nav-link">
-                                <i class="las la-people-carry aiz-side-nav-icon"></i>
-                                <span class="aiz-side-nav-text">{{ translate('Support Ticket') }}</span>
-                                @if (env('DEMO_MODE') == 'On')
-                                    <span class="badge badge-inline badge-danger">{{ translate('Addon') }}</span>
-                                @endif
-                                <span class="aiz-side-nav-arrow"></span>
-                            </a>
-                            <ul class="aiz-side-nav-list level-2">
-                                @can('show_active_tickets')
-                                    <li class="aiz-side-nav-item">
-                                        <a href="{{ route('support-tickets.active_ticket') }}"
-                                            class="aiz-side-nav-link {{ areActiveRoutes(['support-tickets.edit']) }}">
-                                            <span class="aiz-side-nav-text">{{ translate('Active Tickets') }}</span>
-                                        </a>
-                                    </li>
-                                @endcan
-                                @can('show_my_tickets')
-                                    <li class="aiz-side-nav-item">
-                                        <a href="{{ route('support-tickets.my_ticket') }}"
-                                            class="aiz-side-nav-link {{ areActiveRoutes(['support-tickets.show']) }}">
-                                            <span class="aiz-side-nav-text">{{ translate('My tickets') }}</span>
-                                        </a>
-                                    </li>
-                                @endcan
-                                @can('show_solved_tickets')
-                                    <li class="aiz-side-nav-item">
-                                        <a href="{{ route('support-tickets.solved_ticket') }}"
-                                            class="aiz-side-nav-link {{ areActiveRoutes(['support-tickets.show']) }}">
-                                            <span class="aiz-side-nav-text">{{ translate('Solved tickets') }}</span>
-                                        </a>
-                                    </li>
-                                @endcan
-                                @if (auth()->user()->can('show_support_categories') ||
-                                        auth()->user()->can('default_ticket_assigned_agent'))
-                                    <li class="aiz-side-nav-item">
-                                        <a href="#" class="aiz-side-nav-link">
-                                            <span class="aiz-side-nav-text">{{ translate('Support Settings') }}</span>
-                                            <span class="aiz-side-nav-arrow"></span>
-                                        </a>
-                                        <ul class="aiz-side-nav-list level-3">
-                                            @can('show_support_categories')
+                                @if (
+                                        auth()->user()->can('show_active_tickets') ||
+                                        auth()->user()->can('show_my_tickets') ||
+                                        auth()->user()->can('show_solved_tickets') ||
+                                        auth()->user()->can('show_support_categories') ||
+                                        auth()->user()->can('default_ticket_assigned_agent')
+                                    )
                                                 <li class="aiz-side-nav-item">
-                                                    <a href="{{ route('support-categories.index') }}"
-                                                        class="aiz-side-nav-link {{ areActiveRoutes(['support-categories.index', 'support-categories.edit']) }}">
-                                                        <span class="aiz-side-nav-text">{{ translate('Category') }}</span>
+                                                    <a href="#" class="aiz-side-nav-link">
+                                                        <i class="las la-people-carry aiz-side-nav-icon"></i>
+                                                        <span class="aiz-side-nav-text">{{ translate('Support Ticket') }}</span>
+                                                        @if (env('DEMO_MODE') == 'On')
+                                                            <span class="badge badge-inline badge-danger">{{ translate('Addon') }}</span>
+                                                        @endif
+                                                        <span class="aiz-side-nav-arrow"></span>
                                                     </a>
+                                                    <ul class="aiz-side-nav-list level-2">
+                                                        @can('show_active_tickets')
+                                                            <li class="aiz-side-nav-item">
+                                                                <a href="{{ route('support-tickets.active_ticket') }}"
+                                                                    class="aiz-side-nav-link {{ areActiveRoutes(['support-tickets.edit']) }}">
+                                                                    <span class="aiz-side-nav-text">{{ translate('Active Tickets') }}</span>
+                                                                </a>
+                                                            </li>
+                                                        @endcan
+                                                        @can('show_my_tickets')
+                                                            <li class="aiz-side-nav-item">
+                                                                <a href="{{ route('support-tickets.my_ticket') }}"
+                                                                    class="aiz-side-nav-link {{ areActiveRoutes(['support-tickets.show']) }}">
+                                                                    <span class="aiz-side-nav-text">{{ translate('My tickets') }}</span>
+                                                                </a>
+                                                            </li>
+                                                        @endcan
+                                                        @can('show_solved_tickets')
+                                                            <li class="aiz-side-nav-item">
+                                                                <a href="{{ route('support-tickets.solved_ticket') }}"
+                                                                    class="aiz-side-nav-link {{ areActiveRoutes(['support-tickets.show']) }}">
+                                                                    <span class="aiz-side-nav-text">{{ translate('Solved tickets') }}</span>
+                                                                </a>
+                                                            </li>
+                                                        @endcan
+                                                        @if (
+                                                                auth()->user()->can('show_support_categories') ||
+                                                                auth()->user()->can('default_ticket_assigned_agent')
+                                                            )
+                                                                            <li class="aiz-side-nav-item">
+                                                                                <a href="#" class="aiz-side-nav-link">
+                                                                                    <span class="aiz-side-nav-text">{{ translate('Support Settings') }}</span>
+                                                                                    <span class="aiz-side-nav-arrow"></span>
+                                                                                </a>
+                                                                                <ul class="aiz-side-nav-list level-3">
+                                                                                    @can('show_support_categories')
+                                                                                        <li class="aiz-side-nav-item">
+                                                                                            <a href="{{ route('support-categories.index') }}"
+                                                                                                class="aiz-side-nav-link {{ areActiveRoutes(['support-categories.index', 'support-categories.edit']) }}">
+                                                                                                <span class="aiz-side-nav-text">{{ translate('Category') }}</span>
+                                                                                            </a>
+                                                                                        </li>
+                                                                                    @endcan
+                                                                                    @can('default_ticket_assigned_agent')
+                                                                                        <li class="aiz-side-nav-item">
+                                                                                            <a href="{{ route('default_ticket_assigned_agent') }}" class="aiz-side-nav-link">
+                                                                                                <span
+                                                                                                    class="aiz-side-nav-text">{{ translate('Default Asssigned Agent') }}</span>
+                                                                                            </a>
+                                                                                        </li>
+                                                                                    @endcan
+                                                                                </ul>
+                                                                            </li>
+                                                        @endif
+                                                    </ul>
                                                 </li>
-                                            @endcan
-                                            @can('default_ticket_assigned_agent')
-                                                <li class="aiz-side-nav-item">
-                                                    <a href="{{ route('default_ticket_assigned_agent') }}"
-                                                        class="aiz-side-nav-link">
-                                                        <span
-                                                            class="aiz-side-nav-text">{{ translate('Default Asssigned Agent') }}</span>
-                                                    </a>
-                                                </li>
-                                            @endcan
-                                        </ul>
-                                    </li>
                                 @endif
-                            </ul>
-                        </li>
-                    @endif
                 @endif
 
                 {{-- OTP addon --}}
                 @if (addon_activation('otp_system'))
-                    @if (auth()->user()->can('manage_sms_templates') ||
-                            auth()->user()->can('manage_otp_credentials') ||
-                            auth()->user()->can('send_sms'))
-                        <li class="aiz-side-nav-item">
-                            <a href="#" class="aiz-side-nav-link">
-                                <i class="las la-phone aiz-side-nav-icon"></i>
-                                <span class="aiz-side-nav-text">{{ translate('OTP System') }}</span>
-                                @if (env('DEMO_MODE') == 'On')
-                                    <span class="badge badge-inline badge-danger">{{ translate('Addon') }}</span>
+                                @if (
+                                        auth()->user()->can('manage_sms_templates') ||
+                                        auth()->user()->can('manage_otp_credentials') ||
+                                        auth()->user()->can('send_sms')
+                                    )
+                                                <li class="aiz-side-nav-item">
+                                                    <a href="#" class="aiz-side-nav-link">
+                                                        <i class="las la-phone aiz-side-nav-icon"></i>
+                                                        <span class="aiz-side-nav-text">{{ translate('OTP System') }}</span>
+                                                        @if (env('DEMO_MODE') == 'On')
+                                                            <span class="badge badge-inline badge-danger">{{ translate('Addon') }}</span>
+                                                        @endif
+                                                        <span class="aiz-side-nav-arrow"></span>
+                                                    </a>
+                                                    <ul class="aiz-side-nav-list level-2">
+                                                        @can('manage_sms_templates')
+                                                            <li class="aiz-side-nav-item">
+                                                                <a href="{{ route('sms-templates.index') }}" class="aiz-side-nav-link">
+                                                                    <span class="aiz-side-nav-text">{{ translate('SMS Templates') }}</span>
+                                                                </a>
+                                                            </li>
+                                                        @endcan
+                                                        @can('manage_otp_credentials')
+                                                            <li class="aiz-side-nav-item">
+                                                                <a href="{{ route('otp_credentials.index') }}" class="aiz-side-nav-link">
+                                                                    <span class="aiz-side-nav-text">{{ translate('Set OTP Credentials') }}</span>
+                                                                </a>
+                                                            </li>
+                                                        @endcan
+                                                        @can('send_sms')
+                                                            <li class="aiz-side-nav-item">
+                                                                <a href="{{ route('bulk_sms.index') }}" class="aiz-side-nav-link">
+                                                                    <span class="aiz-side-nav-text">{{ translate('Send SMS') }}</span>
+                                                                </a>
+                                                            </li>
+                                                        @endcan
+                                                    </ul>
+                                                </li>
                                 @endif
-                                <span class="aiz-side-nav-arrow"></span>
-                            </a>
-                            <ul class="aiz-side-nav-list level-2">
-                                @can('manage_sms_templates')
-                                    <li class="aiz-side-nav-item">
-                                        <a href="{{ route('sms-templates.index') }}" class="aiz-side-nav-link">
-                                            <span class="aiz-side-nav-text">{{ translate('SMS Templates') }}</span>
-                                        </a>
-                                    </li>
-                                @endcan
-                                @can('manage_otp_credentials')
-                                    <li class="aiz-side-nav-item">
-                                        <a href="{{ route('otp_credentials.index') }}" class="aiz-side-nav-link">
-                                            <span class="aiz-side-nav-text">{{ translate('Set OTP Credentials') }}</span>
-                                        </a>
-                                    </li>
-                                @endcan
-                                @can('send_sms')
-                                    <li class="aiz-side-nav-item">
-                                        <a href="{{ route('bulk_sms.index') }}" class="aiz-side-nav-link">
-                                            <span class="aiz-side-nav-text">{{ translate('Send SMS') }}</span>
-                                        </a>
-                                    </li>
-                                @endcan
-                            </ul>
-                        </li>
-                    @endif
                 @endif
 
                 <!-- Uploader Manage -->
@@ -482,7 +493,7 @@
                     <a href="#" class="aiz-side-nav-link">
                         <i class="las la-donate aiz-side-nav-icon"></i>
                         <span class="aiz-side-nav-text">{{ translate('Offline Payment System') }}</span>
-                       
+
                         <span class="aiz-side-nav-arrow"></span>
                     </a>
                     <ul class="aiz-side-nav-list level-2">
@@ -507,192 +518,199 @@
                 @endcan
 
                 <!-- Website Setup -->
-                @if (auth()->user()->can('header') ||
+                @if (
+                        auth()->user()->can('header') ||
                         auth()->user()->can('footer') ||
                         auth()->user()->can('show_all_pages') ||
-                        auth()->user()->can('appearances'))
-                    <li class="aiz-side-nav-item">
-                        <a href="#" class="aiz-side-nav-link">
-                            <i class="las la-desktop aiz-side-nav-icon"></i>
-                            <span class="aiz-side-nav-text">{{ translate('Website Setup') }}</span>
-                            <span class="aiz-side-nav-arrow"></span>
-                        </a>
-                        <ul class="aiz-side-nav-list level-2">
-                            @can('header')
-                                <li class="aiz-side-nav-item">
-                                    <a href="{{ route('website.header_settings') }}" class="aiz-side-nav-link">
-                                        <span class="aiz-side-nav-text">{{ translate('Header') }}</span>
-                                    </a>
-                                </li>
-                            @endcan
-                            @can('footer')
-                                <li class="aiz-side-nav-item">
-                                    <a href="{{ route('website.footer_settings') }}" class="aiz-side-nav-link">
-                                        <span class="aiz-side-nav-text">{{ translate('Footer') }}</span>
-                                    </a>
-                                </li>
-                            @endcan
-                            @can('show_all_pages')
-                                <li class="aiz-side-nav-item">
-                                    <a href="{{ route('custom-pages.index') }}"
-                                        class="aiz-side-nav-link {{ areActiveRoutes(['website.pages', 'custom-pages.create', 'custom-pages.edit']) }}">
-                                        <span class="aiz-side-nav-text">{{ translate('Pages') }}</span>
-                                    </a>
-                                </li>
-                            @endcan
-                            @can('appearances')
-                                <li class="aiz-side-nav-item">
-                                    <a href="{{ route('website.appearances') }}" class="aiz-side-nav-link">
-                                        <span class="aiz-side-nav-text">{{ translate('Appearance') }}</span>
-                                    </a>
-                                </li>
-                            @endcan
-                        </ul>
-                    </li>
+                        auth()->user()->can('appearances')
+                    )
+                                    <li class="aiz-side-nav-item">
+                                        <a href="#" class="aiz-side-nav-link">
+                                            <i class="las la-desktop aiz-side-nav-icon"></i>
+                                            <span class="aiz-side-nav-text">{{ translate('Website Setup') }}</span>
+                                            <span class="aiz-side-nav-arrow"></span>
+                                        </a>
+                                        <ul class="aiz-side-nav-list level-2">
+                                            @can('header')
+                                                <li class="aiz-side-nav-item">
+                                                    <a href="{{ route('website.header_settings') }}" class="aiz-side-nav-link">
+                                                        <span class="aiz-side-nav-text">{{ translate('Header') }}</span>
+                                                    </a>
+                                                </li>
+                                            @endcan
+                                            @can('footer')
+                                                <li class="aiz-side-nav-item">
+                                                    <a href="{{ route('website.footer_settings') }}" class="aiz-side-nav-link">
+                                                        <span class="aiz-side-nav-text">{{ translate('Footer') }}</span>
+                                                    </a>
+                                                </li>
+                                            @endcan
+                                            @can('show_all_pages')
+                                                <li class="aiz-side-nav-item">
+                                                    <a href="{{ route('custom-pages.index') }}"
+                                                        class="aiz-side-nav-link {{ areActiveRoutes(['website.pages', 'custom-pages.create', 'custom-pages.edit']) }}">
+                                                        <span class="aiz-side-nav-text">{{ translate('Pages') }}</span>
+                                                    </a>
+                                                </li>
+                                            @endcan
+                                            @can('appearances')
+                                                <li class="aiz-side-nav-item">
+                                                    <a href="{{ route('website.appearances') }}" class="aiz-side-nav-link">
+                                                        <span class="aiz-side-nav-text">{{ translate('Appearance') }}</span>
+                                                    </a>
+                                                </li>
+                                            @endcan
+                                        </ul>
+                                    </li>
                 @endif
 
 
                 <!-- General settings -->
-                @if (auth()->user()->can('general_settings') ||
+                @if (
+                        auth()->user()->can('general_settings') ||
                         auth()->user()->can('show_languages') ||
                         auth()->user()->can('show_currencies') ||
                         auth()->user()->can('payment_methods') ||
                         auth()->user()->can('smtp_settings') ||
                         auth()->user()->can('email_templates') ||
                         auth()->user()->can('third_party_settings') ||
-                        auth()->user()->can('social_media_login_settings'))
-                    <li class="aiz-side-nav-item">
-                        <a href="#" class="aiz-side-nav-link">
-                            <i class="las la-cog aiz-side-nav-icon"></i>
-                            <span class="aiz-side-nav-text">{{ translate('Settings') }}</span>
-                            <span class="aiz-side-nav-arrow"></span>
-                        </a>
-                        <ul class="aiz-side-nav-list level-2">
-                            @can('general_settings')
-                                <li class="aiz-side-nav-item">
-                                    <a href="{{ route('general_settings') }}" class="aiz-side-nav-link">
-                                        <span class="aiz-side-nav-text">{{ translate('General Settings') }}</span>
-                                    </a>
-                                </li>
-                            @endcan
-                            @can('show_languages')
-                                <li class="aiz-side-nav-item">
-                                    <a href="{{ route('languages.index') }}"
-                                        class="aiz-side-nav-link {{ areActiveRoutes(['languages.show']) }}">
-                                        <span class="aiz-side-nav-text">{{ translate('Language') }}</span>
-                                    </a>
-                                </li>
-                            @endcan
-                            @can('show_currencies')
-                                <li class="aiz-side-nav-item">
-                                    <a href="{{ route('currencies.index') }}" class="aiz-side-nav-link">
-                                        <span class="aiz-side-nav-text">{{ translate('Currency') }}</span>
-                                    </a>
-                                </li>
-                            @endcan
-                            @can('payment_methods')
-                                <li class="aiz-side-nav-item">
-                                    <a href="{{ route('payment_method_settings') }}" class="aiz-side-nav-link">
-                                        <span class="aiz-side-nav-text">{{ translate('Payment Methods') }}</span>
-                                    </a>
-                                </li>
-                            @endcan
-                            @can('smtp_settings')
-                                <li class="aiz-side-nav-item">
-                                    <a href="{{ route('smtp_settings') }}" class="aiz-side-nav-link">
-                                        <span class="aiz-side-nav-text">{{ translate('SMTP Settings') }}</span>
-                                    </a>
-                                </li>
-                            @endcan
-                            @can('email_templates')
-                                <li class="aiz-side-nav-item">
-                                    <a href="{{ route('email-templates.index') }}" class="aiz-side-nav-link">
-                                        <span class="aiz-side-nav-text">{{ translate('Email Templates') }}</span>
-                                    </a>
-                                </li>
-                            @endcan
-                            @can('third_party_settings')
-                                <li class="aiz-side-nav-item">
-                                    <a href="{{ route('third_party_settings') }}" class="aiz-side-nav-link">
-                                        <span class="aiz-side-nav-text">{{ translate('Third Party Settings') }}</span>
-                                    </a>
-                                </li>
-                            @endcan
-                            @can('social_media_login_settings')
-                                <li class="aiz-side-nav-item">
-                                    <a href="{{ route('social_media_login') }}" class="aiz-side-nav-link">
-                                        <span class="aiz-side-nav-text">{{ translate('Social Media Login') }}</span>
-                                    </a>
-                                </li>
-                            @endcan
-                            @can('firebase_push_notification')
-                                <li class="aiz-side-nav-item">
-                                    <a href="{{ route('settings.fcm') }}" class="aiz-side-nav-link">
-                                        <span
-                                            class="aiz-side-nav-text">{{ translate('Firebase Push Notification') }}</span>
-                                    </a>
-                                </li>
-                            @endcan
-                        </ul>
-                    </li>
+                        auth()->user()->can('social_media_login_settings')
+                    )
+                                    <li class="aiz-side-nav-item">
+                                        <a href="#" class="aiz-side-nav-link">
+                                            <i class="las la-cog aiz-side-nav-icon"></i>
+                                            <span class="aiz-side-nav-text">{{ translate('Settings') }}</span>
+                                            <span class="aiz-side-nav-arrow"></span>
+                                        </a>
+                                        <ul class="aiz-side-nav-list level-2">
+                                            @can('general_settings')
+                                                <li class="aiz-side-nav-item">
+                                                    <a href="{{ route('general_settings') }}" class="aiz-side-nav-link">
+                                                        <span class="aiz-side-nav-text">{{ translate('General Settings') }}</span>
+                                                    </a>
+                                                </li>
+                                            @endcan
+                                            @can('show_languages')
+                                                <li class="aiz-side-nav-item">
+                                                    <a href="{{ route('languages.index') }}"
+                                                        class="aiz-side-nav-link {{ areActiveRoutes(['languages.show']) }}">
+                                                        <span class="aiz-side-nav-text">{{ translate('Language') }}</span>
+                                                    </a>
+                                                </li>
+                                            @endcan
+                                            @can('show_currencies')
+                                                <li class="aiz-side-nav-item">
+                                                    <a href="{{ route('currencies.index') }}" class="aiz-side-nav-link">
+                                                        <span class="aiz-side-nav-text">{{ translate('Currency') }}</span>
+                                                    </a>
+                                                </li>
+                                            @endcan
+                                            @can('payment_methods')
+                                                <li class="aiz-side-nav-item">
+                                                    <a href="{{ route('payment_method_settings') }}" class="aiz-side-nav-link">
+                                                        <span class="aiz-side-nav-text">{{ translate('Payment Methods') }}</span>
+                                                    </a>
+                                                </li>
+                                            @endcan
+                                            @can('smtp_settings')
+                                                <li class="aiz-side-nav-item">
+                                                    <a href="{{ route('smtp_settings') }}" class="aiz-side-nav-link">
+                                                        <span class="aiz-side-nav-text">{{ translate('SMTP Settings') }}</span>
+                                                    </a>
+                                                </li>
+                                            @endcan
+                                            @can('email_templates')
+                                                <li class="aiz-side-nav-item">
+                                                    <a href="{{ route('email-templates.index') }}" class="aiz-side-nav-link">
+                                                        <span class="aiz-side-nav-text">{{ translate('Email Templates') }}</span>
+                                                    </a>
+                                                </li>
+                                            @endcan
+                                            @can('third_party_settings')
+                                                <li class="aiz-side-nav-item">
+                                                    <a href="{{ route('third_party_settings') }}" class="aiz-side-nav-link">
+                                                        <span class="aiz-side-nav-text">{{ translate('Third Party Settings') }}</span>
+                                                    </a>
+                                                </li>
+                                            @endcan
+                                            @can('social_media_login_settings')
+                                                <li class="aiz-side-nav-item">
+                                                    <a href="{{ route('social_media_login') }}" class="aiz-side-nav-link">
+                                                        <span class="aiz-side-nav-text">{{ translate('Social Media Login') }}</span>
+                                                    </a>
+                                                </li>
+                                            @endcan
+                                            @can('firebase_push_notification')
+                                                <li class="aiz-side-nav-item">
+                                                    <a href="{{ route('settings.fcm') }}" class="aiz-side-nav-link">
+                                                        <span class="aiz-side-nav-text">{{ translate('Firebase Push Notification') }}</span>
+                                                    </a>
+                                                </li>
+                                            @endcan
+                                        </ul>
+                                    </li>
                 @endif
 
                 <!-- Staff -->
-                @if (auth()->user()->can('show_staffs') ||
-                        auth()->user()->can('show_staff_roles'))
-                    <li class="aiz-side-nav-item">
-                        <a href="#" class="aiz-side-nav-link">
-                            <i class="las la-user-tie aiz-side-nav-icon"></i>
-                            <span class="aiz-side-nav-text">{{ translate('Staffs') }}</span>
-                            <span class="aiz-side-nav-arrow"></span>
-                        </a>
-                        <ul class="aiz-side-nav-list level-2">
-                            @can('show_staffs')
-                                <li class="aiz-side-nav-item">
-                                    <a href="{{ route('staffs.index') }}"
-                                        class="aiz-side-nav-link {{ areActiveRoutes(['staffs.index', 'staffs.create', 'staffs.edit']) }}">
-                                        <span class="aiz-side-nav-text">{{ translate('All staffs') }}</span>
-                                    </a>
-                                </li>
-                            @endcan
-                            @can('show_staff_roles')
-                                <li class="aiz-side-nav-item">
-                                    <a href="{{ route('roles.index') }}"
-                                        class="aiz-side-nav-link {{ areActiveRoutes(['roles.index', 'roles.create', 'roles.edit']) }}">
-                                        <span class="aiz-side-nav-text">{{ translate('Staff Roles') }}</span>
-                                    </a>
-                                </li>
-                            @endcan
-                        </ul>
-                    </li>
+                @if (
+                        auth()->user()->can('show_staffs') ||
+                        auth()->user()->can('show_staff_roles')
+                    )
+                                    <li class="aiz-side-nav-item">
+                                        <a href="#" class="aiz-side-nav-link">
+                                            <i class="las la-user-tie aiz-side-nav-icon"></i>
+                                            <span class="aiz-side-nav-text">{{ translate('Staffs') }}</span>
+                                            <span class="aiz-side-nav-arrow"></span>
+                                        </a>
+                                        <ul class="aiz-side-nav-list level-2">
+                                            @can('show_staffs')
+                                                <li class="aiz-side-nav-item">
+                                                    <a href="{{ route('staffs.index') }}"
+                                                        class="aiz-side-nav-link {{ areActiveRoutes(['staffs.index', 'staffs.create', 'staffs.edit']) }}">
+                                                        <span class="aiz-side-nav-text">{{ translate('All staffs') }}</span>
+                                                    </a>
+                                                </li>
+                                            @endcan
+                                            @can('show_staff_roles')
+                                                <li class="aiz-side-nav-item">
+                                                    <a href="{{ route('roles.index') }}"
+                                                        class="aiz-side-nav-link {{ areActiveRoutes(['roles.index', 'roles.create', 'roles.edit']) }}">
+                                                        <span class="aiz-side-nav-text">{{ translate('Staff Roles') }}</span>
+                                                    </a>
+                                                </li>
+                                            @endcan
+                                        </ul>
+                                    </li>
                 @endif
 
                 <!-- System -->
-                @if (auth()->user()->can('system_update') ||
-                        auth()->user()->can('server_status'))
-                    <li class="aiz-side-nav-item">
-                        <a href="#" class="aiz-side-nav-link">
-                            <i class="las la-dharmachakra aiz-side-nav-icon"></i>
-                            <span class="aiz-side-nav-text">{{ translate('System') }}</span>
-                            <span class="aiz-side-nav-arrow"></span>
-                        </a>
-                        <ul class="aiz-side-nav-list level-2">
-                            @can('system_update')
-                                <li class="aiz-side-nav-item">
-                                    <a href="{{ route('system_update') }}" class="aiz-side-nav-link">
-                                        <span class="aiz-side-nav-text">{{ translate('Update') }}</span>
-                                    </a>
-                                </li>
-                            @endcan
-                            @can('server_status')
-                                <li class="aiz-side-nav-item">
-                                    <a href="{{ route('system_server') }}" class="aiz-side-nav-link">
-                                        <span class="aiz-side-nav-text">{{ translate('Server status') }}</span>
-                                    </a>
-                                </li>
-                            @endcan
-                        </ul>
-                    </li>
+                @if (
+                        auth()->user()->can('system_update') ||
+                        auth()->user()->can('server_status')
+                    )
+                                    <li class="aiz-side-nav-item">
+                                        <a href="#" class="aiz-side-nav-link">
+                                            <i class="las la-dharmachakra aiz-side-nav-icon"></i>
+                                            <span class="aiz-side-nav-text">{{ translate('System') }}</span>
+                                            <span class="aiz-side-nav-arrow"></span>
+                                        </a>
+                                        <ul class="aiz-side-nav-list level-2">
+                                            @can('system_update')
+                                                <li class="aiz-side-nav-item">
+                                                    <a href="{{ route('system_update') }}" class="aiz-side-nav-link">
+                                                        <span class="aiz-side-nav-text">{{ translate('Update') }}</span>
+                                                    </a>
+                                                </li>
+                                            @endcan
+                                            @can('server_status')
+                                                <li class="aiz-side-nav-item">
+                                                    <a href="{{ route('system_server') }}" class="aiz-side-nav-link">
+                                                        <span class="aiz-side-nav-text">{{ translate('Server status') }}</span>
+                                                    </a>
+                                                </li>
+                                            @endcan
+                                        </ul>
+                                    </li>
                 @endif
 
                 <!-- Addon Manager -->
