@@ -66,7 +66,7 @@
                             <th data-breakpoints="md">{{translate('Unmarried Sister')}}</th>
                             <th data-breakpoints="md">{{translate('Contact')}}</th>
                             <th data-breakpoints="md">{{translate('Social Group')}}</th>
-                            <th data-breakpoints="md">{{translate('Payment Picture')}}</th>
+                           
                             <th data-breakpoints="md">{{translate('Payment Type')}}</th>
                             <th data-breakpoints="md">{{translate('Total Payment')}}</th>
                             <th data-breakpoints="md">{{translate('Is Courier')}}</th>
@@ -126,7 +126,7 @@
                                 <td>{{ $member->unmarried_sister }}</td>
                                 <td>{{ $member->contact }}</td>
                                 <td>{{ $member->social_group }}</td>
-                                <td>{{ $member->payment_picture }}</td>
+                                
                                 <td>{{ $member->payment_type }}</td>
                                 <td>{{ $member->total_payment }}</td>
                                 <td>{{ ($member->is_courier == '1') ? "Yes" : "No" }}</td>
