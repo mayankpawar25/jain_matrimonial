@@ -84,7 +84,8 @@
                         <div class="row ">
                             <div class="col-md-3 mb-3">
                                 <label for="place_of_birth" class="form-label">जन्म स्थान</label>
-                                <input type="text" class="form-control" id="place_of_birth" name="place_of_birth" required>
+                                <input type="text" class="form-control" id="place_of_birth" name="place_of_birth"
+                                    required>
                             </div>
                             <div class="col-md-3 mb-3">
                                 <label for="state" class="form-label">राज्य</label>
@@ -118,8 +119,10 @@
                                 <label for="height" class="form-label">ऊंचाई</label>
                                 <!-- <input type="number" class="form-control" id="height" name="height" step="0.01" min="0" required> -->
                                 <div class="d-flex">
-                                    <input type="number" class="form-control mr-1" id="height-feet" name="height_feet" placeholder="फीट" min="0" max="10" required>
-                                    <input type="number" class="form-control" id="height-inches" name="height_inches" placeholder="इंच" min="0" max="11" required>
+                                    <input type="number" class="form-control mr-1" id="height-feet" name="height_feet"
+                                        placeholder="फीट" min="0" max="10" required>
+                                    <input type="number" class="form-control" id="height-inches" name="height_inches"
+                                        placeholder="इंच" min="0" max="11" required>
                                 </div>
                             </div>
                             <div class="col-md-3 mb-3">
@@ -234,7 +237,8 @@
                         <div class="row ">
                             <div class="col-md-12 mb-3">
                                 <label for="permanent_address" class="form-label">स्थायी पता</label>
-                                <input type="text" class="form-control" id="addres" name="permanent_address" placeholder="">
+                                <input type="text" class="form-control" id="addres" name="permanent_address"
+                                    placeholder="">
                             </div>
                             <div class="col-md-12 mb-3">
                                 <label for="sibling" class="form-label">भाई /बहन का विवरण</label>
@@ -263,35 +267,44 @@
                         <div class="row ">
                             <div class="col-md-12 mb-3">
                                 <label for="contact" class="form-label">सम्पर्क सूत्र</label>
-                                <input type="text" class="form-control" id="contact" placeholder="" name="contact" required>
+                                <input type="text" class="form-control" id="contact" placeholder="" name="contact"
+                                    required>
                             </div>
                         </div>
                         <div class="row mb-3">
                             <div class="col-md-12 mb-3">
                                 <label for="social-group" class="form-label">सोशल ग्रुप से सम्बन्धता हे? तो ग्रूप का
                                     नाम</label>
-                                <input type="text" class="form-control" id="social-group" name="social_group" placeholder="">
+                                <input type="text" class="form-control" id="social-group" name="social_group"
+                                    placeholder="">
                             </div>
                         </div>
 
                         <div class="container my-5">
                             <label for="payment" class="form-label">फोटो अपलोड</label>
                             <div class="custom-upload-box" style="position: relative;">
-                                <input type="file" accept="image/*" class="form-control" id="image-input" name="profile_picture" required>
+                                <input type="file" accept="image/*" class="form-control" id="image-input"
+                                    name="profile_picture" required>
                                 <div class="custom-upload-icon">
                                     <svg height="50" width="50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round">
                                         <path d="M12 3v12"></path>
                                         <path d="M6 9l6-6 6 6"></path>
                                         <path d="M6 21h12a2 2 0 0 0 2-2v-6H4v6a2 2 0 0 0 2 2z"></path>
                                     </svg>
                                 </div>
-                                <img id="preview-image" src="#" alt="Image Preview" style="display: none; max-width: 100%; height: auto; margin-top: 10px;">
+                                <img id="preview-image" src="#" alt="Image Preview"
+                                    style="display: none; max-width: 100%; height: auto; margin-top: 10px;">
 
                                 <!-- Cross (X) icon as remove button -->
-                                <button id="remove-image" class="remove-image" style="display:none;" title="Remove Image">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="red" class="bi bi-x-circle" viewBox="0 0 16 16">
-                                        <path d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zm3.646 9.354a.5.5 0 0 1-.707 0L8 8.707l-2.939 2.939a.5.5 0 1 1-.707-.707l2.939-2.939L4.354 5.354a.5.5 0 1 1 .707-.707L8 7.293l2.939-2.939a.5.5 0 1 1 .707.707L8.707 8l2.939 2.939a.5.5 0 0 1 0 .707z"></path>
+                                <button type="button" id="remove-image" class="remove-image" style="display:none;"
+                                    title="Remove Image">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="red"
+                                        class="bi bi-x-circle" viewBox="0 0 16 16">
+                                        <path
+                                            d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zm3.646 9.354a.5.5 0 0 1-.707 0L8 8.707l-2.939 2.939a.5.5 0 1 1-.707-.707l2.939-2.939L4.354 5.354a.5.5 0 1 1 .707-.707L8 7.293l2.939-2.939a.5.5 0 1 1 .707.707L8.707 8l2.939 2.939a.5.5 0 0 1 0 .707z">
+                                        </path>
                                     </svg>
                                 </button>
                             </div>
@@ -376,22 +389,27 @@
                                 <div class="col-md-6 mb-3">
                                     <label for="payment" class="form-label">भुगतान रसीद</label>
                                     <div class="upload-box">
-                                        <input type="file" accept="image/*" class="form-control" id="image-inputs" name="payment_picture" required>
+                                        <input type="file" accept="image/*" class="form-control" id="image-inputs"
+                                            name="payment_picture" required>
                                         <div class="upload-icon">
-                                            <svg height="50" width="50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-                                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                                stroke-linejoin="round">
+                                            <svg height="50" width="50" xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                                stroke-linecap="round" stroke-linejoin="round">
                                                 <path d="M12 3v12"></path>
                                                 <path d="M6 9l6-6 6 6"></path>
                                                 <path d="M6 21h12a2 2 0 0 0 2-2v-6H4v6a2 2 0 0 0 2 2z"></path>
                                             </svg>
                                         </div>
-                                        <img id="preview-images" src="#" alt="Image Preview" style="display: none; max-width: 100%; height: auto; margin-top: 10px;">
+                                        <img id="preview-images" src="#" alt="Image Preview"
+                                            style="display: none; max-width: 100%; height: auto; margin-top: 10px;">
                                         <!-- Add a cross (X) icon for removing the uploaded image -->
-                                        <button id="remove-images" class="remove-image" style="display:none;" title="Remove Image">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="red" class="bi bi-x-circle"
-                                                viewBox="0 0 16 16">
-                                                <path d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zm3.646 9.354a.5.5 0 0 1-.707 0L8 8.707l-2.939 2.939a.5.5 0 1 1-.707-.707l2.939-2.939L4.354 5.354a.5.5 0 1 1 .707-.707L8 7.293l2.939-2.939a.5.5 0 1 1 .707.707L8.707 8l2.939 2.939a.5.5 0 0 1 0 .707z"></path>
+                                        <button type="button" id="remove-images" class="remove-image"
+                                            style="display:none;" title="Remove Image">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="red"
+                                                class="bi bi-x-circle" viewBox="0 0 16 16">
+                                                <path
+                                                    d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zm3.646 9.354a.5.5 0 0 1-.707 0L8 8.707l-2.939 2.939a.5.5 0 1 1-.707-.707l2.939-2.939L4.354 5.354a.5.5 0 1 1 .707-.707L8 7.293l2.939-2.939a.5.5 0 1 1 .707.707L8.707 8l2.939 2.939a.5.5 0 0 1 0 .707z">
+                                                </path>
                                             </svg>
                                         </button>
                                     </div>
@@ -422,7 +440,8 @@
 
                                     <p> <br>
                                         <label>
-                                            <input type="checkbox" value="1" name="trem_condition" class="mr-2" required /> <strong>उक्त वर्णित सत्यापन
+                                            <input type="checkbox" value="1" name="trem_condition" class="mr-2"
+                                                required /> <strong>उक्त वर्णित सत्यापन
                                                 मैनें पूर्णतः पढ़ व समझ लिया
                                                 हैं</strong>
                                         </label>
@@ -449,8 +468,11 @@
                         </div>
                     </div>
                 </form>
-                <h3 class="text-center mb-2 mt-4" style="font-weight: bold;  line-height: 1.5;">किसी भी प्रकार की जानकारी हेतु निम्न मोबाइल नंबरो पर संपर्क करें </h3>
-                <h4 class="text-center"><a href="tel:+916232324246">62323 24246</a>, <a href="tel:+919425348014">94253 48014</a>, <a href="tel:+9194250 22806">94250 22806</a>, <a href="tel:+919926008080">99260 08080</a></h4>
+                <h3 class="text-center mb-2 mt-4" style="font-weight: bold;  line-height: 1.5;">किसी भी प्रकार की
+                    जानकारी हेतु निम्न मोबाइल नंबरो पर संपर्क करें </h3>
+                <h4 class="text-center"><a href="tel:+916232324246">62323 24246</a>, <a href="tel:+919425348014">94253
+                        48014</a>, <a href="tel:+9194250 22806">94250 22806</a>, <a href="tel:+919926008080">99260
+                        08080</a></h4>
 
             </div>
         </div>
@@ -483,76 +505,139 @@
 
 
     // Handling for 'फोटो अपलोड' section
+    // const imageInputPhoto = document.getElementById('image-input');
+    // const previewImagePhoto = document.getElementById('preview-image');
+    // const removeButtonPhoto = document.getElementById('remove-image');
+
+    // imageInputPhoto.addEventListener('change', function(event) {
+    //     const file = event.target.files[0];
+    //     if (file) {
+    //         const reader = new FileReader();
+    //         reader.onload = function(e) {
+    //             previewImagePhoto.src = e.target.result;
+    //             previewImagePhoto.style.display = 'block'; // Show the image
+    //             removeButtonPhoto.style.display = 'inline-block'; // Show the remove button
+    //         };
+    //         reader.readAsDataURL(file);
+    //         imageInputPhoto.disabled = true; // Disable the input field after upload
+    //     }
+    // });
+
+    // removeButtonPhoto.addEventListener('click', function() {
+    //     previewImagePhoto.src = '#';
+    //     previewImagePhoto.style.display = 'none';
+    //     imageInputPhoto.value = '';
+    //     imageInputPhoto.disabled = false;
+    //     removeButtonPhoto.style.display = 'none';
+    // });
+
+
+    // // second image payment upload
+
+    // document.addEventListener('DOMContentLoaded', function() {
+    //     const imageInput = document.getElementById('image-inputs');
+    //     const previewImage = document.getElementById('preview-images');
+    //     const removeButton = document.getElementById('remove-images'); // Select the remove button
+
+    //     imageInput.addEventListener('change', function(event) {
+    //         const file = event.target.files[0];
+    //         if (file) {
+    //             const reader = new FileReader();
+    //             reader.onload = function(e) {
+    //                 previewImage.src = e.target.result;
+    //                 previewImage.style.display = 'block'; // Show the image
+    //                 removeButton.style.display = 'inline-block'; // Show the remove button (cross icon)
+    //             };
+    //             reader.readAsDataURL(file);
+
+    //             // Disable the input field after an image is uploaded
+    //             imageInput.disabled = true;
+    //         } else {
+    //             previewImage.src = '#';
+    //             previewImage.style.display = 'none'; // Hide the image if no file is selected
+    //             removeButton.style.display = 'none'; // Hide the remove button
+    //         }
+    //     });
+
+    //     // Add functionality for the remove button (cross icon)
+    //     removeButton.addEventListener('click', function() {
+    //         // Clear the image preview
+    //         previewImage.src = '#';
+    //         previewImage.style.display = 'none';
+
+    //         // Enable the file input again
+    //         imageInput.value = ''; // Reset the file input value
+    //         imageInput.disabled = false; // Enable the file input
+
+    //         // Hide the remove button
+    //         removeButton.style.display = 'none';
+    //     });
+    // });
+
+
+    // updated script
+    // Handling for 'फोटो अपलोड' section
     const imageInputPhoto = document.getElementById('image-input');
     const previewImagePhoto = document.getElementById('preview-image');
     const removeButtonPhoto = document.getElementById('remove-image');
 
-    imageInputPhoto.addEventListener('change', function(event) {
+    imageInputPhoto.addEventListener('change', function (event) {
         const file = event.target.files[0];
         if (file) {
             const reader = new FileReader();
-            reader.onload = function(e) {
+            reader.onload = function (e) {
                 previewImagePhoto.src = e.target.result;
                 previewImagePhoto.style.display = 'block'; // Show the image
                 removeButtonPhoto.style.display = 'inline-block'; // Show the remove button
             };
             reader.readAsDataURL(file);
-            imageInputPhoto.disabled = true; // Disable the input field after upload
+        } else {
+            // Reset the preview if no file is selected
+            resetPreview(previewImagePhoto, removeButtonPhoto);
         }
     });
 
-    removeButtonPhoto.addEventListener('click', function() {
-        previewImagePhoto.src = '#';
-        previewImagePhoto.style.display = 'none';
-        imageInputPhoto.value = '';
-        imageInputPhoto.disabled = false;
-        removeButtonPhoto.style.display = 'none';
+    // Remove button functionality for 'फोटो अपलोड' section
+    removeButtonPhoto.addEventListener('click', function () {
+        resetPreview(previewImagePhoto, removeButtonPhoto);
+        imageInputPhoto.value = ''; // Reset the file input value
     });
 
+    // Function to reset image preview and remove button display
+    function resetPreview(previewImage, removeButton) {
+        previewImage.src = '#'; // Reset the image source
+        previewImage.style.display = 'none'; // Hide the image
+        removeButton.style.display = 'none'; // Hide the remove button
+    }
 
-    // second image payment upload
-
-    document.addEventListener('DOMContentLoaded', function() {
+    // Second image payment upload
+    document.addEventListener('DOMContentLoaded', function () {
         const imageInput = document.getElementById('image-inputs');
         const previewImage = document.getElementById('preview-images');
-        const removeButton = document.getElementById('remove-images'); // Select the remove button
+        const removeButton = document.getElementById('remove-images');
 
-        imageInput.addEventListener('change', function(event) {
+        imageInput.addEventListener('change', function (event) {
             const file = event.target.files[0];
             if (file) {
                 const reader = new FileReader();
-                reader.onload = function(e) {
+                reader.onload = function (e) {
                     previewImage.src = e.target.result;
                     previewImage.style.display = 'block'; // Show the image
-                    removeButton.style.display = 'inline-block'; // Show the remove button (cross icon)
+                    removeButton.style.display = 'inline-block'; // Show the remove button
                 };
                 reader.readAsDataURL(file);
-
-                // Disable the input field after an image is uploaded
-                imageInput.disabled = true;
             } else {
-                previewImage.src = '#';
-                previewImage.style.display = 'none'; // Hide the image if no file is selected
-                removeButton.style.display = 'none'; // Hide the remove button
+                // Reset the preview if no file is selected
+                resetPreview(previewImage, removeButton);
             }
         });
 
-        // Add functionality for the remove button (cross icon)
-        removeButton.addEventListener('click', function() {
-            // Clear the image preview
-            previewImage.src = '#';
-            previewImage.style.display = 'none';
-
-            // Enable the file input again
+        // Remove button functionality for payment image upload
+        removeButton.addEventListener('click', function () {
+            resetPreview(previewImage, removeButton);
             imageInput.value = ''; // Reset the file input value
-            imageInput.disabled = false; // Enable the file input
-
-            // Hide the remove button
-            removeButton.style.display = 'none';
         });
     });
-
-
 
 
     // Handle payment selection
@@ -704,13 +789,13 @@
         }
     }
 
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
         const form = document.getElementById('registration-form');
         const submitButton = document.getElementById('submitButton');
         const loader = document.getElementById('loader');
         const buttonText = document.getElementById('buttonText');
 
-        form.addEventListener('submit', function(event) {
+        form.addEventListener('submit', function (event) {
             event.preventDefault(); // Prevent default form submission
 
             // Disable the submit button and show the loader
@@ -725,9 +810,9 @@
     });
 
 
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
         document.getElementById('bank_transfer_div').style.display = 'none';
-        document.getElementById('payment_mode').addEventListener('change', function() {
+        document.getElementById('payment_mode').addEventListener('change', function () {
             var paymentMode = this.value;
 
             // Hide both divs initially

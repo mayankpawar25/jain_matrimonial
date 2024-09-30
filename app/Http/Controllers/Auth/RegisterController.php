@@ -281,6 +281,7 @@ class RegisterController extends Controller
         $fileFields = ['profile_picture', 'payment_picture'];
         $profile_pic_path = '';
         $receipt_pic_path = '';
+        
         foreach ($fileFields as $field) {
             if ($request->hasFile($field)) {
                 $file = $request->file($field);
@@ -300,7 +301,7 @@ class RegisterController extends Controller
 
         // Create a new Registration record
         $registration = new Registration();
-
+        
         $registration->name = $request->input('name');
         $registration->email = $request->input('email');
         $registration->mobile = $request->input('mobile');
@@ -343,9 +344,8 @@ class RegisterController extends Controller
         $registration->payment_picture = $receipt_pic_path;
         $registration->payment_type = $request->input('payment_type');
         $registration->total_payment = $request->input('total_payment');
-        $registration->is_courier = !isNull($request->input('is_courier')) ? $request->input('is_courier') : 0;
+        $registration->is_courier = $request->input('is_courier') == null ? 0 : $request->input('is_courier');
         $registration->payment_mode = $request->input('payment_mode');
-        // dd($registration);
 
         // Save the registration record
         $result = $registration->save();

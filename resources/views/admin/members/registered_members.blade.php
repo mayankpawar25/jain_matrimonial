@@ -28,7 +28,7 @@
                         <tr>
                             <th>#</th>
                             <th data-breakpoints="md">{{translate('ID')}}</th>
-                            <!-- <th>{{translate('Image')}}</th> -->
+                            <th>{{translate('Image')}}</th>
                             <th data-breakpoints="md">{{translate('Name')}}</th>
                             <th data-breakpoints="md">{{translate('Email')}}</th>
                             <th data-breakpoints="md">{{translate('Mobile No.')}}</th>
@@ -71,6 +71,7 @@
                             <th data-breakpoints="md">{{translate('Total Payment')}}</th>
                             <th data-breakpoints="md">{{translate('Is Courier')}}</th>
                             <th data-breakpoints="md">{{translate('Payment Mode')}}</th>
+                            <th>{{translate('Payment Picture')}}</th>
                
 
                         </tr>
@@ -80,13 +81,14 @@
                             <tr>
                                 <td>{{ $key + 1 }}</td>
                                 <td>{{ $member->id }}</td>
-                                <!-- <td>
-                                    @if(uploaded_asset($member->profile_picture) != null)
-                                        <img class="img-md" src="{{ uploaded_asset($member->profile_picture) }}" height="45px"  alt="{{translate('photo')}}">
+                                <td>
+                                
+                                    @if(static_asset($member->profile_picture) != null && !empty($member->profile_picture))
+                                        <img class="img-md" src="{{ static_asset($member->profile_picture) }}" height="45px"  alt="{{translate('photo')}}">
                                     @else
                                         <img class="img-md" src="{{ static_asset('assets/img/avatar-place.png') }}" height="45px"  alt="{{translate('photo')}}">
                                     @endif
-                                </td> -->
+                                </td>
                                 <td>{{ $member->name }}</td>
                                 <td>{{ $member->email }}</td>
                                 <td>{{ $member->mobile }}</td>
@@ -127,9 +129,16 @@
                                 <td>{{ $member->payment_picture }}</td>
                                 <td>{{ $member->payment_type }}</td>
                                 <td>{{ $member->total_payment }}</td>
-                                <td>{{ $member->is_courier }}</td>
+                                <td>{{ ($member->is_courier == '1') ? "Yes" : "No" }}</td>
                                 <td>{{ $member->payment_mode }}</td>
-                             
+                                <td>
+                                
+                                @if(static_asset($member->payment_picture) != null && !empty($member->payment_picture))
+                                    <img class="img-md" src="{{ static_asset($member->payment_picture) }}" height="45px"  alt="{{translate('photo')}}">
+                                @else
+                                    <img class="img-md" src="{{ static_asset('assets/img/avatar-place.png') }}" height="45px"  alt="{{translate('photo')}}">
+                                @endif
+                            </td>
 
                             </tr>
                             @endforeach       
