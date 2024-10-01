@@ -66,12 +66,12 @@
                             <th data-breakpoints="md">{{translate('Unmarried Sister')}}</th>
                             <th data-breakpoints="md">{{translate('Contact')}}</th>
                             <th data-breakpoints="md">{{translate('Social Group')}}</th>
-                           
                             <th data-breakpoints="md">{{translate('Payment Type')}}</th>
                             <th data-breakpoints="md">{{translate('Total Payment')}}</th>
                             <th data-breakpoints="md">{{translate('Is Courier')}}</th>
                             <th data-breakpoints="md">{{translate('Payment Mode')}}</th>
                             <th>{{translate('Payment Picture')}}</th>
+                           
                
 
                         </tr>
@@ -82,13 +82,13 @@
                                 <td>{{ $key + 1 }}</td>
                                 <td>{{ $member->id }}</td>
                                 <td>
-                                
                                     @if(static_asset($member->profile_picture) != null && !empty($member->profile_picture))
-                                        <img class="img-md" src="{{ static_asset($member->profile_picture) }}" height="45px"  alt="{{translate('photo')}}">
+                                            <img class="img-md" src="{{ static_asset($member->profile_picture) }}" height="45px" alt="{{ translate('photo') }}"data-toggle="modal" data-target="#imageModal" onclick="showImage('{{ static_asset($member->profile_picture) }}')">
                                     @else
-                                        <img class="img-md" src="{{ static_asset('assets/img/avatar-place.png') }}" height="45px"  alt="{{translate('photo')}}">
+                                            <img class="img-md" src="{{ static_asset('assets/img/avatar-place.png') }}" height="45px" alt="{{ translate('photo') }}" data-toggle="modal" data-target="#imageModal" onclick="showImage('{{ static_asset('assets/img/avatar-place.png') }}')">
                                     @endif
                                 </td>
+
                                 <td>{{ $member->name }}</td>
                                 <td>{{ $member->email }}</td>
                                 <td>{{ $member->mobile }}</td>
@@ -132,17 +132,17 @@
                                 <td>{{ ($member->is_courier == '1') ? "Yes" : "No" }}</td>
                                 <td>{{ $member->payment_mode }}</td>
                                 <td>
-                                
-                                @if(static_asset($member->payment_picture) != null && !empty($member->payment_picture))
-                                    <img class="img-md" src="{{ static_asset($member->payment_picture) }}" height="45px"  alt="{{translate('photo')}}">
-                                @else
-                                    <img class="img-md" src="{{ static_asset('assets/img/avatar-place.png') }}" height="45px"  alt="{{translate('photo')}}">
-                                @endif
-                            </td>
+                                    @if(static_asset($member->payment_picture) != null && !empty($member->payment_picture))
+                                        <img class="img-md" src="{{ static_asset($member->payment_picture) }}" height="45px"  alt="{{translate('photo')}}"data-toggle="modal" data-target="#imageModal" onclick="showImage('{{ static_asset($member->payment_picture) }}')">
+                                    @else
+                                        <img class="img-md" src="{{ static_asset('assets/img/avatar-place.png') }}" height="45px"  alt="{{translate('photo')}}"data-toggle="modal" data-target="#imageModal" onclick="showImage('{{ static_asset('assets/img/avatar-place.png') }}')">
+                                    @endif
+                                </td>
 
                             </tr>
                             @endforeach       
-                          
+                       
+
                     </tbody>
                 </table>
           
@@ -150,7 +150,27 @@
         </div>
     </div>
 </div>
-
+   <!-- Image Modal -->
+   <div class="modal fade" id="imageModal" tabindex="-1" role="dialog" aria-labelledby="imageModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <!-- <h5 class="modal-title" id="imageModalLabel">{{ translate('Image') }}</h5> -->
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <img id="modalImage" src="" class="img-fluid w-100" alt="{{ translate('image') }}">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+<script>
+function showImage(src) {
+    document.getElementById('modalImage').src = src;
+}
+</script>
 
 
 @endsection
