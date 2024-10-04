@@ -79,7 +79,7 @@
                     <tbody>
                         @foreach($members as $key => $member)
                             <tr>
-                                <td>{{ $key + 1 }}</td>
+                                <td>{{ ($key + 1) + ($members->currentPage() - 1)*$members->perPage() }}</td>
                                 <td>{{ $member->id }}</td>
                                 <td>
                                     @if(static_asset($member->profile_picture) != null && !empty($member->profile_picture))
@@ -145,7 +145,9 @@
 
                     </tbody>
                 </table>
-          
+                <div class="aiz-pagination">
+                    {{ $members->appends(request()->input())->links() }}
+                </div>
             </div> 
         </div>
     </div>
@@ -173,4 +175,12 @@ function showImage(src) {
 </script>
 
 
+@endsection
+
+@section('script')
+<script type="text/javascript">
+    function sort_members(el){
+        $('#sort_members').submit();
+    }
+</script>
 @endsection

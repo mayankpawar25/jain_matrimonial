@@ -70,33 +70,33 @@ class MemberController extends Controller
         $this->middleware(['permission:registered_members_show'])->only('registered_members');
 
         $this->rules = [
-            'first_name'        => ['required', 'max:255'],
-            'last_name'         => ['required', 'max:255'],
-            'email'             => ['max:255', 'unique:users,email'],
-            'gender'            => ['required'],
-            'date_of_birth'     => ['required'],
-            'on_behalf'         => ['required'],
-            'package'           => ['required'],
-            'password'          => ['min:8', 'required_with:confirm_password', 'same:confirm_password'],
-            'confirm_password'  => ['min:8'],
+            'first_name' => ['required', 'max:255'],
+            'last_name' => ['required', 'max:255'],
+            'email' => ['max:255', 'unique:users,email'],
+            'gender' => ['required'],
+            'date_of_birth' => ['required'],
+            'on_behalf' => ['required'],
+            'package' => ['required'],
+            'password' => ['min:8', 'required_with:confirm_password', 'same:confirm_password'],
+            'confirm_password' => ['min:8'],
 
         ];
 
         $this->messages = [
-            'first_name.required'       => translate('First name is required'),
-            'first_name.max'            => translate('Max 255 characters'),
-            'last_name.required'        => translate('First name is required'),
-            'last_name.max'             => translate('Max 255 characters'),
-            'email.max'                 => translate('Max 255 characters'),
-            'email.unique'              => translate('Email Should be unique'),
-            'gender.required'           => translate('Gender is required'),
-            'date_of_birth.required'    => translate('Gender is required'),
-            'on_behalf.required'        => translate('On behalf is required'),
-            'package.required'          => translate('Package is required'),
-            'password.min'              => translate('Minimum 8 characters'),
-            'password.required_with'    => translate('Password and Confirm password are required'),
-            'password.same'             => translate('Password and Confirmed password did not matched'),
-            'confirm_password.min'      => translate('Minimum 8 characters'),
+            'first_name.required' => translate('First name is required'),
+            'first_name.max' => translate('Max 255 characters'),
+            'last_name.required' => translate('First name is required'),
+            'last_name.max' => translate('Max 255 characters'),
+            'email.max' => translate('Max 255 characters'),
+            'email.unique' => translate('Email Should be unique'),
+            'gender.required' => translate('Gender is required'),
+            'date_of_birth.required' => translate('Gender is required'),
+            'on_behalf.required' => translate('On behalf is required'),
+            'package.required' => translate('Package is required'),
+            'password.min' => translate('Minimum 8 characters'),
+            'password.required_with' => translate('Password and Confirm password are required'),
+            'password.same' => translate('Password and Confirmed password did not matched'),
+            'confirm_password.min' => translate('Minimum 8 characters'),
         ];
     }
 
@@ -110,12 +110,12 @@ class MemberController extends Controller
         CoreComponentRepository::instantiateShopRepository();
         CoreComponentRepository::initializeCache();
 
-        $sort_search  = null;
-        $members      = User::latest()->where('user_type', 'member')->where('membership', $id);
+        $sort_search = null;
+        $members = User::latest()->where('user_type', 'member')->where('membership', $id);
 
         if ($request->has('search')) {
-            $sort_search  = $request->search;
-            $members  = $members->where('code', $sort_search)->orwhere('first_name', 'like', '%' . $sort_search . '%')->orWhere('last_name', 'like', '%' . $sort_search . '%');
+            $sort_search = $request->search;
+            $members = $members->where('code', $sort_search)->orwhere('first_name', 'like', '%' . $sort_search . '%')->orWhere('last_name', 'like', '%' . $sort_search . '%');
         }
 
         $members = $members->paginate(10);
@@ -164,45 +164,45 @@ class MemberController extends Controller
             return back();
         }
 
-        $user               = new user;
-        $user->user_type    = 'member';
-        $user->code         = unique_code();
-        $user->first_name   = $request->first_name;
-        $user->last_name    = $request->last_name;
-        $user->password     = Hash::make($request->password);
-        $user->photo        = $request->photo;
-        $user->email        = $request->email;
+        $user = new user;
+        $user->user_type = 'member';
+        $user->code = unique_code();
+        $user->first_name = $request->first_name;
+        $user->last_name = $request->last_name;
+        $user->password = Hash::make($request->password);
+        $user->photo = $request->photo;
+        $user->email = $request->email;
         if ($request->phone != null) {
-            $user->phone        = '+' . $request->country_code . $request->phone;
+            $user->phone = '+' . $request->country_code . $request->phone;
         }
         if ($request->member_verification == 1) {
-            $user->email_verified_at     = date('Y-m-d h:m:s');
+            $user->email_verified_at = date('Y-m-d h:m:s');
         }
         if ($user->save()) {
-            $member                             = new Member;
-            $member->user_id                    = $user->id;
-            $member->gender                     = $request->gender;
-            $member->on_behalves_id             = $request->on_behalf;
-            $member->birthday                   = date('Y-m-d', strtotime($request->date_of_birth));
+            $member = new Member;
+            $member->user_id = $user->id;
+            $member->gender = $request->gender;
+            $member->on_behalves_id = $request->on_behalf;
+            $member->birthday = date('Y-m-d', strtotime($request->date_of_birth));
 
-            $package                                = Package::where('id', $request->package)->first();
-            $member->current_package_id             = $package->id;
-            $member->remaining_interest             = $package->express_interest;
-            $member->remaining_photo_gallery        = $package->photo_gallery;
-            $member->remaining_contact_view         = $package->contact;
-            $member->remaining_profile_image_view    = $package->profile_image_view;
-            $member->remaining_gallery_image_view   = $package->gallery_image_view;
-            $member->auto_profile_match             = $package->auto_profile_match;
-            $member->package_validity               = Date('Y-m-d', strtotime($package->validity . " days"));
-            $membership                             = $package->id == 1 ? 1 : 2;
+            $package = Package::where('id', $request->package)->first();
+            $member->current_package_id = $package->id;
+            $member->remaining_interest = $package->express_interest;
+            $member->remaining_photo_gallery = $package->photo_gallery;
+            $member->remaining_contact_view = $package->contact;
+            $member->remaining_profile_image_view = $package->profile_image_view;
+            $member->remaining_gallery_image_view = $package->gallery_image_view;
+            $member->auto_profile_match = $package->auto_profile_match;
+            $member->package_validity = Date('Y-m-d', strtotime($package->validity . " days"));
+            $membership = $package->id == 1 ? 1 : 2;
             $member->save();
 
-            $user_update                = User::findOrFail($user->id);
-            $user_update->membership    = $membership;
+            $user_update = User::findOrFail($user->id);
+            $user_update->membership = $membership;
             $user_update->save();
 
             // Account opening email to member
-            if ($user->email != null  && env('MAIL_USERNAME') != null && (get_email_template('account_oppening_email', 'status') == 1)) {
+            if ($user->email != null && env('MAIL_USERNAME') != null && (get_email_template('account_oppening_email', 'status') == 1)) {
                 EmailUtility::account_oppening_email($user->id, $request->password);
             }
 
@@ -219,8 +219,8 @@ class MemberController extends Controller
         return back();
     }
 
-    public function verification_form ()
-    {   
+    public function verification_form()
+    {
         $user = auth()->user();
         if ($user->verification_info == null) {
             return view('frontend.member.member_verifiction_form', compact('user'));
@@ -230,7 +230,8 @@ class MemberController extends Controller
         }
     }
 
-    public function verification_info_store(Request $request) {
+    public function verification_info_store(Request $request)
+    {
         $data = array();
         $i = 0;
         foreach (json_decode(Setting::where('type', 'verification_form')->first()->value) as $key => $element) {
@@ -286,17 +287,17 @@ class MemberController extends Controller
      */
     public function edit($id)
     {
-        $member             = User::findOrFail(decrypt($id));
-        $countries          = Country::where('status', 1)->get();
-        $states             = State::all();
-        $cities             = City::all();
-        $religions          = Religion::all();
-        $castes             = Caste::all();
-        $sub_castes         = SubCaste::all();
-        $family_values      = FamilyValue::all();
-        $marital_statuses   = MaritalStatus::all();
-        $on_behalves        = OnBehalf::all();
-        $languages          = MemberLanguage::all();
+        $member = User::findOrFail(decrypt($id));
+        $countries = Country::where('status', 1)->get();
+        $states = State::all();
+        $cities = City::all();
+        $religions = Religion::all();
+        $castes = Caste::all();
+        $sub_castes = SubCaste::all();
+        $family_values = FamilyValue::all();
+        $marital_statuses = MaritalStatus::all();
+        $on_behalves = OnBehalf::all();
+        $languages = MemberLanguage::all();
 
         return view('admin.members.edit.index', compact('member', 'countries', 'states', 'cities', 'religions', 'castes', 'sub_castes', 'family_values', 'marital_statuses', 'on_behalves', 'languages'));
     }
@@ -323,22 +324,22 @@ class MemberController extends Controller
     public function basic_info_update(Request $request, $id)
     {
         $this->rules = [
-            'first_name'    => ['required', 'max:255'],
-            'last_name'     => ['required', 'max:255'],
-            'gender'        => ['required'],
+            'first_name' => ['required', 'max:255'],
+            'last_name' => ['required', 'max:255'],
+            'gender' => ['required'],
             'date_of_birth' => ['required'],
-            'on_behalf'     => ['required'],
+            'on_behalf' => ['required'],
             'marital_status' => ['required'],
         ];
         $this->messages = [
-            'first_name.required'             => translate('First Name is required'),
-            'first_name.max'                  => translate('Max 255 characters'),
-            'last_name.required'              => translate('First Name is required'),
-            'last_name.max'                   => translate('Max 255 characters'),
-            'gender.required'                 => translate('Gender is required'),
-            'date_of_birth.required'          => translate('Date Of Birth is required'),
-            'on_behalf.required'              => translate('On Behalf is required'),
-            'marital_status.required'         => translate('Marital Status is required'),
+            'first_name.required' => translate('First Name is required'),
+            'first_name.max' => translate('Max 255 characters'),
+            'last_name.required' => translate('First Name is required'),
+            'last_name.max' => translate('Max 255 characters'),
+            'gender.required' => translate('Gender is required'),
+            'date_of_birth.required' => translate('Date Of Birth is required'),
+            'on_behalf.required' => translate('On Behalf is required'),
+            'marital_status.required' => translate('Marital Status is required'),
 
 
         ];
@@ -356,24 +357,24 @@ class MemberController extends Controller
             return back();
         }
 
-        $user               = User::findOrFail($request->id);
-        $user->first_name   = $request->first_name;
-        $user->last_name    = $request->last_name;
+        $user = User::findOrFail($request->id);
+        $user->first_name = $request->first_name;
+        $user->last_name = $request->last_name;
 
         if (get_setting('profile_picture_approval_by_admin') && $request->photo != $user->photo && auth()->user()->user_type == 'member') {
             $user->photo_approved = 0;
         }
-        $user->photo        = $request->photo;
-        $user->phone        = $request->phone;
+        $user->photo = $request->photo;
+        $user->phone = $request->phone;
         $user->save();
 
-        $member                     = Member::where('user_id', $request->id)->first();
-        $member->gender             = $request->gender;
-        $member->on_behalves_id     = $request->on_behalf;
-        $member->birthday           = date('Y-m-d', strtotime($request->date_of_birth));
-        $member->marital_status_id  = $request->marital_status;
-        $member->children           = $request->children;
-        $member->no_of_daughter     = $request->no_of_daughter;
+        $member = Member::where('user_id', $request->id)->first();
+        $member->gender = $request->gender;
+        $member->on_behalves_id = $request->on_behalf;
+        $member->birthday = date('Y-m-d', strtotime($request->date_of_birth));
+        $member->marital_status_id = $request->marital_status;
+        $member->children = $request->children;
+        $member->no_of_daughter = $request->no_of_daughter;
 
         if ($member->save()) {
             flash('Member basic info  has been updated successfully')->success();
@@ -385,9 +386,9 @@ class MemberController extends Controller
 
     public function language_info_update(Request $request, $id)
     {
-        $member                     = Member::where('user_id', $request->id)->first();
-        $member->mothere_tongue     = $request->mothere_tongue;
-        $member->known_languages    = $request->known_languages;
+        $member = Member::where('user_id', $request->id)->first();
+        $member->mothere_tongue = $request->mothere_tongue;
+        $member->known_languages = $request->known_languages;
 
         if ($member->save()) {
             flash('Member language info has been updated successfully')->success();
@@ -397,7 +398,7 @@ class MemberController extends Controller
         return back();
     }
 
-    public function show_verification_info ($id)
+    public function show_verification_info($id)
     {
         $user = User::findOrFail(decrypt($id));
         return view('admin.members.verification_info', compact('user'));
@@ -405,12 +406,12 @@ class MemberController extends Controller
 
     public function approve_verification($id)
     {
-        $user             = User::findOrFail($id);
-        $user->approved   = 1;
+        $user = User::findOrFail($id);
+        $user->approved = 1;
         if ($user->save()) {
 
             $status = 'Approved';
-            
+
             // Member verification email send to members
             if ($user->email != null && get_email_template('member_verification_email', 'status')) {
                 EmailUtility::member_verification_email($user, $status);
@@ -423,14 +424,14 @@ class MemberController extends Controller
             return back();
         }
     }
-    
+
     public function reject_verification($id)
     {
-        $user             = User::findOrFail($id);
-        $user->verification_info   = null;
+        $user = User::findOrFail($id);
+        $user->verification_info = null;
         if ($user->save()) {
             $status = 'Rejected';
-            
+
             // Member verification email send to members
             if ($user->email != null && get_email_template('member_verification_email', 'status')) {
                 EmailUtility::member_verification_email($user, $status);
@@ -447,12 +448,12 @@ class MemberController extends Controller
 
     public function deleted_members(Request $request)
     {
-        $sort_search        = null;
-        $deleted_members    = User::onlyTrashed();
-       
+        $sort_search = null;
+        $deleted_members = User::onlyTrashed();
+
         if ($request->has('search')) {
-            $sort_search  = $request->search;
-            $deleted_members  = $deleted_members->where(function ($query) use ($sort_search){
+            $sort_search = $request->search;
+            $deleted_members = $deleted_members->where(function ($query) use ($sort_search) {
                 $query->where('code', $sort_search)
                     ->orwhere('first_name', 'like', '%' . $sort_search . '%')->orWhere('last_name', 'like', '%' . $sort_search . '%');
             });
@@ -467,15 +468,33 @@ class MemberController extends Controller
     public function registered_members(Request $request)
     {
 
-        $members = Registration::all();
-      
-        return view('admin.members.registered_members',  ['members' => $members]);
-   
-      
+        $sort_search = null;
+        $members = Registration::query();
+
+        // return view('admin.members.registered_members',  ['members' => $members]);
+
+
+
+        // CoreComponentRepository::instantiateShopRepository();
+        // CoreComponentRepository::initializeCache();
+
+        // $members      = User::latest()->where('user_type', 'member')->where('membership', $id);
+
+        if ($request->has('search')) {
+            $sort_search = $request->search;
+            $members = $members->where('id', $sort_search)
+                ->orWhere('name', 'like', '%' . $sort_search . '%')
+                ->orWhere('email', 'like', '%' . $sort_search . '%')
+                ->orWhere('mobile', 'like', '%' . $sort_search . '%');
+        }
+
+        $members = $members->paginate(10);
+        return view('admin.members.registered_members', compact('members', 'sort_search'));
+
     }
 
 
-    
+
     /**
      * Update the specified resource in storage.
      *
@@ -495,7 +514,7 @@ class MemberController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
-    {   
+    {
         $user = User::findOrFail($id);
 
         $user->member()->delete();
@@ -513,13 +532,13 @@ class MemberController extends Controller
         $user->spiritual_backgrounds()->delete();
         $user->happy_story()->delete();
         $user->uploads()->delete();
-        
+
         $chatThreads = ChatThread::where('sender_user_id', $user->id)->orWhere('receiver_user_id', $user->id)->get();
-        foreach($chatThreads as $chatThread){
-            $chatThread->chats()->delete(); 
+        foreach ($chatThreads as $chatThread) {
+            $chatThread->chats()->delete();
         }
-        foreach($chatThreads as $chatThread){
-            $chatThread->delete(); 
+        foreach ($chatThreads as $chatThread) {
+            $chatThread->delete();
         }
 
         if (User::destroy($id)) {
@@ -548,13 +567,13 @@ class MemberController extends Controller
         $user->spiritual_backgrounds()->withTrashed()->restore();
         $user->happy_story()->withTrashed()->restore();
         $user->uploads()->withTrashed()->restore();
-        
+
         $chatThreads = ChatThread::withTrashed()->where('sender_user_id', $user->id)->orWhere('receiver_user_id', $user->id)->get();
-        foreach($chatThreads as $chatThread){
-            $chatThread->chats()->withTrashed()->restore(); 
+        foreach ($chatThreads as $chatThread) {
+            $chatThread->chats()->withTrashed()->restore();
         }
-        foreach($chatThreads as $chatThread){
-            $chatThread->restore(); 
+        foreach ($chatThreads as $chatThread) {
+            $chatThread->restore();
         }
 
         if (User::withTrashed()->where('id', $id)->restore()) {
@@ -595,21 +614,21 @@ class MemberController extends Controller
         $user->uploads()->withTrashed()->forcedelete();
 
         $user->gallery_images()->delete();
-        Shortlist::where('user_id', $user->id)->orWhere('shortlisted_by',$user->id)->delete();
-        IgnoredUser::where('user_id', $user->id)->orWhere('ignored_by',$user->id)->delete();
-        ReportedUser::where('user_id', $user->id)->orWhere('reported_by',$user->id)->delete();
-        ExpressInterest::where('user_id', $user->id)->orWhere('interested_by',$user->id)->delete();
-        ProfileMatch::where('user_id', $user->id)->orWhere('match_id',$user->id)->delete();
-        
+        Shortlist::where('user_id', $user->id)->orWhere('shortlisted_by', $user->id)->delete();
+        IgnoredUser::where('user_id', $user->id)->orWhere('ignored_by', $user->id)->delete();
+        ReportedUser::where('user_id', $user->id)->orWhere('reported_by', $user->id)->delete();
+        ExpressInterest::where('user_id', $user->id)->orWhere('interested_by', $user->id)->delete();
+        ProfileMatch::where('user_id', $user->id)->orWhere('match_id', $user->id)->delete();
+
         $chatThreads = ChatThread::withTrashed()->where('sender_user_id', $user->id)->orWhere('receiver_user_id', $user->id)->get();
-        foreach($chatThreads as $chatThread){
-            $chatThread->chats()->withTrashed()->forcedelete(); 
+        foreach ($chatThreads as $chatThread) {
+            $chatThread->chats()->withTrashed()->forcedelete();
         }
 
-        foreach($chatThreads as $chatThread){
-            $chatThread->forcedelete(); 
+        foreach ($chatThreads as $chatThread) {
+            $chatThread->forcedelete();
         }
-        
+
         $user->member()->withTrashed()->forcedelete();
         $user->forcedelete();
 
@@ -626,29 +645,29 @@ class MemberController extends Controller
     public function get_package(Request $request)
     {
         $member_id = $request->id;
-        $packages  = Package::where('active', 1)->get();
+        $packages = Package::where('active', 1)->get();
         return view('admin.members.get_package', compact('member_id', 'packages'));
     }
 
     public function package_do_update(Request $request, $id)
     {
 
-        $member                                 = Member::where('id', $id)->first();
-        $package                                = Package::where('id', $request->package_id)->first();
-        $member->current_package_id             = $package->id;
-        $member->remaining_interest             = $member->remaining_interest + $package->express_interest;
-        $member->remaining_photo_gallery        = $member->remaining_photo_gallery + $package->photo_gallery;
-        $member->remaining_contact_view         = $member->remaining_contact_view + $package->contact;
-        $member->remaining_profile_image_view   = $member->remaining_profile_image_view + $package->profile_image_view;
-        $member->remaining_gallery_image_view   = $member->remaining_gallery_image_view + $package->gallery_image_view;
+        $member = Member::where('id', $id)->first();
+        $package = Package::where('id', $request->package_id)->first();
+        $member->current_package_id = $package->id;
+        $member->remaining_interest = $member->remaining_interest + $package->express_interest;
+        $member->remaining_photo_gallery = $member->remaining_photo_gallery + $package->photo_gallery;
+        $member->remaining_contact_view = $member->remaining_contact_view + $package->contact;
+        $member->remaining_profile_image_view = $member->remaining_profile_image_view + $package->profile_image_view;
+        $member->remaining_gallery_image_view = $member->remaining_gallery_image_view + $package->gallery_image_view;
 
-        $member->auto_profile_match         = $package->auto_profile_match;
-        $member->package_validity           = date('Y-m-d', strtotime($member->package_validity . ' +' . $package->validity . 'days'));
-        $membership                         = $package->id == 1 ? 1 : 2;
+        $member->auto_profile_match = $package->auto_profile_match;
+        $member->package_validity = date('Y-m-d', strtotime($member->package_validity . ' +' . $package->validity . 'days'));
+        $membership = $package->id == 1 ? 1 : 2;
 
         if ($member->save()) {
-            $user                = User::where('id', $member->user_id)->first();
-            $user->membership    = $membership;
+            $user = User::where('id', $member->user_id)->first();
+            $user->membership = $membership;
             if ($user->save()) {
                 flash(translate('Member package has been updated successfully'))->success();
                 return redirect()->route('members.index', $membership);
@@ -662,11 +681,11 @@ class MemberController extends Controller
     {
         $user = User::where('id', $request->user_id)->first();
 
-        $wallet                   = new Wallet;
-        $wallet->user_id          = $user->id;
-        $wallet->amount           = $request->wallet_amount;
-        $wallet->payment_method   = $request->payment_option;
-        $wallet->payment_details  = '';
+        $wallet = new Wallet;
+        $wallet->user_id = $user->id;
+        $wallet->amount = $request->wallet_amount;
+        $wallet->payment_method = $request->payment_option;
+        $wallet->payment_details = '';
         $wallet->save();
 
         if ($request->payment_option == 'added_by_admin') {
@@ -686,10 +705,10 @@ class MemberController extends Controller
 
     public function block(Request $request)
     {
-        $user           = User::findOrFail($request->member_id);
-        $user->blocked  = $request->block_status;
+        $user = User::findOrFail($request->member_id);
+        $user->blocked = $request->block_status;
         if ($user->save()) {
-            $member                 = Member::where('user_id', $user->id)->first();
+            $member = Member::where('user_id', $user->id)->first();
             $member->blocked_reason = !empty($request->blocking_reason) ? $request->blocking_reason : "";
             if ($member->save()) {
 
@@ -719,14 +738,14 @@ class MemberController extends Controller
     // Member Profile settings Frontend
     public function profile_settings()
     {
-        $member             = User::findOrFail(Auth::user()->id);
-        $countries          = Country::where('status', 1)->get();
-        $religions          = Religion::all();
-        $castes             = Caste::all();
-        $family_values      = FamilyValue::all();
-        $marital_statuses   = MaritalStatus::all();
-        $on_behalves        = OnBehalf::all();
-        $languages          = MemberLanguage::all();
+        $member = User::findOrFail(Auth::user()->id);
+        $countries = Country::where('status', 1)->get();
+        $religions = Religion::all();
+        $castes = Caste::all();
+        $family_values = FamilyValue::all();
+        $marital_statuses = MaritalStatus::all();
+        $on_behalves = OnBehalf::all();
+        $languages = MemberLanguage::all();
 
         return view('frontend.member.profile.index', compact('member', 'countries', 'religions', 'castes', 'family_values', 'marital_statuses', 'on_behalves', 'languages'));
     }
@@ -757,19 +776,19 @@ class MemberController extends Controller
     public function password_update(Request $request, $id)
     {
         $rules = [
-            'old_password'      => ['required'],
-            'password'          => ['min:8', 'required_with:confirm_password', 'same:confirm_password'],
-            'confirm_password'  => ['min:8'],
+            'old_password' => ['required'],
+            'password' => ['min:8', 'required_with:confirm_password', 'same:confirm_password'],
+            'confirm_password' => ['min:8'],
         ];
 
         $messages = [
-            'old_password.required'     => translate('Old Password is required'),
-            'password.required_with'    => translate('Password and Confirm password are required'),
-            'password.same'             => translate('Password and Confirmed password did not matched'),
-            'confirm_password.min'      => translate('Max 8 characters'),
+            'old_password.required' => translate('Old Password is required'),
+            'password.required_with' => translate('Password and Confirm password are required'),
+            'password.same' => translate('Password and Confirmed password did not matched'),
+            'confirm_password.min' => translate('Max 8 characters'),
         ];
 
-        $validator  = Validator::make($request->all(), $rules, $messages);
+        $validator = Validator::make($request->all(), $rules, $messages);
         if ($validator->fails()) {
             flash(translate('Sorry! Something went wrong'))->error();
             return Redirect::back()->withErrors($validator);
@@ -804,7 +823,7 @@ class MemberController extends Controller
     {
         $user = auth()->user();
         if ($user) {
-            $user->member ?  $user->member->delete() : '';
+            $user->member ? $user->member->delete() : '';
             Address::where('user_id', $user->id)->delete();
             Education::where('user_id', $user->id)->delete();
             Career::where('user_id', $user->id)->delete();
