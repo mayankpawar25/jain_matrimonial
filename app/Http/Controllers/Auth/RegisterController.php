@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Session;
 use Notification;
 use App\Models\User;
 use App\Models\Member;
@@ -78,18 +81,18 @@ class RegisterController extends Controller
         return Validator::make(
             $data,
             [
-                'on_behalf'            => 'required|integer',
-                'first_name'           => ['required', 'string', 'max:255'],
-                'last_name'            => ['required', 'string', 'max:255'],
-                'gender'               => 'required',
-                'date_of_birth'        => 'required|date',
-                'phone'                 => 'required_without:email|nullable|string|unique:users',
-                'email'                 => 'required_without:phone|nullable|email|unique:users',
-                'password'             => ['required', 'string', 'min:8', 'confirmed'],
+                'on_behalf' => 'required|integer',
+                'first_name' => ['required', 'string', 'max:255'],
+                'last_name' => ['required', 'string', 'max:255'],
+                'gender' => 'required',
+                'date_of_birth' => 'required|date',
+                'phone' => 'required_without:email|nullable|string|unique:users',
+                'email' => 'required_without:phone|nullable|email|unique:users',
+                'password' => ['required', 'string', 'min:8', 'confirmed'],
                 'g-recaptcha-response' => [
                     Rule::when(get_setting('google_recaptcha_activation') == 1, ['required', new RecaptchaRule()], ['sometimes'])
                 ],
-                'checkbox_example_1'   => ['required', 'string'],
+                'checkbox_example_1' => ['required', 'string'],
             ],
             [
                 'on_behalf.required' => translate('on_behalf is required'),
@@ -107,7 +110,7 @@ class RegisterController extends Controller
                 'password.required' => translate('Password is required'),
                 'password.confirmed' => translate('Password confirmation does not match'),
                 'password.min' => translate('Minimum 8 digits required for password'),
-                'checkbox_example_1.required'    => translate('You must agree to our terms and conditions.'),
+                'checkbox_example_1.required' => translate('You must agree to our terms and conditions.'),
             ]
         );
     }
@@ -123,24 +126,24 @@ class RegisterController extends Controller
         $approval = get_setting('member_verification') == 1 ? 0 : 1;
         if (filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
             $user = User::create([
-                'first_name'  => $data['first_name'],
-                'last_name'   => $data['last_name'],
-                'membership'  => 1,
-                'email'       => $data['email'],
-                'password'    => Hash::make($data['password']),
-                'code'        => unique_code(),
-                'approved'    => $approval,
+                'first_name' => $data['first_name'],
+                'last_name' => $data['last_name'],
+                'membership' => 1,
+                'email' => $data['email'],
+                'password' => Hash::make($data['password']),
+                'code' => unique_code(),
+                'approved' => $approval,
             ]);
         } else {
             if (addon_activation('otp_system')) {
                 $user = User::create([
-                    'first_name'  => $data['first_name'],
-                    'last_name'   => $data['last_name'],
-                    'membership'  => 1,
-                    'phone'       => '+' . $data['country_code'] . $data['phone'],
-                    'password'    => Hash::make($data['password']),
-                    'code'        => unique_code(),
-                    'approved'    => $approval,
+                    'first_name' => $data['first_name'],
+                    'last_name' => $data['last_name'],
+                    'membership' => 1,
+                    'phone' => '+' . $data['country_code'] . $data['phone'],
+                    'password' => Hash::make($data['password']),
+                    'code' => unique_code(),
+                    'approved' => $approval,
                     'verification_code' => rand(100000, 999999)
                 ]);
             }
@@ -153,28 +156,28 @@ class RegisterController extends Controller
             }
         }
 
-        $member                             = new Member;
-        $member->user_id                    = $user->id;
+        $member = new Member;
+        $member->user_id = $user->id;
         $member->save();
 
-        $member->gender                     = $data['gender'];
-        $member->on_behalves_id             = $data['on_behalf'];
-        $member->birthday                   = date('Y-m-d', strtotime($data['date_of_birth']));
+        $member->gender = $data['gender'];
+        $member->on_behalves_id = $data['on_behalf'];
+        $member->birthday = date('Y-m-d', strtotime($data['date_of_birth']));
 
-        $package                                = Package::where('id', 1)->first();
-        $member->current_package_id             = $package->id;
-        $member->remaining_interest             = $package->express_interest;
-        $member->remaining_photo_gallery        = $package->photo_gallery;
-        $member->remaining_contact_view         = $package->contact;
-        $member->remaining_profile_image_view   = $package->profile_image_view;
-        $member->remaining_gallery_image_view   = $package->gallery_image_view;
-        $member->auto_profile_match             = $package->auto_profile_match;
-        $member->package_validity               = Date('Y-m-d', strtotime($package->validity . " days"));
+        $package = Package::where('id', 1)->first();
+        $member->current_package_id = $package->id;
+        $member->remaining_interest = $package->express_interest;
+        $member->remaining_photo_gallery = $package->photo_gallery;
+        $member->remaining_contact_view = $package->contact;
+        $member->remaining_profile_image_view = $package->profile_image_view;
+        $member->remaining_gallery_image_view = $package->gallery_image_view;
+        $member->auto_profile_match = $package->auto_profile_match;
+        $member->package_validity = Date('Y-m-d', strtotime($package->validity . " days"));
         $member->save();
 
 
         // Account opening Email to member
-        if ($data['email'] != null  && env('MAIL_USERNAME') != null) {
+        if ($data['email'] != null && env('MAIL_USERNAME') != null) {
             $account_oppening_email = EmailTemplate::where('identifier', 'account_oppening_email')->first();
             if ($account_oppening_email->status == 1) {
                 EmailUtility::account_oppening_email($user->id, $data['password']);
@@ -281,7 +284,7 @@ class RegisterController extends Controller
         $fileFields = ['profile_picture', 'payment_picture'];
         $profile_pic_path = '';
         $receipt_pic_path = '';
-        
+
         foreach ($fileFields as $field) {
             if ($request->hasFile($field)) {
                 $file = $request->file($field);
@@ -301,7 +304,7 @@ class RegisterController extends Controller
 
         // Create a new Registration record
         $registration = new Registration();
-        
+
         $registration->name = $request->input('name');
         $registration->email = $request->input('email');
         $registration->mobile = $request->input('mobile');
@@ -364,7 +367,7 @@ class RegisterController extends Controller
             return redirect()->route('form.registration');
         }
 
-        return redirect()->route('form.resgistration');
+        return redirect()->route('form.registration');
     }
 
     public function upload(Request $request)
@@ -465,8 +468,52 @@ class RegisterController extends Controller
     public function registrationSuccess($id)
     {
         $registration = Registration::find($id);
-
+        // dd($registration);
         if ($registration) {
+
+            $sentIds = Session::get('sent_ids', []);
+
+            if (in_array($registration->id, $sentIds)) {
+                // If the ID is already in the session, skip sending data
+                return view('frontend.registration_success', compact('registration'));
+            }
+            try {
+
+                // Data to be encrypted
+                $data = [
+                    'id' => $registration->id,
+                    'name' => $registration->name,
+                    'mobile' => $registration->mobile,
+                ];
+
+                // Encrypt the data
+                $encryptedData = Crypt::encryptString(json_encode($data));
+
+                // Send encrypted data to Node.js
+                $response = Http::post('https://7ec1-2401-4900-8823-44d6-913f-e678-1a10-3015.ngrok-free.app/api/receive-registration', [
+                    'encrypted_data' => $encryptedData,
+                ]);
+                // dd($response);
+                // Attempt to send data to the Node.js API
+
+                // Optionally, log the response for debugging
+                if ($response->successful()) {
+                    // flash(translate('Oops!!! Something went wrong'))->error();
+                    // Log::info('Data sent successfully:', ['response' => $response->json()]);
+                    $sentIds[] = $registration->id;
+                    Session::put('sent_ids', $sentIds);
+                    // flash(translate('Data sent successfully:'))->success();
+
+                } else {
+                    // flash(translate('Failed to send data to Node.js API:'))->error();
+                    // Log::error('Failed to send data to Node.js API:', ['response' => $response->json()]);
+                }
+            } catch (\Exception $e) {
+                // Log the exception for debugging
+                // flash(translate('Exception occurred while sending data to Node.js API:' . $e->getMessage()))->error();
+                // Log::error('Exception occurred while sending data to Node.js API:', ['error' => $e->getMessage()]);
+            }
+
             return view('frontend.registration_success', compact('registration'));
         } else {
             flash(translate('Registration not found!'))->error();
