@@ -156,11 +156,11 @@
    <div class="modal fade " id="imageModal" tabindex="-1" role="dialog" aria-labelledby="imageModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content" style="background : transparent; border: none">
-                                    <div class="modal-body">
+                                    <div class="modal-body" style="overflow : hidden; max-height : 100%">
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                         </button>
-                                        <img id="modalImage" src="" class="img-fluid w-100" alt="{{ translate('image') }}">
+                                        <img id="modalImage" src="" class="img-fluid w-100" alt="{{ translate('image') }}" >
                                     </div>
                                 </div>
                             </div>

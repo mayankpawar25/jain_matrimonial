@@ -471,15 +471,6 @@ class MemberController extends Controller
         $sort_search = null;
         $members = Registration::query();
 
-        // return view('admin.members.registered_members',  ['members' => $members]);
-
-
-
-        // CoreComponentRepository::instantiateShopRepository();
-        // CoreComponentRepository::initializeCache();
-
-        // $members      = User::latest()->where('user_type', 'member')->where('membership', $id);
-
         if ($request->has('search')) {
             $sort_search = $request->search;
             $members = $members->where('id', $sort_search)
