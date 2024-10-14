@@ -32,8 +32,8 @@
                             <th data-breakpoints="md">{{translate('Name')}}</th>
                             <th data-breakpoints="md">{{translate('Email')}}</th>
                             <th data-breakpoints="md">{{translate('Mobile No.')}}</th>
-                            <th data-breakpoints="md">{{translate('Marital Status')}}</th>
-                            <th data-breakpoints="md">{{translate('D.O.B.')}}</th>
+                            <th data-breakpoints="md">{{translate('Marital-status')}}</th>
+                            <th data-breakpoints="md">{{translate('dd-mm-yy')}}</th>
                             <th data-breakpoints="md">{{translate('AM/PM')}}</th>
                             <th data-breakpoints="md">{{translate('Citizenship.')}}</th>
                             <th data-breakpoints="md">{{translate('Place of Birth')}}</th>
