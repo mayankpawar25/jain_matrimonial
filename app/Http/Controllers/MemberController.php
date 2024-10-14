@@ -476,7 +476,20 @@ class MemberController extends Controller
             $members = $members->where('id', $sort_search)
                 ->orWhere('name', 'like', '%' . $sort_search . '%')
                 ->orWhere('email', 'like', '%' . $sort_search . '%')
-                ->orWhere('mobile', 'like', '%' . $sort_search . '%');
+                ->orWhere('mobile', 'like', '%' . $sort_search . '%')
+                ->orWhere('place_of_birth', 'like', '%' . $sort_search . '%')
+                ->orWhere('state', 'like', '%' . $sort_search . '%')
+                ->orWhere('education', 'like', '%' . $sort_search . '%')
+                ->orWhere('dosh', 'like', '%' . $sort_search . '%')
+                ->orWhere('category', 'like', '%' . $sort_search . '%')
+                ->orWhere('fatherName', 'like', '%' . $sort_search . '%')
+                ->orWhere('mothername', 'like', '%' . $sort_search . '%')
+                ->orWhere('contact', 'like', '%' . $sort_search . '%')
+                ->orWhere('mother_mobile', 'like', '%' . $sort_search . '%')
+                ->orWhere('father_mobile', 'like', '%' . $sort_search . '%')
+                ->orWhere('occupation', 'like', '%' . $sort_search . '%')
+                ->orWhere('permanent_address', 'like', '%' . $sort_search . '%')
+                ->orWhere('marriage', 'like', '%' . $sort_search . '%');
         }
 
         $members = $members->paginate(10);

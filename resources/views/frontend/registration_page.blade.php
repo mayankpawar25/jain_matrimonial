@@ -195,8 +195,8 @@
                         <h5 style="font-weight: bold; color: #000000;">पारिवारिक विवरण</h5>
                         <div class="row ">
                             <div class="col-md-3 mb-3">
-                                <label for="fatherName" class="form-label">पिता का नाम</label>
-                                <input type="text" class="form-control" id="fatherName" name="fatherName" required>
+                                <label for="father_name" class="form-label">पिता का नाम</label>
+                                <input type="text" class="form-control" id="father_name" name="father_name" required>
                             </div>
                             <div class="col-md-3 mb-3">
                                 <label for="mob" class="form-label">मोबाइल नंबर</label>
@@ -216,8 +216,8 @@
 
                         <div class="row ">
                             <div class="col-md-3 mb-3">
-                                <label for="mothername" class="form-label">माँ का नाम</label>
-                                <input type="text" class="form-control" id="mothername" name="mothername" required>
+                                <label for="mother_name" class="form-label">माँ का नाम</label>
+                                <input type="text" class="form-control" id="mother_name" name="mother_name" required>
                             </div>
                             <div class="col-md-3 mb-3">
                                 <label for="mob2" class="form-label">मोबाइल नंबर</label>

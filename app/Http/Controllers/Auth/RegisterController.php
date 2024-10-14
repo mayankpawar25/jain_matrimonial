@@ -327,11 +327,11 @@ class RegisterController extends Controller
         $registration->dosh = $request->input('dosh');
         $registration->education = $request->input('education');
         $registration->occupation = $request->input('occupation');
-        $registration->fatherName = $request->input('fatherName');
+        $registration->fatherName = $request->input('father_name');
         $registration->father_mobile = $request->input('father_mobile');
         $registration->father_occupation = $request->input('father_occupation');
         $registration->father_income = $request->input('father_income');
-        $registration->mothername = $request->input('mothername');
+        $registration->mothername = $request->input('mother_name');
         $registration->mother_mobile = $request->input('mother_mobile');
         $registration->mother_occupation = $request->input('mother_occupation');
         $registration->mother_income = $request->input('mother_income');
