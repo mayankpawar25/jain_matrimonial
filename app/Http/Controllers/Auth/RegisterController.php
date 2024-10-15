@@ -480,42 +480,42 @@ class RegisterController extends Controller
             try {
 
                 // // Data to be encrypted
-                // $data = [
-                //     'id' => $registration->id,
-                //     'name' => $registration->name,
-                //     'mobile' => $registration->mobile,
-                // ];
+                $data = [
+                    'id' => $registration->id,
+                    'name' => $registration->name,
+                    'mobile' => $registration->mobile,
+                ];
 
                 // // Encrypt the data
-                // $encryptedData = Crypt::encryptString(json_encode($data));
+                $encryptedData = Crypt::encryptString(json_encode($data));
 
                 // // Send encrypted data to Node.js
-                // $response = Http::post('https://7ec1-2401-4900-8823-44d6-913f-e678-1a10-3015.ngrok-free.app/api/receive-registration', [
-                //     'encrypted_data' => $encryptedData,
-                // ]);
+                $response = Http::post('https://bot.djsgfshaadi.com/api/receive-registration', [
+                    'encrypted_data' => $encryptedData,
+                ]);
                 // // dd($response);
                 // // Attempt to send data to the Node.js API
 
                 // // Optionally, log the response for debugging
-                // if ($response->successful()) {
-                //     // flash(translate('Oops!!! Something went wrong'))->error();
-                //     // Log::info('Data sent successfully:', ['response' => $response->json()]);
-                //     $sentIds[] = $registration->id;
-                //     Session::put('sent_ids', $sentIds);
-                //     flash(translate('Data sent successfully:'))->success();
+                if ($response->successful()) {
+                    // flash(translate('Oops!!! Something went wrong'))->error();
+                    // Log::info('Data sent successfully:', ['response' => $response->json()]);
+                    $sentIds[] = $registration->id;
+                    Session::put('sent_ids', $sentIds);
+                    flash(translate('Data sent successfully:'))->success();
 
-                // } else {
-                //     flash(translate('Failed to send data to Node.js API:'))->error();
-                //     // Log::error('Failed to send data to Node.js API:', ['response' => $response->json()]);
-                // }
+                } else {
+                    flash(translate('Failed to send data to Node.js API:'))->error();
+                    // Log::error('Failed to send data to Node.js API:', ['response' => $response->json()]);
+                }
             } catch (\Exception $e) {
                 // Log the exception for debugging
-                // flash(translate('Exception occurred while sending data to Node.js API:' . $e->getMessage()))->error();
-                // Log::error('Exception occurred while sending data to Node.js API:', ['error' => $e->getMessage()]);
+                flash(translate('Exception occurred while sending data to Node.js API:' . $e->getMessage()))->error();
+                Log::error('Exception occurred while sending data to Node.js API:', ['error' => $e->getMessage()]);
             }
-            $sentIds[] = $registration->id;
-            Session::put('sent_ids', $sentIds);
-            flash(translate('Data sent successfully:'))->success();
+            // $sentIds[] = $registration->id;
+            // Session::put('sent_ids', $sentIds);
+            // flash(translate('Data sent successfully:'))->success();
             return view('frontend.registration_success', compact('registration'));
         } else {
             flash(translate('Registration not found!'))->error();

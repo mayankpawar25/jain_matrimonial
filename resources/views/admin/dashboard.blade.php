@@ -11,11 +11,11 @@
         @endif
 
         <div class="row gutters-10">
-            <div class="col-xl-3 col-md-6">
+            <div class="col-xl-4 col-md-6">
                 <div class="bg-grad-2 text-white rounded-lg mb-4 overflow-hidden">
                     <div class="px-3 pt-3">
-                        <div class="opacity-50">
-                            <span class="fs-12 d-block">{{ translate('Total') }}</span>
+                        <div class="opacity-80">
+                            <span class="fs-14 d-block">{{ translate('Total') }}</span>
                             {{ translate('Members') }}
                         </div>
                         <div class="h3 fw-700 mb-3">{{ \App\Models\User::where('user_type','member')->count() }}</div>
@@ -25,7 +25,21 @@
                     </svg>
                 </div>
             </div>
-            <div class="col-xl-3 col-md-6">
+            <div class="col-xl-4 col-md-6">
+                <div class="bg-grad-3 text-white rounded-lg mb-4 overflow-hidden">
+                    <div class="px-3 pt-3">
+                        <div class="opacity-80">
+                            <span class="fs-14 d-block">{{ translate('Registered') }}</span>
+                            {{ translate('Members') }}
+                        </div>
+                        <div class="h3 fw-700 mb-3">{{ \App\Models\Registration::count() }}</div>
+                    </div>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+                        <path fill="rgba(255,255,255,0.3)" fill-opacity="1" d="M0,128L34.3,112C68.6,96,137,64,206,96C274.3,128,343,224,411,250.7C480,277,549,235,617,213.3C685.7,192,754,192,823,181.3C891.4,171,960,149,1029,117.3C1097.1,85,1166,43,1234,58.7C1302.9,75,1371,149,1406,186.7L1440,224L1440,320L1405.7,320C1371.4,320,1303,320,1234,320C1165.7,320,1097,320,1029,320C960,320,891,320,823,320C754.3,320,686,320,617,320C548.6,320,480,320,411,320C342.9,320,274,320,206,320C137.1,320,69,320,34,320L0,320Z"></path>
+                    </svg>
+                </div>
+            </div>
+            <!-- <div class="col-xl-3 col-md-6">
                 <div class="bg-grad-3 text-white rounded-lg mb-4 overflow-hidden">
                     <div class="px-3 pt-3">
                         <div class="opacity-50">
@@ -52,15 +66,16 @@
                         <path fill="rgba(255,255,255,0.3)" fill-opacity="1" d="M0,128L34.3,112C68.6,96,137,64,206,96C274.3,128,343,224,411,250.7C480,277,549,235,617,213.3C685.7,192,754,192,823,181.3C891.4,171,960,149,1029,117.3C1097.1,85,1166,43,1234,58.7C1302.9,75,1371,149,1406,186.7L1440,224L1440,320L1405.7,320C1371.4,320,1303,320,1234,320C1165.7,320,1097,320,1029,320C960,320,891,320,823,320C754.3,320,686,320,617,320C548.6,320,480,320,411,320C342.9,320,274,320,206,320C137.1,320,69,320,34,320L0,320Z"></path>
                     </svg>
                 </div>
-            </div>
-            <div class="col-xl-3 col-md-6">
+            </div>-->
+            <div class="col-xl-4 col-md-6"> 
+
                 <div class="bg-grad-4 text-white rounded-lg mb-4 overflow-hidden">
                     <div class="px-3 pt-3">
-                        <div class="opacity-50">
-                            <span class="fs-12 d-block">{{ translate('Blocked') }}</span>
-                            {{ translate('Members') }}
+                        <div class="opacity-80">
+                            <span class="fs-14 d-block">{{ translate('Total') }}</span>
+                            {{ translate('Earnings') }}
                         </div>
-                        <div class="h3 fw-700 mb-3">{{ \App\Models\User::where('user_type','member')->where('blocked', 1)->count() }}</div>
+                        <div class="h3 fw-700 mb-3">{{ single_price(\App\Models\Registration::whereNotNull('payment_type')->sum('total_payment')) }}</div>
                     </div>
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
                         <path fill="rgba(255,255,255,0.3)" fill-opacity="1" d="M0,128L34.3,112C68.6,96,137,64,206,96C274.3,128,343,224,411,250.7C480,277,549,235,617,213.3C685.7,192,754,192,823,181.3C891.4,171,960,149,1029,117.3C1097.1,85,1166,43,1234,58.7C1302.9,75,1371,149,1406,186.7L1440,224L1440,320L1405.7,320C1371.4,320,1303,320,1234,320C1165.7,320,1097,320,1029,320C960,320,891,320,823,320C754.3,320,686,320,617,320C548.6,320,480,320,411,320C342.9,320,274,320,206,320C137.1,320,69,320,34,320L0,320Z"></path>
@@ -69,7 +84,7 @@
             </div>
         </div>
         <div class="row gutters-10">
-            <div class="col-xxl-8 col-xl-7">
+            <div class="col-xxl-12 col-xl-7">
                 <div class="card shadow-sm">
                     <div class="card-header">
                         <h6 class="mb-0 fs-14">{{ translate('This year earnings') }}</h6>
@@ -79,32 +94,38 @@
                     </div>
                 </div>
             </div>
-            <div class="col-xxl-4 col-xl-5">
+            <!-- <div class="col-xxl-4 col-xl-5">
                 <div class="h-100 row gutters-10">
                     <div class="col-6 mb-3">
                         <div class="bg-white h-100 px-3 py-4 rounded shadow-sm d-flex flex-column justify-content-center">
                             <span class="opacity-50 fs-16 mb-2">{{ translate('Total Earnings') }}</span>
-                            <div class="h2">{{ single_price(\App\Models\PackagePayment::where('payment_status','Paid')->get()->sum('amount')) }}</div>
+                            <div class="h2">{{single_price(\App\Models\Registration::whereNotNull('payment_type')->sum('total_payment'))}}</div>
                         </div>
                     </div>
-                    <div class="col-6 mb-3">
+                     <div class="col-6 mb-3">
                         <div class="bg-white h-100 px-3 py-4 rounded shadow-sm d-flex flex-column justify-content-center">
                             <span class="opacity-50 fs-16 mb-2">{{ translate('Last Month Earnings') }}</span>
                             @php
-                                $last_1_months_earning = \App\Models\PackagePayment::where('payment_status','Paid')
+                                $last_1_months_earning = \App\Models\Registration::whereNotNull('payment_type')
                                                             ->whereBetween('created_at', [ Carbon\Carbon::now()->subMonth(1) , Carbon\Carbon::now() ])
-                                                            ->get()->sum('amount');
+                                                            ->get()->sum('total_payment');
                             @endphp
                             <div class="h2">{{ single_price($last_1_months_earning) }}</div>
+                        </div>
+                    </div> 
+                    <div class="col-6 mb-3">
+                        <div class="bg-white h-100 px-3 py-4 rounded shadow-sm d-flex flex-column justify-content-center">
+                            <span class="opacity-50 fs-16 mb-2">{{ translate('Registered Members') }}</span>
+                            <div class="h2">{{ \App\Models\Registration::count() }} </div>
                         </div>
                     </div>
                     <div class="col-6 mb-3">
                         <div class="bg-white h-100 px-3 py-4 rounded shadow-sm d-flex flex-column justify-content-center">
                             <span class="opacity-50 fs-16 mb-2">{{ translate('Last 6 Months Earnings') }}</span>
                             @php
-                                $last_6_months_earning = \App\Models\PackagePayment::where('payment_status','Paid')
+                                $last_6_months_earning = \App\Models\Registration::whereNotNull('payment_type')
                                             ->whereBetween('created_at', [ Carbon\Carbon::now()->subMonth(6) , Carbon\Carbon::now() ])
-                                            ->get()->sum('amount');
+                                            ->get()->sum('total_payment');
                             @endphp
                             <div class="h2">{{ single_price($last_6_months_earning) }}</div>
                         </div>
@@ -113,15 +134,15 @@
                         <div class="bg-white h-100 px-3 py-4 rounded shadow-sm d-flex flex-column justify-content-center">
                             <span class="opacity-50 fs-16 mb-2">{{ translate('Last 12 Months Earnings') }}</span>
                             @php
-                                $last_12_months_earning = \App\Models\PackagePayment::where('payment_status','Paid')
+                                $last_12_months_earning = \App\Models\Registration::whereNotNull('payment_type')
                                             ->whereBetween('created_at', [ Carbon\Carbon::now()->subMonth(12) , Carbon\Carbon::now() ])
-                                            ->get()->sum('amount');
+                                            ->get()->sum('total_payment');
                             @endphp
                             <div class="h2">{{ single_price($last_12_months_earning) }}</div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
         <div class="row gutters-10">
             <div class="col-xxl-8 col-xl-7">
@@ -230,18 +251,19 @@
             datasets: [{
                 label: '',
                 data: [
-                        {{ \App\Models\PackagePayment::where('payment_status','Paid')->whereMonth('created_at', '=', '01')->whereYear('created_at', '=', date('Y'))->sum('amount') }},
-                        {{ \App\Models\PackagePayment::where('payment_status','Paid')->whereMonth('created_at', '=', '02')->whereYear('created_at', '=', date('Y'))->sum('amount') }},
-                        {{ \App\Models\PackagePayment::where('payment_status','Paid')->whereMonth('created_at', '=', '03')->whereYear('created_at', '=', date('Y'))->sum('amount') }},
-                        {{ \App\Models\PackagePayment::where('payment_status','Paid')->whereMonth('created_at', '=', '04')->whereYear('created_at', '=', date('Y'))->sum('amount') }},
-                        {{ \App\Models\PackagePayment::where('payment_status','Paid')->whereMonth('created_at', '=', '05')->whereYear('created_at', '=', date('Y'))->sum('amount') }},
-                        {{ \App\Models\PackagePayment::where('payment_status','Paid')->whereMonth('created_at', '=', '06')->whereYear('created_at', '=', date('Y'))->sum('amount') }},
-                        {{ \App\Models\PackagePayment::where('payment_status','Paid')->whereMonth('created_at', '=', '07')->whereYear('created_at', '=', date('Y'))->sum('amount') }},
-                        {{ \App\Models\PackagePayment::where('payment_status','Paid')->whereMonth('created_at', '=', '08')->whereYear('created_at', '=', date('Y'))->sum('amount') }},
-                        {{ \App\Models\PackagePayment::where('payment_status','Paid')->whereMonth('created_at', '=', '09')->whereYear('created_at', '=', date('Y'))->sum('amount') }},
-                        {{ \App\Models\PackagePayment::where('payment_status','Paid')->whereMonth('created_at', '=', '10')->whereYear('created_at', '=', date('Y'))->sum('amount') }},
-                        {{ \App\Models\PackagePayment::where('payment_status','Paid')->whereMonth('created_at', '=', '11')->whereYear('created_at', '=', date('Y'))->sum('amount') }},
-                        {{ \App\Models\PackagePayment::where('payment_status','Paid')->whereMonth('created_at', '=', '12')->whereYear('created_at', '=', date('Y'))->sum('amount') }}
+                        {{ \App\Models\Registration::whereNotNull('payment_type')->whereMonth('created_at', '=', '01')->whereYear('created_at', '=', date('Y'))->sum('total_payment') }},
+                        {{ \App\Models\Registration::whereNotNull('payment_type')->whereMonth('created_at', '=', '02')->whereYear('created_at', '=', date('Y'))->sum('total_payment') }},
+                        {{ \App\Models\Registration::whereNotNull('payment_type')->whereMonth('created_at', '=', '03')->whereYear('created_at', '=', date('Y'))->sum('total_payment') }},
+                        {{ \App\Models\Registration::whereNotNull('payment_type')->whereMonth('created_at', '=', '04')->whereYear('created_at', '=', date('Y'))->sum('total_payment') }},
+                        {{ \App\Models\Registration::whereNotNull('payment_type')->whereMonth('created_at', '=', '05')->whereYear('created_at', '=', date('Y'))->sum('total_payment') }},
+                        {{ \App\Models\Registration::whereNotNull('payment_type')->whereMonth('created_at', '=', '06')->whereYear('created_at', '=', date('Y'))->sum('total_payment') }},
+                        {{ \App\Models\Registration::whereNotNull('payment_type')->whereMonth('created_at', '=', '07')->whereYear('created_at', '=', date('Y'))->sum('total_payment') }},
+                        {{ \App\Models\Registration::whereNotNull('payment_type')->whereMonth('created_at', '=', '08')->whereYear('created_at', '=', date('Y'))->sum('total_payment') }},
+                        {{ \App\Models\Registration::whereNotNull('payment_type')->whereMonth('created_at', '=', '09')->whereYear('created_at', '=', date('Y'))->sum('total_payment') }},
+                        {{ \App\Models\Registration::whereNotNull('payment_type')->whereMonth('created_at', '=', '10')->whereYear('created_at', '=', date('Y'))->sum('total_payment') }},
+                        {{ \App\Models\Registration::whereNotNull('payment_type')->whereMonth('created_at', '=', '11')->whereYear('created_at', '=', date('Y'))->sum('total_payment') }},
+                        {{ \App\Models\Registration::whereNotNull('payment_type')->whereMonth('created_at', '=', '12')->whereYear('created_at', '=', date('Y'))->sum('total_payment') }},
+
                     ],
                 backgroundColor: 'rgba(55, 125, 255, 0)',
                 borderColor: '#377dff',
