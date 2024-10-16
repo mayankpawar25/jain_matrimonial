@@ -90,7 +90,7 @@
 
 	// Login alert
     function loginModal(){
-        $('#LoginModal').modal();
+       // $('#LoginModal').modal();
     }
 
     // Package update alert

@@ -33,16 +33,16 @@
                             @enderror
                         </div>
 
-                        <div class="mb-3 text-right">
+                        <!-- <div class="mb-3 text-right">
                             <a class="link-muted text-capitalize font-weight-normal" href="{{ route('password.request') }}">{{ translate('Forgot Password?') }}</a>
-                        </div>
+                        </div> -->
 
                         {{-- <div class="mb-5"> --}}
-                            <button type="submit" class="btn btn-block btn-primary">{{ translate('Login to your Account') }}</button>
+                            <!-- <button type="submit" class="btn btn-block btn-primary">{{ translate('Login to your Account') }}</button> -->
                         {{-- </div> --}}
                     </form>
                     @if (env("DEMO_MODE") == "On")
-                        <div class="mb-4 mt-4">
+                        <!-- <div class="mb-4 mt-4">
                             <table class="table table-bordered">
                                 <tbody>
                                     <tr>
@@ -57,51 +57,51 @@
                                     </tr>
                                 </tbody>
                             </table>
-                        </div>
+                        </div> -->
                     @endif
 
 
                     {{-- Social media Login --}}
                     @if(get_setting('google_login_activation') == 1 || get_setting('facebook_login_activation') == 1 || get_setting('twitter_login_activation') == 1 || get_setting('apple_login_activation') == 1)
-                        <div class="separator mb-3 mt-4">
+                        <!-- <div class="separator mb-3 mt-4">
                             <span class="bg-white px-3 opacity-60">{{ translate('Or Login With')}}</span>
-                        </div>
+                        </div> -->
                         <ul class="list-inline social colored text-center mb-3">
                             @if (get_setting('facebook_login_activation') == 1)
-                                <li class="list-inline-item">
+                                <!-- <li class="list-inline-item">
                                     <a href="{{ route('social.login', ['provider' => 'facebook']) }}" class="facebook">
                                         <i class="lab la-facebook-f"></i>
                                     </a>
-                                </li>
+                                </li> -->
                             @endif
                             @if(get_setting('google_login_activation') == 1)
-                                <li class="list-inline-item">
+                                <!-- <li class="list-inline-item">
                                     <a href="{{ route('social.login', ['provider' => 'google']) }}" class="google">
                                         <i class="lab la-google"></i>
                                     </a>
-                                </li>
+                                </li> -->
                             @endif
                             @if (get_setting('twitter_login_activation') == 1)
-                                <li class="list-inline-item">
+                                <!-- <li class="list-inline-item">
                                     <a href="{{ route('social.login', ['provider' => 'twitter']) }}" class="twitter">
                                         <i class="lab la-twitter"></i>
                                     </a>
-                                </li>
+                                </li> -->
                             @endif
                             @if (get_setting('apple_login_activation') == 1)
-                                <li class="list-inline-item">
+                                <!-- <li class="list-inline-item">
                                     <a href="{{ route('social.login', ['provider' => 'apple']) }}" class="apple">
                                         <i class="lab la-apple"></i>
                                     </a>
-                                </li>
+                                </li> -->
                             @endif
                         </ul>
                     @endif
 
-                    <div class="text-center">
+                    <!-- <div class="text-center">
                         <p class="text-muted mb-0">{{ translate("Don't have an account?") }}</p>
                         <a href="{{ route('register') }}">{{ translate('Create an account') }}</a>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>

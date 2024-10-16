@@ -148,7 +148,7 @@
                             <a class="text-reset opacity-60" href="{{ route('login') }}">{{ translate('Log In') }}</a>
                         </li> -->
                         <li class="list-inline-item ml-3">
-                            <a class="btn btn-sm bg-primary-grad text-white fw-600 py-1 border"
+                            <a class="btn btn-sm btn-primary"
                                 href="{{ route('form.resgistration') }}">{{ translate('Registration') }}</a>
                         </li>
                         @endif
