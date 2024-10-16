@@ -486,8 +486,17 @@ class RegisterController extends Controller
                     'mobile' => $registration->mobile,
                 ];
 
-                // // Encrypt the data
-                $encryptedData = Crypt::encryptString(json_encode($data));
+                $encryptionKey = base64_decode('aGVsbG93b3JsZGhlbGxvd29ybGRoZWxsb3dvcmxkZGVtbw==');
+                $iv = random_bytes(16); // Generate a random IV (Initialization Vector)
+                
+                // Encrypt the data manually using openssl_encrypt
+                $encryptedValue = openssl_encrypt(json_encode($data), 'aes-256-cbc', $encryptionKey, 0, $iv);
+                
+                // Encode the result and send it to your Node.js API
+                $encryptedData = json_encode([
+                    'iv' => base64_encode($iv), 
+                    'value' => base64_encode($encryptedValue)
+                ]);
 
                 // // Send encrypted data to Node.js
                 $response = Http::post('https://bot.djsgfshaadi.com/api/receive-registration', [
