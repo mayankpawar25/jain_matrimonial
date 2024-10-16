@@ -865,7 +865,7 @@
 @section('script')
     <script type="text/javascript">
         function loginModal() {
-            $('#LoginModal').modal();
+           // $('#LoginModal').modal();
         }
 
         function package_update_alert() {
