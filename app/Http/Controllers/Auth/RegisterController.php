@@ -486,41 +486,31 @@ class RegisterController extends Controller
                     'mobile' => $registration->mobile,
                 ];
 
-                $encryptionKey = base64_decode('aGVsbG93b3JsZGhlbGxvd29ybGRoZWxsb3dvcmxkZGVtbw==');
                 $iv = random_bytes(16); // Generate a random IV (Initialization Vector)
-                
-                // Encrypt the data manually using openssl_encrypt
-                $encryptedValue = openssl_encrypt(json_encode($data), 'aes-256-cbc', $encryptionKey, 0, $iv);
                 
                 // Encode the result and send it to your Node.js API
                 $encryptedData = json_encode([
                     'iv' => base64_encode($iv), 
-                    'value' => base64_encode($encryptedValue)
+                    'value' => base64_encode(json_encode($data))
                 ]);
 
+
+
                 // // Send encrypted data to Node.js
-                $response = Http::post('https://bot.djsgfshaadi.com/api/receive-registration', [
+                $response = Http::post('https://dec4-2401-4900-8821-e52f-489e-70df-302f-5ebb.ngrok-free.app/api/receive-registration', [
                     'encrypted_data' => $encryptedData,
                 ]);
-                // // dd($response);
-                // // Attempt to send data to the Node.js API
 
                 // // Optionally, log the response for debugging
                 if ($response->successful()) {
-                    // flash(translate('Oops!!! Something went wrong'))->error();
-                    // Log::info('Data sent successfully:', ['response' => $response->json()]);
                     $sentIds[] = $registration->id;
                     Session::put('sent_ids', $sentIds);
-                    flash(translate('Data sent successfully:'))->success();
-
+                    // flash(translate('Data sent successfully:'))->success();
                 } else {
                     // flash(translate('Failed to send data to Node.js API:'))->error();
-                    // Log::error('Failed to send data to Node.js API:', ['response' => $response->json()]);
                 }
             } catch (\Exception $e) {
-                // Log the exception for debugging
                 // flash(translate('Exception occurred while sending data to Node.js API:' . $e->getMessage()))->error();
-                // Log::error('Exception occurred while sending data to Node.js API:', ['error' => $e->getMessage()]);
             }
             // $sentIds[] = $registration->id;
             // Session::put('sent_ids', $sentIds);
@@ -532,3 +522,4 @@ class RegisterController extends Controller
         }
     }
 }
+
