@@ -514,12 +514,12 @@ class RegisterController extends Controller
                     flash(translate('Data sent successfully:'))->success();
 
                 } else {
-                    flash(translate('Failed to send data to Node.js API:'))->error();
+                    // flash(translate('Failed to send data to Node.js API:'))->error();
                     // Log::error('Failed to send data to Node.js API:', ['response' => $response->json()]);
                 }
             } catch (\Exception $e) {
                 // Log the exception for debugging
-                flash(translate('Exception occurred while sending data to Node.js API:' . $e->getMessage()))->error();
+                // flash(translate('Exception occurred while sending data to Node.js API:' . $e->getMessage()))->error();
                 // Log::error('Exception occurred while sending data to Node.js API:', ['error' => $e->getMessage()]);
             }
             // $sentIds[] = $registration->id;
