@@ -520,7 +520,7 @@ class RegisterController extends Controller
             } catch (\Exception $e) {
                 // Log the exception for debugging
                 flash(translate('Exception occurred while sending data to Node.js API:' . $e->getMessage()))->error();
-                Log::error('Exception occurred while sending data to Node.js API:', ['error' => $e->getMessage()]);
+                // Log::error('Exception occurred while sending data to Node.js API:', ['error' => $e->getMessage()]);
             }
             // $sentIds[] = $registration->id;
             // Session::put('sent_ids', $sentIds);
