@@ -29,8 +29,8 @@
                 <div class="bg-grad-3 text-white rounded-lg mb-4 overflow-hidden">
                     <div class="px-3 pt-3">
                         <div class="opacity-80">
-                            <span class="fs-14 d-block">{{ translate('Registered') }}</span>
-                            {{ translate('Members') }}
+                            <span class="fs-18 d-block">{{ translate('Registered Members') }}</span>
+
                         </div>
                         <div class="h3 fw-700 mb-3">{{ \App\Models\Registration::count() }}</div>
                     </div>
@@ -72,8 +72,8 @@
                 <div class="bg-grad-4 text-white rounded-lg mb-4 overflow-hidden">
                     <div class="px-3 pt-3">
                         <div class="opacity-80">
-                            <span class="fs-14 d-block">{{ translate('Total') }}</span>
-                            {{ translate('Earnings') }}
+                            <span class="fs-18 d-block">{{ translate('Total Earnings') }}</span>
+                            <!-- {{ translate('Earnings') }} -->
                         </div>
                         <div class="h3 fw-700 mb-3">{{ single_price(\App\Models\Registration::whereNotNull('payment_type')->sum('total_payment')) }}</div>
                     </div>
