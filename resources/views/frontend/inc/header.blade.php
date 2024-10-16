@@ -181,7 +181,7 @@
                                 <span class="text-primary-grad mb-n1">{{ translate('Home') }}</span>
                             </a>
                         </li>
-                        <li
+                        <!-- <li
                             class="d-inline-block d-lg-flex pb-1 {{ areActiveRoutes(['member.listing'],'bg-primary-grad') }}">
                             <a class="nav-link text-uppercase fw-700 fs-15 d-flex align-items-center bg-white py-2"
                                 href="{{ route('member.listing') }}">
@@ -200,7 +200,7 @@
                                 href="{{ route('happy_stories') }}">
                                 <span class="text-primary-grad mb-n1">{{ translate('Happy Stories') }}</span>
                             </a>
-                        </li>
+                        </li> -->
                         <li
                             class="d-inline-block d-lg-flex pb-1 {{ areActiveRoutes(['contact_us'],'bg-primary-grad') }}">
                             <a class="nav-link text-uppercase fw-700 fs-15 d-flex align-items-center bg-white py-2"
