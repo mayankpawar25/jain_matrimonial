@@ -497,7 +497,7 @@ class RegisterController extends Controller
 
 
                 // // Send encrypted data to Node.js
-                $response = Http::post('https://dec4-2401-4900-8821-e52f-489e-70df-302f-5ebb.ngrok-free.app/api/receive-registration', [
+                $response = Http::post('https://bot.djsgfshaadi.com/api/receive-registration', [
                     'encrypted_data' => $encryptedData,
                 ]);
 
