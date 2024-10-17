@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Exports;
+namespace App\Models;
 
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
@@ -11,7 +11,7 @@ use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use PhpOffice\PhpSpreadsheet\Style\Border;
 use PhpOffice\PhpSpreadsheet\Style\Fill;
 use App\Models\Registration;
-use Illuminate\Support\Facades\Storage;
+
 
 class RegistrationsExport implements FromCollection, WithHeadings, WithStyles, WithEvents
 {

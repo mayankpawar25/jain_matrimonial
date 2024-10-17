@@ -1,8 +1,8 @@
 <?php
 
 namespace App\Http\Controllers\Auth;
+
 use Maatwebsite\Excel\Facades\Excel;
-use App\Exports\RegistrationsExport;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Session;
@@ -26,6 +26,7 @@ use Kutia\Larafirebase\Facades\Larafirebase;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use App\Http\Controllers\OTPVerificationController;
 use App\Http\Controllers\AizUploadController;
+use App\Models\RegistrationsExport;
 use Carbon\Carbon;
 
 use function PHPUnit\Framework\isNull;
