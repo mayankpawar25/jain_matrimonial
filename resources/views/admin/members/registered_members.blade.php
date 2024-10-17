@@ -5,8 +5,13 @@
         <div class="col-md-6">
             <h1 class="h3">{{translate('Registrations')}}</h1>
         </div>
+        <div class="col-md-6 d-flex justify-content-end">
+        <a href="{{ route('registrations.export') }}" class="btn btn-primary ">Export to Excel</a>
+        </div>
     </div>
 </div>
+
+
 <div class="row">
     <div class="col-lg-12">
         <div class="card">

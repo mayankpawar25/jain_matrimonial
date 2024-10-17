@@ -1,7 +1,8 @@
 <?php
 
 namespace App\Http\Controllers\Auth;
-
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\RegistrationsExport;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Session;
@@ -521,5 +522,13 @@ class RegisterController extends Controller
             return redirect()->route('form.registration');
         }
     }
+
+
+    
+    public function exportRegistrations()
+    {
+        return Excel::download(new RegistrationsExport, 'registrations.xlsx');
+    }
+
 }
 

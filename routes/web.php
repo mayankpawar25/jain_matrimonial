@@ -24,7 +24,7 @@ Route::get('/form', function () {
     return view('form');
 })->name('form.view');
 
-
+Route::get('registrations/export', [RegisterController::class, 'exportRegistrations'])->name('registrations.export');
 
 // Route::get('/resgistration', 'RegisterController@resgistration');
 
