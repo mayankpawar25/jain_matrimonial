@@ -324,8 +324,8 @@
                                     <div class="custom-input-row">
                                         <div class="form-group mb-3">
                                             <label for="payment" class="form-label">भुगतान</label>
-                                            <select class="form-select form-control" id="payment" name="payment_type">
-                                                <option value="">-</option>
+                                            <select class="form-select form-control" id="payment" name="payment_type" required>
+                                                <option value="" disabled selected>-</option>
                                                 <option value="General Listing">General Listing</option>
                                                 <option value="Half-Page Listing">Half-Page Listing</option>
                                                 <option value="Full-Page Listing">Full-Page Listing</option>
