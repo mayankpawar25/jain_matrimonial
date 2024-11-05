@@ -12,8 +12,9 @@
                 <h1 class="mt-5" style="font-weight: 600; color: #ee2098;"><strong>{{ $registration->name }}, </strong> आपका रजिस्ट्रेशन सफलता पूर्वक हो गया है!</h1>
                 <br>
                 <h4>आपका रजिस्ट्रेशन नंबर है : <strong>#DJSGF-100{{ $registration->id }}</strong><br> <br>
-                कृपया यह नंबर अपने पास सुरक्षित रखे.</h3>
-
+                कृपया यह नंबर अपने पास सुरक्षित रखे.</h4><br>
+                <h4>रजिस्ट्रेशन दिनांक : <strong>{{ \Carbon\Carbon::parse($registration->created_at)->format('d-m-Y H:i:s') }}</strong><br> <br>
+                </h4>
                 <a href="/" class="btn btn-next width mt-3" style="background-color: rgb(240, 53, 162); border: none; color: white;" >Back To Home</a>
                 <!-- <p>Thank you for registering. Your Registration ID is: <strong>{{ $registration->id }}</strong></p>
                 <p>Name: {{ $registration->name }}</p>

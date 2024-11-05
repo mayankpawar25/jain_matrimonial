@@ -61,6 +61,68 @@
     max-height: 80%;
     /* Adjust size as needed */
 }
+/* General styling for the upload box */
+.custom-upload-box {
+    position: relative;
+    /* width: 100%; */
+    margin-top: 10px;
+    border: 1px dashed #ccc;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+/* Style for each preview image */
+#preview-image-1,
+#preview-image-2,
+#preview-image-3 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensures the image fits within the box */
+    display: none; /* Hide initially */
+    border-radius: 5px;
+}
+
+/* Remove button styling */
+.remove-image {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background-color: rgba(255, 255, 255, 0.8);
+    border: none;
+    border-radius: 50%;
+    padding: 5px;
+    cursor: pointer;
+    display: none; /* Hide initially */
+    z-index: 10;
+}
+
+.remove-image svg {
+    width: 20px;
+    height: 20px;
+    fill: red;
+}
+
+/* Show the remove button when preview image is visible */
+.custom-upload-box:hover .remove-image {
+    display: inline-block;
+}
+
+/* Image input styling */
+input[type="file"] {
+    opacity: 0;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    cursor: pointer;
+}
 
 #preview-image {
     position: absolute;
@@ -187,7 +249,7 @@ html {
     color: #e41412;
 }
 
-.remove-image {
+/* .remove-image {
     position: absolute;
     top: 0px;
     right: 0px;
@@ -195,4 +257,4 @@ html {
     border: none;
     background-color: #fff;
     border-radius: 8px;
-}
+} */

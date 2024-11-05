@@ -275,7 +275,7 @@ class RegisterController extends Controller
             'img/photos/profile',
             'img/photos/receipt',
         ];
-
+        
         foreach ($directories as $directory) {
             if (!file_exists(public_path($directory))) {
                 mkdir(public_path($directory), 0777, true);
@@ -284,25 +284,33 @@ class RegisterController extends Controller
 
         // Handle file uploads
         $fileFields = ['profile_picture', 'payment_picture'];
-        $profile_pic_path = '';
+        $profile_pics_paths = []; 
         $receipt_pic_path = '';
 
-        foreach ($fileFields as $field) {
-            if ($request->hasFile($field)) {
-                $file = $request->file($field);
-                $fileName = $field . '_' . time() . '.' . $file->getClientOriginalExtension();
-
-                if ($field == 'profile_picture') {
-                    $filePath = 'img/photos/profile/' . $fileName;
-                    $file->move(public_path('img/photos/profile'), $fileName);
-                    $profile_pic_path = $filePath;
-                } else {
-                    $filePath = 'img/photos/receipt/' . $fileName;
-                    $file->move(public_path('img/photos/receipt'), $fileName);
-                    $receipt_pic_path = $filePath;
-                }
-            }
+                // Handle profile picture uploads
+                
+    if ($request->hasFile('profile_picture')) {
+        // Determine if profile_picture is multiple files (array) or single
+        $files = is_array($request->file('profile_picture')) ? $request->file('profile_picture') : [$request->file('profile_picture')];
+        
+        foreach ($files as $index => $file) {
+            $fileName = 'profile_picture_' . $index . '_' . time() . '.' . $file->getClientOriginalExtension();
+            $filePath = 'img/photos/profile/' . $fileName;
+            $file->move(public_path('img/photos/profile'), $fileName);
+            $profile_pics_paths[] = $filePath;
         }
+    }
+
+    // Handle payment receipt upload
+    if ($request->hasFile('payment_picture')) {
+        $file = $request->file('payment_picture');
+        $fileName = 'payment_picture_' . time() . '.' . $file->getClientOriginalExtension();
+        $filePath = 'img/photos/receipt/' . $fileName;
+        $file->move(public_path('img/photos/receipt'), $fileName);
+        $receipt_pic_path = $filePath;
+    }
+
+            
 
         // Create a new Registration record
         $registration = new Registration();
@@ -345,7 +353,7 @@ class RegisterController extends Controller
         $registration->unmarried_sister = $request->input('unmarried_sister');
         $registration->contact = $request->input('contact');
         $registration->social_group = $request->input('social_group');
-        $registration->profile_picture = $profile_pic_path;
+        $registration->profile_picture = json_encode($profile_pics_paths,JSON_UNESCAPED_SLASHES);
         $registration->payment_picture = $receipt_pic_path;
         $registration->payment_type = $request->input('payment_type');
         $registration->total_payment = $request->input('total_payment');

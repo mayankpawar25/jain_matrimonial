@@ -87,7 +87,15 @@
                                 <td>{{ ($key + 1) + ($members->currentPage() - 1)*$members->perPage() }}</td>
                                 <td>{{ $member->id }}</td>
                                 <td>
-                                    @if(static_asset($member->profile_picture) != null && !empty($member->profile_picture))
+                                    @php
+                                        // Assuming $member->profile_picture is a JSON encoded string if it's an array
+                                        $profilePictures = json_decode($member->profile_picture, true);
+                                    @endphp
+                                    @if(is_array($profilePictures)  && !empty($profilePictures))
+                                        @foreach($profilePictures as $image)
+                                            <img class="img-md" src="{{ static_asset($image) }}" height="45px" alt="{{ translate('photo') }}" data-toggle="modal" data-target="#imageModal" onclick="showImage('{{ static_asset($image) }}')">
+                                        @endforeach
+                                    @elseif(!empty($member->profile_picture))
                                             <img class="img-md" src="{{ static_asset($member->profile_picture) }}" height="45px" alt="{{ translate('photo') }}"data-toggle="modal" data-target="#imageModal" onclick="showImage('{{ static_asset($member->profile_picture) }}')">
                                     @else
                                             <img class="img-md" src="{{ static_asset('assets/img/avatar-place.png') }}" height="45px" alt="{{ translate('photo') }}" data-toggle="modal" data-target="#imageModal" onclick="showImage('{{ static_asset('assets/img/avatar-place.png') }}')">

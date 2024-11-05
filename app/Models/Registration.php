@@ -55,5 +55,6 @@ class Registration extends Model
         'total_payment', // Added for total payment
         'is_courier', // Added for courier option
         'payment_mode', // Added for payment mode
+        'created_at',
     ];
 }
