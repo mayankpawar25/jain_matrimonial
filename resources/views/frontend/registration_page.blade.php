@@ -282,7 +282,7 @@
 
                         <div class="container my-5">
                             <label for="profile" class="form-label">फोटो अपलोड</label>
-                            <div class = "row">
+                            <div class = "row ml-0">
                                     <div class=" column-md-4 custom-upload-box mr-3" style="position: relative;">
                                         <input type="file" accept="image/*" class="form-control" id="image-input-1" name="profile_picture[]" required>
                                         <svg height="50" width="50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
