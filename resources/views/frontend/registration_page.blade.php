@@ -852,9 +852,6 @@ paymentSelect.addEventListener('change', function () {
                     const inches = parseFloat(field.value);
                     if(typeof inches === 'number'){
                         if(inches % 1 === 0 || inches.toString().match(/^\d+(\.\d{1,2})?$/)){
-                            console.log(inches);
-                            // const inchesValue = parseInt(field.value);
-                            console.log(inches,"inchesValue");
                             if (inches < 0 || inches > 11.99) { // Maximum 11 inches
                                 isValid = false;
                                 field.classList.add('is-invalid'); // Highlight invalid inches input
