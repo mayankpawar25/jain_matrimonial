@@ -122,7 +122,7 @@
                                     <input type="number" class="form-control mr-1" id="height-feet" name="height_feet"
                                         placeholder="फीट" min="0" max="10" required>
                                     <input type="number" class="form-control" id="height-inches" name="height_inches"
-                                        placeholder="इंच" min="0" max="11" required>
+                                        placeholder="इंच" min="0" max="11" step="0.1" required>
                                 </div>
                             </div>
                             <div class="col-md-3 mb-3">
@@ -848,8 +848,8 @@ paymentSelect.addEventListener('change', function () {
                 }
 
                 if (field.id === 'height-inches') {
-                    const inchesValue = parseInt(field.value, 10);
-                    if (inchesValue < 0 || inchesValue > 11) { // Maximum 11 inches
+                    const inchesValue = parseFloat(field.value);
+                    if (inchesValue < 0 || inchesValue > 12) { // Maximum 11 inches
                         isValid = false;
                         field.classList.add('is-invalid'); // Highlight invalid inches input
                         if (!firstInvalidField) {
