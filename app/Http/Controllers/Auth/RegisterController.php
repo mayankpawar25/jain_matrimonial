@@ -337,6 +337,8 @@ class RegisterController extends Controller
         $registration->dosh = $request->input('dosh');
         $registration->education = $request->input('education');
         $registration->occupation = $request->input('occupation');
+        $registration->name_of_org = $request->input('name_of_org');
+        $registration->annual_income = $request->input('annual_income');
         $registration->fatherName = $request->input('father_name');
         $registration->father_mobile = $request->input('father_mobile');
         $registration->father_occupation = $request->input('father_occupation');

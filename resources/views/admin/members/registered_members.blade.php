@@ -55,6 +55,8 @@
                             <th data-breakpoints="md">{{translate('Dosh')}}</th>
                             <th data-breakpoints="md">{{translate('Education')}}</th>
                             <th data-breakpoints="md">{{translate('Occupation')}}</th>
+                            <th data-breakpoints="md">{{translate('Name of Org.')}}</th>
+                            <th data-breakpoints="md">{{translate('Annual Income')}}</th>
                             <th data-breakpoints="md">{{translate('Fathers Name')}}</th>
                             <th data-breakpoints="md">{{translate('Fathers Mobile No.')}}</th>
                             <th data-breakpoints="md">{{translate('Fathers Occupation')}}</th>
@@ -123,6 +125,8 @@
                                 <td>{{ $member->dosh }}</td>
                                 <td>{{ $member->education }}</td>
                                 <td>{{ $member->occupation }}</td>
+                                <td>{{ $member->name_of_org }}</td>
+                                <td>{{ $member->annual_income }}</td>
                                 <td>{{ $member->fatherName }}</td>
                                 <td>{{ $member->father_mobile }}</td>
                                 <td>{{ $member->father_occupation }}</td>

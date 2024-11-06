@@ -33,6 +33,8 @@ class Registration extends Model
         'dosh', // Added field for 'dosh'
         'education', 
         'occupation', 
+        'name_of_org',
+        'annual_income',
         'fatherName',
         'father_mobile', // Updated from 'mob'
         'father_occupation', // Updated from 'work'
