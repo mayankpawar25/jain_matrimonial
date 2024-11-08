@@ -40,7 +40,7 @@
                             <th data-breakpoints="md">{{translate('Manglik')}}</th>
                             <th data-breakpoints="md">{{translate('Birthdate')}}</th>
                             <th data-breakpoints="md">{{translate('Time of Birth')}}</th>
-                            <th data-breakpoints="md">{{translate('Citizenship')}}</th>
+                            <th data-breakpoints="md">{{'Citizenship'}}</th>
                             <th data-breakpoints="md">{{translate('Birthplace')}}</th>
                             <th data-breakpoints="md">{{translate('State')}}</th>
                             <th data-breakpoints="md">{{translate('Self Gotra')}}</th>
