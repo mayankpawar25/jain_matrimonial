@@ -37,34 +37,34 @@
                             <th data-breakpoints="md">{{translate('Name')}}</th>
                             <th data-breakpoints="md">{{translate('Email')}}</th>
                             <th data-breakpoints="md">{{translate('Mobile No.')}}</th>
-                            <th data-breakpoints="md">{{translate('Marital-status')}}</th>
-                            <th data-breakpoints="md">{{translate('dd-mm-yy')}}</th>
-                            <th data-breakpoints="md">{{translate('AM/PM')}}</th>
-                            <th data-breakpoints="md">{{translate('Citizenship.')}}</th>
-                            <th data-breakpoints="md">{{translate('Place of Birth')}}</th>
+                            <th data-breakpoints="md">{{translate('Manglik')}}</th>
+                            <th data-breakpoints="md">{{translate('Birthdate')}}</th>
+                            <th data-breakpoints="md">{{translate('Time of Birth')}}</th>
+                            <th data-breakpoints="md">{{translate('Citizenship')}}</th>
+                            <th data-breakpoints="md">{{translate('Birthplace')}}</th>
                             <th data-breakpoints="md">{{translate('State')}}</th>
-                            <th data-breakpoints="md">{{translate('Gotra_self')}}</th>
-                            <th data-breakpoints="md">{{translate('Gotra_mama')}}</th>
-                            <th data-breakpoints="md">{{translate('Caste.')}}</th>
+                            <th data-breakpoints="md">{{translate('Self Gotra')}}</th>
+                            <th data-breakpoints="md">{{translate('Mama Gotra')}}</th>
+                            <th data-breakpoints="md">{{translate('Caste')}}</th>
                             <th data-breakpoints="md">{{translate('Subcaste')}}</th>
                             <th data-breakpoints="md">{{translate('Weight')}}</th>
                             <th data-breakpoints="md">{{translate('Height')}}</th>
                             <th data-breakpoints="md">{{translate('Complexion')}}</th>
-                            <th data-breakpoints="md">{{translate('Category.')}}</th>
+                            <th data-breakpoints="md">{{'Marital Status'}}</th>
                             <th data-breakpoints="md">{{translate('Residence')}}</th>
                             <th data-breakpoints="md">{{translate('Dosh')}}</th>
                             <th data-breakpoints="md">{{translate('Education')}}</th>
                             <th data-breakpoints="md">{{translate('Occupation')}}</th>
                             <th data-breakpoints="md">{{translate('Name of Org.')}}</th>
                             <th data-breakpoints="md">{{translate('Annual Income')}}</th>
-                            <th data-breakpoints="md">{{translate('Fathers Name')}}</th>
-                            <th data-breakpoints="md">{{translate('Fathers Mobile No.')}}</th>
-                            <th data-breakpoints="md">{{translate('Fathers Occupation')}}</th>
-                            <th data-breakpoints="md">{{translate('Fathers Income')}}</th>
-                            <th data-breakpoints="md">{{translate('Mothers Name')}}</th>
-                            <th data-breakpoints="md">{{translate('Mothers Mobile No.')}}</th>
-                            <th data-breakpoints="md">{{translate('Mothers Occupation')}}</th>
-                            <th data-breakpoints="md">{{translate('Mothers Income')}}</th>
+                            <th data-breakpoints="md">{{'Father\'s Name'}}</th>
+                            <th data-breakpoints="md">{{'Father\'s Mobile No.'}}</th>
+                            <th data-breakpoints="md">{{'Father\'s Occupation'}}</th>
+                            <th data-breakpoints="md">{{'Father\'s Income'}}</th>
+                            <th data-breakpoints="md">{{'Mother\'s Name'}}</th>
+                            <th data-breakpoints="md">{{'Mother\'s Mobile No.'}}</th>
+                            <th data-breakpoints="md">{{'Mother\'s Occupation'}}</th>
+                            <th data-breakpoints="md">{{'Mother\'s Income'}}</th>
                             <th data-breakpoints="md">{{translate('Permanent address')}}</th>
                             <th data-breakpoints="md">{{translate('Siblings')}}</th>
                             <th data-breakpoints="md">{{translate('Married Brother.')}}</th>
@@ -108,7 +108,7 @@
                                 <td>{{ $member->email }}</td>
                                 <td>{{ $member->mobile }}</td>
                                 <td>{{ $member->marriage }}</td>
-                                <td>{{ $member->doc_date }}</td>
+                                <td>{{ \Carbon\Carbon::parse($member->doc_date)->format('d-m-Y') }}</td>
                                 <td>{{ $member->time }}</td>
                                 <td>{{ $member->citizenship }}</td>
                                 <td>{{ $member->place_of_birth }}</td>
