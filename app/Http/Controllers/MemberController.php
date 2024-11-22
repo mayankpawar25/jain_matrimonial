@@ -497,6 +497,14 @@ class MemberController extends Controller
 
     }
 
+    public function registered_member_detail($id)
+    {
+        // Fetch the member by id
+        $member = Registration::findOrFail($id);  // This will throw a 404 if the member is not found
+
+        // Return the member details to the view
+        return view('admin.members.registered_member_detail', compact('member'));
+    }
 
 
     /**
