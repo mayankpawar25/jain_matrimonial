@@ -4,18 +4,22 @@
 <div class="aiz-titlebar mt-2 mb-4">
     <div class="row align-items-center">
         <div class="col-md-6">
-            <h1 class="h3">{{ translate('Member Details') }}</h1>
+            <h1 class="h3">{{ translate('Member Details') }}</h1> 
+        </div>
+        <div class="col-md-6 text-right">
+        <button class="btn btn-primary" onclick="printDiv('table-print')"> Print</button>
         </div>
     </div>
 </div>
 
 <div class="row">
     <div class="col-lg-12">
-        <div class="card">
+        <div class="card" id="table-print">
             <div class="card-header">
-                <h5 class="mb-0 h6">{{ translate('Details of') }} {{ $member->name }}</h5>
+                <h5 class="mb-0 h6">{{ translate('Details of') }} {{ $member->name }}</h5> 
+                
             </div>
-            <div class="card-body">
+            <div class="card-body" >
                 <table class="table aiz-table mb-0">
                     <tbody>
                         <tr>
@@ -182,5 +186,14 @@
         </div>
     </div>
 </div>
-
+<script>
+        function printDiv(divId) {
+            var printContents = document.getElementById(divId).innerHTML;
+            var originalContents = document.body.innerHTML;
+            
+            document.body.innerHTML = printContents;
+            window.print();
+            document.body.innerHTML = originalContents;
+        }
+    </script>
 @endsection
