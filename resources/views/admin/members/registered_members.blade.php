@@ -104,7 +104,7 @@
                                     @endif
                                 </td>
 
-                                <td>{{ $member->name }}</td>
+                                <td><a href="{{ route('registered_member_details', $member->id) }}">{{ $member->name }}</a></td>
                                 <td>{{ $member->email }}</td>
                                 <td>{{ $member->mobile }}</td>
                                 <td>{{ $member->marriage }}</td>
