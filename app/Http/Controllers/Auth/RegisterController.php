@@ -310,7 +310,13 @@ class RegisterController extends Controller
         $receipt_pic_path = $filePath;
     }
 
-            
+    $height = '';
+    if(!empty($request->input('height_feet'))) {
+        $height = $request->input('height_feet') . "'' ";
+    }
+    if(!empty($request->input('height_feet'))) {
+        $height .= $request->input('height_inches') . "'";
+    }
 
         // Create a new Registration record
         $registration = new Registration();
@@ -330,7 +336,7 @@ class RegisterController extends Controller
         $registration->caste = $request->input('caste');
         $registration->subCaste = $request->input('subcaste');
         $registration->weight = $request->input('weight');
-        $registration->height = $request->input('height_feet') . "'' " . $request->input('height_inches') . "'";
+        $registration->height = $height;
         $registration->complexion = $request->input('complexion');
         $registration->category = $request->input('category');
         $registration->residence = $request->input('residence');
@@ -340,11 +346,11 @@ class RegisterController extends Controller
         $registration->name_of_org = $request->input('name_of_org');
         $registration->annual_income = $request->input('annual_income');
         $registration->fatherName = $request->input('father_name');
-        $registration->father_mobile = $request->input('father_mobile');
+        $registration->father_mobile = !empty($request->input('father_mobile')) ? $request->input('father_mobile') : '';
         $registration->father_occupation = $request->input('father_occupation');
         $registration->father_income = $request->input('father_income');
         $registration->mothername = $request->input('mother_name');
-        $registration->mother_mobile = $request->input('mother_mobile');
+        $registration->mother_mobile = !empty($request->input('mother_mobile')) ? $request->input('mother_mobile') : '';
         $registration->mother_occupation = $request->input('mother_occupation');
         $registration->mother_income = $request->input('mother_income');
         $registration->permanent_address = $request->input('permanent_address');

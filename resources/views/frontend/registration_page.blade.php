@@ -119,10 +119,10 @@
                                 <label for="height" class="form-label">ऊंचाई</label>
                                 <!-- <input type="number" class="form-control" id="height" name="height" step="0.01" min="0" required> -->
                                 <div class="d-flex">
-                                    <input type="number" class="form-control mr-1" id="height-feet" name="height_feet"
-                                        placeholder="फीट" min="0" max="10" required>
-                                    <input type="number" class="form-control" id="height-inches" name="height_inches"
-                                        placeholder="इंच" min="0" max="11" step="0.01" required>
+                                    <input type="text" class="form-control mr-1" id="height-feet" name="height_feet"
+                                        placeholder="फीट" >
+                                    <input type="text" class="form-control" id="height-inches" name="height_inches"
+                                        placeholder="इंच" >
                                 </div>
                             </div>
                             <div class="col-md-3 mb-3">
@@ -201,8 +201,7 @@
                             <div class="col-md-3 mb-3">
                                 <label for="mob" class="form-label">मोबाइल नंबर</label>
                                 <input type="tel" class="form-control" id="mob"
-                                    pattern="^(?:\+?[0-9]{1,3})?0?[0-9]{10}$" name="father_mobile" maxlength="10"
-                                    required>
+                                    pattern="^(?:\+?[0-9]{1,3})?0?[0-9]{10}$" name="father_mobile" maxlength="10">
                             </div>
                             <div class="col-md-3 mb-3">
                                 <label for="work" class="form-label">व्यवसाय</label>
@@ -222,7 +221,7 @@
                             <div class="col-md-3 mb-3">
                                 <label for="mob2" class="form-label">मोबाइल नंबर</label>
                                 <input type="tel" class="form-control" pattern="^(?:\+?[0-9]{1,3})?0?[0-9]{10}$"
-                                    name="mother_mobile" id="mob2" maxlength="10" required>
+                                    name="mother_mobile" id="mob2" maxlength="10">
                             </div>
                             <div class="col-md-3 mb-3">
                                 <label for="mother_occupation" class="form-label">व्यवसाय</label>
@@ -834,41 +833,41 @@ paymentSelect.addEventListener('change', function () {
                 }
 
                 // Specific validation for height-feet and height-inches fields
-                if (field.id === 'height-feet') {
-                    const feetValue = parseInt(field.value, 10);
-                    if (feetValue < 0 || feetValue > 7) { // Maximum 7 feet
-                        isValid = false;
-                        field.classList.add('is-invalid'); // Highlight invalid feet input
-                        if (!firstInvalidField) {
-                            firstInvalidField = field; // Capture the first invalid field
-                        }
-                    } else {
-                        field.classList.remove('is-invalid');
-                    }
-                }
+                // if (field.id === 'height-feet') {
+                //     const feetValue = parseInt(field.value, 10);
+                //     if (feetValue < 0 || feetValue > 7) { // Maximum 7 feet
+                //         isValid = false;
+                //         field.classList.add('is-invalid'); // Highlight invalid feet input
+                //         if (!firstInvalidField) {
+                //             firstInvalidField = field; // Capture the first invalid field
+                //         }
+                //     } else {
+                //         field.classList.remove('is-invalid');
+                //     }
+                // }
 
-                if (field.id === 'height-inches') {
+                // if (field.id === 'height-inches') {
                     
-                    const inches = parseFloat(field.value);
-                    if(typeof inches === 'number'){
-                        if(inches % 1 === 0 || inches.toString().match(/^\d+(\.\d{1,2})?$/)){
-                            if (inches < 0 || inches > 11.99) { // Maximum 11 inches
-                                isValid = false;
-                                field.classList.add('is-invalid'); // Highlight invalid inches input
-                                if (!firstInvalidField) {
-                                    firstInvalidField = field; // Capture the first invalid field
-                                }
-                            } else {
-                                field.classList.remove('is-invalid');
-                            }
-                        } else{
-                            // float
-                            isValid = false;
-                            field.classList.add('is-invalid'); 
-                        }
-                    }
+                //     const inches = parseFloat(field.value);
+                //     if(typeof inches === 'number'){
+                //         if(inches % 1 === 0 || inches.toString().match(/^\d+(\.\d{1,2})?$/)){
+                //             if (inches < 0 || inches > 11.99) { // Maximum 11 inches
+                //                 isValid = false;
+                //                 field.classList.add('is-invalid'); // Highlight invalid inches input
+                //                 if (!firstInvalidField) {
+                //                     firstInvalidField = field; // Capture the first invalid field
+                //                 }
+                //             } else {
+                //                 field.classList.remove('is-invalid');
+                //             }
+                //         } else{
+                //             // float
+                //             isValid = false;
+                //             field.classList.add('is-invalid'); 
+                //         }
+                //     }
                    
-                }
+                // }
             });
 
             // Prevent moving to Step 2 if any required field is not filled
