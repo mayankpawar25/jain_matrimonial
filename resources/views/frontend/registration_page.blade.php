@@ -119,8 +119,8 @@
                                 <label for="height" class="form-label">ऊंचाई</label>
                                 <!-- <input type="number" class="form-control" id="height" name="height" step="0.01" min="0" required> -->
                                 <div class="d-flex">
-                                    <input type="text" class="form-control mr-1" id="height-feet" name="height_feet"
-                                        placeholder="फीट" >
+                                    <input type="number" class="form-control mr-1" id="height-feet" name="height_feet"
+                                        placeholder="फीट" min="0" max="10" required>
                                     <input type="text" class="form-control" id="height-inches" name="height_inches"
                                         placeholder="इंच" >
                                 </div>
@@ -833,18 +833,18 @@ paymentSelect.addEventListener('change', function () {
                 }
 
                 // Specific validation for height-feet and height-inches fields
-                // if (field.id === 'height-feet') {
-                //     const feetValue = parseInt(field.value, 10);
-                //     if (feetValue < 0 || feetValue > 7) { // Maximum 7 feet
-                //         isValid = false;
-                //         field.classList.add('is-invalid'); // Highlight invalid feet input
-                //         if (!firstInvalidField) {
-                //             firstInvalidField = field; // Capture the first invalid field
-                //         }
-                //     } else {
-                //         field.classList.remove('is-invalid');
-                //     }
-                // }
+                if (field.id === 'height-feet') {
+                    const feetValue = parseInt(field.value, 10);
+                    if (feetValue < 0 || feetValue > 7) { // Maximum 7 feet
+                        isValid = false;
+                        field.classList.add('is-invalid'); // Highlight invalid feet input
+                        if (!firstInvalidField) {
+                            firstInvalidField = field; // Capture the first invalid field
+                        }
+                    } else {
+                        field.classList.remove('is-invalid');
+                    }
+                }
 
                 // if (field.id === 'height-inches') {
                     
