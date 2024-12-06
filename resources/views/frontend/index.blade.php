@@ -3,7 +3,7 @@
     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5> Register Now</h5>
+                    
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
@@ -11,7 +11,8 @@
             <div class="modal-body text-center">
                 
                 <img src="{{ static_asset('assets/img/modal-bnr.png') }}" class="w-100 mb-3" alt="">
-                <a href="{{ route('form.resgistration') }}" class="btn btn-primary">Register Now</a>
+                <h4>आपकी रुचि के लिए धन्यवाद! पंजीकरण अब बंद हो चुके हैं। हम आपको 15 दिसंबर 2024 को परिचय सम्मेलन में स्वागत करने के लिए उत्सुक हैं।</h4>
+                <!-- <a href="{{ route('form.resgistration') }}" class="btn btn-primary">Register Now</a> -->
             </div>
             
         </div>
@@ -552,7 +553,7 @@
                     @endforeach
                 </div>
             </div>
-            <div class="text-center"><a href="{{ route('form.resgistration') }}" class="btn btn-primary">Register Now</a></div>
+            <!-- <div class="text-center"><a href="{{ route('form.resgistration') }}" class="btn btn-primary">Register Now</a></div> -->
             <div class="container info-text22">
                 <div class="row">
                     <div class="col-md-8 offset-md-2 ">

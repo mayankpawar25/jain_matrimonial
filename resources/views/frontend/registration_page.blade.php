@@ -9,7 +9,18 @@
 
 
 <!-- resources/views/form.blade.php -->
-<div class="py-5 mt-5 py-lg-5 mt-2">
+<div class="     mt-2  ">
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+        <img src="{{ static_asset('assets/img/modal-bnr.png') }}" class="w-100 mb-3" alt="">
+        <h1 class="text-center mb-2 mt-5 mb-5" style="font-weight: bold; color: #ee2098;">आपकी रुचि के लिए धन्यवाद! पंजीकरण अब बंद हो चुके हैं। हम आपको 15 दिसंबर 2024 को परिचय सम्मेलन में स्वागत करने के लिए उत्सुक हैं।</h1>
+
+        </div>
+    </div>
+</div>
+</div>
+<div class="py-5 mt-5 py-lg-5 mt-2 d-none">
     <div class="containter">
         <div class="row">
             <div class="form-wizard p-4 bg-white shadow rounded">
