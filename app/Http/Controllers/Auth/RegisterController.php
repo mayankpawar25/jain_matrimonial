@@ -547,5 +547,22 @@ class RegisterController extends Controller
         return Excel::download(new RegistrationsExport, 'registrations.xlsx');
     }
 
+    public function attendeelist (Request $request) {
+        return view('frontend.attendeelist');
+    }
+    
+    public function kitRequestForm(Request $request)
+    {
+        // Get user IDs passed as query params
+        $userIds = explode(',', $request->input('user_ids'));
+
+        // Optionally, fetch the user details from the database
+        $users = Registration::whereIn('id', $userIds)->get();
+
+        // Return the view for the kit request form
+        // Pass the user names to the view for display
+        return view('frontend.kit_request_form', compact('users'));
+    }
+
 }
 
