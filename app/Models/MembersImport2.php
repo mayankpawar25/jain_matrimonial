@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Models;
+
 use App\Models\Member;
 use App\Models\Package;
 use App\Models\User;
@@ -50,15 +51,15 @@ class MembersImport2 implements ToCollection
                             'membership'        => 2,
                         ]
                     );
-                   
+
                     $package = Package::where('id', $row[54])->first();
                     $children = 0;
                     $no_of_daughter = 0;
-                    if(in_array(strtolower($row[17]), ['married'])) {
+                    if (in_array(strtolower($row[17]), ['married'])) {
                         $input_marital_status = 'Married';
                         $children = !empty($row[18]) ? $row[18] : 0;
                         $no_of_daughter = !empty($row[19]) ? $row[19] : 0;
-                    } else if(in_array(strtolower($row[17]), ['unmarried'])) {
+                    } else if (in_array(strtolower($row[17]), ['unmarried'])) {
                         $input_marital_status = 'Unmarried';
                     } else {
                         $input_marital_status = 'Divorcee';
@@ -66,7 +67,7 @@ class MembersImport2 implements ToCollection
                         $no_of_daughter = !empty($row[19]) ? $row[19] : 0;
                     }
                     $marital_status_id = MaritalStatus::where('name', 'LIKE', $input_marital_status)->whereNull('deleted_at')->first()->id;
-                    
+
                     // Create Member
                     Member::updateOrCreate(
                         ['user_id' => $user->id],
@@ -74,18 +75,18 @@ class MembersImport2 implements ToCollection
                             'gender' => $row[52], // Assuming Gender model exists
                             'on_behalves_id' => $row[53], // Assuming OnBehalf model exists
                             'birthday' => date('Y-m-d', strpos($row[4], '/') !== false ? strtotime(str_replace('/', '-', $row[4])) : strtotime($row[4])),
-                            'current_package_id' => $package->id, // Assuming Package model exists
-                            'remaining_interest' => $package->express_interest,
-                            'remaining_contact_view' => $package->contact,
-                            'remaining_photo_gallery' => $package->photo_gallery,
-                            'auto_profile_match' => $package->auto_profile_match,
-                            'package_validity' => Date('Y-m-d', strtotime($package->validity . ' days')),
+                            'current_package_id' => $package?->id, // Assuming Package model exists
+                            'remaining_interest' => $package?->express_interest,
+                            'remaining_contact_view' => $package?->contact,
+                            'remaining_photo_gallery' => $package?->photo_gallery,
+                            'auto_profile_match' => $package?->auto_profile_match,
+                            'package_validity' => Date('Y-m-d', strtotime($package?->validity . ' days')),
                             'marital_status_id' => $marital_status_id ? $marital_status_id : null,
                             'children' => $children,
                             'no_of_daughter' => $no_of_daughter,
                         ],
                     );
-                    
+
                     // Create or update MemberOtherDetail
                     MemberOtherDetail::updateOrCreate(
                         ['user_id' => $user->id],
@@ -111,10 +112,10 @@ class MembersImport2 implements ToCollection
                             'mother_annual_income' => is_numeric($row[37]) ? $row[37] : null,
                             'present_address' => $row[1],
                             'permanent_address' => $row[38],
-                            'unmarried_brother' => is_numeric($row[39]) ? $row[39] : null,
-                            'married_brother' => is_numeric($row[40]) ? $row[40] : null,
-                            'unmarried_sister' => is_numeric($row[41]) ? $row[41] : null,
-                            'married_sister' => is_numeric($row[42]) ? $row[42] : null,
+                            'unmarried_brother' => ($row[39] >= 0 && $row[39] <= 100 && is_numeric($row[39])) ? $row[39] : null,
+                            'married_brother' => ($row[40] >= 0 && $row[40] <= 100 && is_numeric($row[40])) ? $row[40] : null,
+                            'unmarried_sister' => ($row[41] >= 0 && $row[41] <= 100 && is_numeric($row[41])) ? $row[41] : null,
+                            'married_sister' => ($row[42] >= 0 && $row[42] <= 100 && is_numeric($row[42])) ? $row[42] : null,
                             'grandfather_uncle_info' => $row[43],
                             'known_person_1' => $row[44],
                             'known_person_2' => $row[45],
@@ -149,20 +150,20 @@ class MembersImport2 implements ToCollection
                     $castdata = Caste::where('name', 'LIKE', $row[12])->whereNull('deleted_at')->first();
                     try {
                         //code...
-                        $sub_caste_id = SubCaste::where('name', 'LIKE', trim($row[13]))->whereNull('deleted_at')->first()->id; 
+                        $sub_caste_id = SubCaste::where('name', 'LIKE', trim($row[13]))->whereNull('deleted_at')->first()->id;
                     } catch (\Throwable $th) {
                         //throw $th;
-                        dd($th, $row[13]);
+                        dd($row[3],$th, $row[13]);
                     }
 
                     // Create or update SpiritualBackground
                     SpiritualBackground::updateOrCreate(
                         ['user_id' => $user->id],
                         [
-                            'religion_id' => $castdata->religion_id, 
-                            'caste_id' => $castdata->id, 
-                            'sub_caste_id' => $sub_caste_id, 
-                            'ethnicity'=> $row[8],
+                            'religion_id' => $castdata->religion_id,
+                            'caste_id' => $castdata->id,
+                            'sub_caste_id' => $sub_caste_id,
+                            'ethnicity' => $row[8],
                         ],
                     );
 
@@ -191,9 +192,9 @@ class MembersImport2 implements ToCollection
                     Transaction::updateOrCreate(
                         ['user_id' => $user->id],
                         [
-                            'gateway' => $row[56], 
+                            'gateway' => $row[56],
                             'payment_type' => $row[56],
-                            'additional_content' => $additional_content, 
+                            'additional_content' => $additional_content,
                         ],
                     );
 
@@ -236,7 +237,7 @@ class MembersImport2 implements ToCollection
                     );
                 } catch (\Exception $e) {
                     // Handle exceptions
-                    dd($e);
+                    dd($e,$row[3]);
                 }
             }
         }

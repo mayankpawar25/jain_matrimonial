@@ -75,13 +75,13 @@ class AstrologyController extends Controller
              'sun_sign'         => [ 'max:255'],
              'moon_sign'        => [ 'max:255'],
              'time_of_birth'    => [ 'max:10'],
-             'city_of_birth'    => [ 'max:20'],
+             'city_of_birth'    => [ 'max:255'],
          ];
          $this->messages = [
              'sun_sign.max'       => translate('Max 255 characters'),
              'moon_sign.max'      => translate('Max 255 characters'),
              'time_of_birth.max'  => translate('Max 10 characters'),
-             'city_of_birth.max'  => translate('Max 20 characters'),
+             'city_of_birth.max'  => translate('Max 255 characters'),
          ];
 
          $rules = $this->rules;

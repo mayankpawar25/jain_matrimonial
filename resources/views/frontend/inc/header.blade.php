@@ -139,18 +139,18 @@
                                 </span>
                             </a>
                         </li> -->
-                        <!-- <li class="list-inline-item">
+                        <li class="list-inline-item">
                             <a href="{{ route('logout') }}"
                                 class="btn btn-sm bg-primary-grad text-white fw-600 py-1 border">{{translate('Logout')}}</a>
-                        </li> -->
+                        </li>
                         @else
-                        <!-- <li class="list-inline-item ml-4">
-                            <a class="text-reset opacity-60" href="{{ route('login') }}">{{ translate('Log In') }}</a>
-                        </li> -->
-                            <li class="list-inline-item ml-3">
+                        <li class="list-inline-item ml-4">
+                            <a class="btn btn-sm bg-primary-grad text-white fw-600 py-1 border" href="{{ route('login') }}">{{ translate('Log In') }}</a>
+                        </li>
+                            <!-- <li class="list-inline-item ml-3">
                                 <a class="btn btn-sm btn-primary"
                                     href="{{ route('form.resgistration') }}">{{ translate('Registration') }}</a>
-                            </li>
+                            </li> -->
                         @endif
                     </ul>
                 </div>

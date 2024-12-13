@@ -65,7 +65,7 @@
             <div class="form-group row">
                 <div class="col-md-6">
                     <label for="annual_income">{{translate('Annual Income')}}</label>
-                    <input type="number" name="annual_income" value="{{ !empty($member->member_other_detail->annual_income) ? $member->member_other_detail->annual_income : '' }}" class="form-control" placeholder="{{translate('Annual Income')}}">
+                    <input type="text" name="annual_income" value="{{ !empty($member->member_other_detail->annual_income) ? $member->member_other_detail->annual_income : '' }}" class="form-control" placeholder="{{translate('Annual Income')}}">
                 </div>
                 <div class="col-md-6">
                     <label for="father_mobile_no_1">{{translate('Father Mobile No 1')}}</label>
@@ -87,7 +87,7 @@
             <div class="form-group row">
                 <div class="col-md-6">
                     <label for="father_annual_income">{{translate('Father Annual Income')}}</label>
-                    <input type="number" name="father_annual_income" value="{{ !empty($member->member_other_detail->father_annual_income) ? $member->member_other_detail->father_annual_income : '' }}" class="form-control" placeholder="{{translate('Father Annual Income')}}">
+                    <input type="text" name="father_annual_income" value="{{ !empty($member->member_other_detail->father_annual_income) ? $member->member_other_detail->father_annual_income : '' }}" class="form-control" placeholder="{{translate('Father Annual Income')}}">
                 </div>
                 <div class="col-md-6">
                     <label for="mother_mobile_no_1">{{translate('Mother Mobile No 1')}}</label>
@@ -109,7 +109,7 @@
             <div class="form-group row">
                 <div class="col-md-6">
                     <label for="mother_annual_income">{{translate('Mother Annual Income')}}</label>
-                    <input type="number" name="mother_annual_income" value="{{ !empty($member->member_other_detail->mother_annual_income) ? $member->member_other_detail->mother_annual_income : '' }}" class="form-control" placeholder="{{translate('Mother Annual Income')}}">
+                    <input type="text" name="mother_annual_income" value="{{ !empty($member->member_other_detail->mother_annual_income) ? $member->member_other_detail->mother_annual_income : '' }}" class="form-control" placeholder="{{translate('Mother Annual Income')}}">
                 </div>
                 <div class="col-md-6">
                     <label for="unmarried_brother">{{translate('Unmarried Brother')}}</label>
