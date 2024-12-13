@@ -56,6 +56,8 @@ class Registration extends Model
         'payment_type', // Added for payment type
         'total_payment', // Added for total payment
         'is_courier', // Added for courier option
+        'is_attendance', // Added for attendance option
+        'is_kit', // Added for kit option
         'payment_mode', // Added for payment mode
         'created_at',
     ];

@@ -543,82 +543,96 @@ class RegisterController extends Controller
         }
     }
 
-
-
     public function exportRegistrations()
     {
         return Excel::download(new RegistrationsExport, 'registrations.xlsx');
     }
 
+    public function attendeelist(Request $request)
+    {
+        return view('frontend.attendeelist');
+    }
 
+    public function kitRequestForm(Request $request)
+    {
+        // Get user IDs passed as query params
+        $userIds = explode(',', $request->input('user_ids'));
+
+        // Optionally, fetch the user details from the database
+        $users = Registration::whereIn('id', $userIds)->get();
+
+        // Return the view for the kit request form
+        // Pass the user names to the view for display
+        return view('frontend.kit_request_form', compact('users'));
+    }
     public function bulkImportImage()
-{
-    $data = Registration::all();
-    // $data = Registration::where('id', 26)->get();
+    {
+        $data = Registration::all();
+        // $data = Registration::where('id', 26)->get();
 
-    foreach ($data as $registration) {
-        try {
-            $user = User::where('email', $registration->email)->first();
-        } catch (\Throwable $th) {
-            dd($th);
-        }
+        foreach ($data as $registration) {
+            try {
+                $user = User::where('email', $registration->email)->first();
+            } catch (\Throwable $th) {
+                dd($th);
+            }
 
-        if ($user) {
-            $user_id = $user->id;
-            if ($registration->profile_picture) {
-                // Check if profile_picture is an array or a string
-                if (is_array($registration->profile_picture)) {
-                    foreach ($registration->profile_picture as $index => $picture) {
-                        // Remove the array wrapping if profile_picture is an array
-                        $filename = $picture;
-                        $this->processAndStoreImage($filename, $user_id, $index);
+            if ($user) {
+                $user_id = $user->id;
+                if ($registration->profile_picture) {
+                    // Check if profile_picture is an array or a string
+                    if (is_array($registration->profile_picture)) {
+                        foreach ($registration->profile_picture as $index => $picture) {
+                            // Remove the array wrapping if profile_picture is an array
+                            $filename = $picture;
+                            $this->processAndStoreImage($filename, $user_id, $index);
+                        }
+                    } else {
+                        // If it's a single string, just process it
+                        $filename = $registration->profile_picture;
+                        $this->processAndStoreImage($filename, $user_id);
                     }
-                } else {
-                    // If it's a single string, just process it
-                    $filename = $registration->profile_picture;
-                    $this->processAndStoreImage($filename, $user_id);
                 }
             }
         }
     }
-}
 
-// Helper method to process and store images
-private function processAndStoreImage($filename, $user_id, $index = null)
-{
-    // Extract the part after the last slash (filename)
-    $basename = basename($filename);
+    // Helper method to process and store images
+    private function processAndStoreImage($filename, $user_id, $index = null)
+    {
+        // Extract the part after the last slash (filename)
+        $basename = basename($filename);
 
-    // Prepend the desired path
-    $newPath = 'uploads/all/' . $basename;
+        // Prepend the desired path
+        $newPath = 'uploads/all/' . $basename;
 
-    try {
-        $upload = Upload::create([
-            'user_id' => $user_id,
-            'file_name' => $newPath,
-        ]);
-    } catch (\Throwable $th) {
-        dd($th);
-    }
-
-    // If the first image, update the user's photo
-    if ($index === 0) {
-        $update = ['photo' => $upload->id];
         try {
-            User::where('id', $user_id)->update($update);
-        } catch (\Throwable $th) {
-            dd($th);
-        }
-    } else {
-        // For gallery images, save the image as a gallery entry
-        try {
-            GalleryImage::create([
+            $upload = Upload::create([
                 'user_id' => $user_id,
-                'image' => $upload->id,
+                'file_name' => $newPath,
             ]);
         } catch (\Throwable $th) {
             dd($th);
         }
+
+        // If the first image, update the user's photo
+        if ($index === 0) {
+            $update = ['photo' => $upload->id];
+            try {
+                User::where('id', $user_id)->update($update);
+            } catch (\Throwable $th) {
+                dd($th);
+            }
+        } else {
+            // For gallery images, save the image as a gallery entry
+            try {
+                GalleryImage::create([
+                    'user_id' => $user_id,
+                    'image' => $upload->id,
+                ]);
+            } catch (\Throwable $th) {
+                dd($th);
+            }
+        }
     }
-}
 }

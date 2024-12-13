@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\ContactUsController;
 use App\Http\Controllers\DemoController;
 use App\Http\Controllers\HappyStoryController;
+use App\Http\Controllers\AttendanceController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -34,6 +35,11 @@ Route::controller(DemoController::class)->group(function () {
     Route::get('/demo/cron_2', 'cron_2');
 });
 
+
+
+// Route for handling the form submission
+Route::post('/attendance', [AttendanceController::class, 'submitForm'])->name('attendance.submit');
+
 Auth::routes();
 
 //Home Page
@@ -55,6 +61,18 @@ Route::post('/fcm-token', 'HomeController@updateToken')->name('fcmToken');
 Route::get('/refresh-csrf', function () {
     return csrf_token();
 });
+
+// Route for showing the form
+Route::get('/attendance', [AttendanceController::class, 'showForm'])->name('attendance.form');
+
+// attendeelist 
+Route::get('/attendeelist', 'Auth\RegisterController@attendeelist')->name('form.attendeelist');
+Route::get('/kit-request-form', 'Auth\RegisterController@kitRequestForm')->name('form.kitrequestform');
+Route::post('/kit-submit', [AttendanceController::class, 'submitKit'])->name('kit.submit');
+Route::get('/thank-you', function() {
+    return view('frontend/kit_thankyou');
+})->name('form.kitthankyou');
+
 
 Route::controller(AizUploadController::class)->group(function () {
     Route::post('/aiz-uploader', 'show_uploader');
