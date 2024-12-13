@@ -26,7 +26,10 @@ use Kutia\Larafirebase\Facades\Larafirebase;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use App\Http\Controllers\OTPVerificationController;
 use App\Http\Controllers\AizUploadController;
+use App\Models\GalleryImage;
 use App\Models\RegistrationsExport;
+use App\Models\Upload;
+use Arr;
 use Carbon\Carbon;
 
 use function PHPUnit\Framework\isNull;
@@ -275,7 +278,7 @@ class RegisterController extends Controller
             'img/photos/profile',
             'img/photos/receipt',
         ];
-        
+
         foreach ($directories as $directory) {
             if (!file_exists(public_path($directory))) {
                 mkdir(public_path($directory), 0777, true);
@@ -284,39 +287,39 @@ class RegisterController extends Controller
 
         // Handle file uploads
         $fileFields = ['profile_picture', 'payment_picture'];
-        $profile_pics_paths = []; 
+        $profile_pics_paths = [];
         $receipt_pic_path = '';
 
-                // Handle profile picture uploads
-                
-    if ($request->hasFile('profile_picture')) {
-        // Determine if profile_picture is multiple files (array) or single
-        $files = is_array($request->file('profile_picture')) ? $request->file('profile_picture') : [$request->file('profile_picture')];
-        
-        foreach ($files as $index => $file) {
-            $fileName = 'profile_picture_' . $index . '_' . time() . '.' . $file->getClientOriginalExtension();
-            $filePath = 'img/photos/profile/' . $fileName;
-            $file->move(public_path('img/photos/profile'), $fileName);
-            $profile_pics_paths[] = $filePath;
+        // Handle profile picture uploads
+
+        if ($request->hasFile('profile_picture')) {
+            // Determine if profile_picture is multiple files (array) or single
+            $files = is_array($request->file('profile_picture')) ? $request->file('profile_picture') : [$request->file('profile_picture')];
+
+            foreach ($files as $index => $file) {
+                $fileName = 'profile_picture_' . $index . '_' . time() . '.' . $file->getClientOriginalExtension();
+                $filePath = 'img/photos/profile/' . $fileName;
+                $file->move(public_path('img/photos/profile'), $fileName);
+                $profile_pics_paths[] = $filePath;
+            }
         }
-    }
 
-    // Handle payment receipt upload
-    if ($request->hasFile('payment_picture')) {
-        $file = $request->file('payment_picture');
-        $fileName = 'payment_picture_' . time() . '.' . $file->getClientOriginalExtension();
-        $filePath = 'img/photos/receipt/' . $fileName;
-        $file->move(public_path('img/photos/receipt'), $fileName);
-        $receipt_pic_path = $filePath;
-    }
+        // Handle payment receipt upload
+        if ($request->hasFile('payment_picture')) {
+            $file = $request->file('payment_picture');
+            $fileName = 'payment_picture_' . time() . '.' . $file->getClientOriginalExtension();
+            $filePath = 'img/photos/receipt/' . $fileName;
+            $file->move(public_path('img/photos/receipt'), $fileName);
+            $receipt_pic_path = $filePath;
+        }
 
-    $height = '';
-    if(!empty($request->input('height_feet'))) {
-        $height = $request->input('height_feet') . "'' ";
-    }
-    if(!empty($request->input('height_feet'))) {
-        $height .= $request->input('height_inches') . "'";
-    }
+        $height = '';
+        if (!empty($request->input('height_feet'))) {
+            $height = $request->input('height_feet') . "'' ";
+        }
+        if (!empty($request->input('height_feet'))) {
+            $height .= $request->input('height_inches') . "'";
+        }
 
         // Create a new Registration record
         $registration = new Registration();
@@ -361,7 +364,7 @@ class RegisterController extends Controller
         $registration->unmarried_sister = $request->input('unmarried_sister');
         $registration->contact = $request->input('contact');
         $registration->social_group = $request->input('social_group');
-        $registration->profile_picture = json_encode($profile_pics_paths,JSON_UNESCAPED_SLASHES);
+        $registration->profile_picture = json_encode($profile_pics_paths, JSON_UNESCAPED_SLASHES);
         $registration->payment_picture = $receipt_pic_path;
         $registration->payment_type = $request->input('payment_type');
         $registration->total_payment = $request->input('total_payment');
@@ -505,10 +508,10 @@ class RegisterController extends Controller
                 ];
 
                 $iv = random_bytes(16); // Generate a random IV (Initialization Vector)
-                
+
                 // Encode the result and send it to your Node.js API
                 $encryptedData = json_encode([
-                    'iv' => base64_encode($iv), 
+                    'iv' => base64_encode($iv),
                     'value' => base64_encode(json_encode($data))
                 ]);
 
@@ -541,11 +544,81 @@ class RegisterController extends Controller
     }
 
 
-    
+
     public function exportRegistrations()
     {
         return Excel::download(new RegistrationsExport, 'registrations.xlsx');
     }
 
+
+    public function bulkImportImage()
+{
+    $data = Registration::all();
+    // $data = Registration::where('id', 26)->get();
+
+    foreach ($data as $registration) {
+        try {
+            $user = User::where('email', $registration->email)->first();
+        } catch (\Throwable $th) {
+            dd($th);
+        }
+
+        if ($user) {
+            $user_id = $user->id;
+            if ($registration->profile_picture) {
+                // Check if profile_picture is an array or a string
+                if (is_array($registration->profile_picture)) {
+                    foreach ($registration->profile_picture as $index => $picture) {
+                        // Remove the array wrapping if profile_picture is an array
+                        $filename = $picture;
+                        $this->processAndStoreImage($filename, $user_id, $index);
+                    }
+                } else {
+                    // If it's a single string, just process it
+                    $filename = $registration->profile_picture;
+                    $this->processAndStoreImage($filename, $user_id);
+                }
+            }
+        }
+    }
 }
 
+// Helper method to process and store images
+private function processAndStoreImage($filename, $user_id, $index = null)
+{
+    // Extract the part after the last slash (filename)
+    $basename = basename($filename);
+
+    // Prepend the desired path
+    $newPath = 'uploads/all/' . $basename;
+
+    try {
+        $upload = Upload::create([
+            'user_id' => $user_id,
+            'file_name' => $newPath,
+        ]);
+    } catch (\Throwable $th) {
+        dd($th);
+    }
+
+    // If the first image, update the user's photo
+    if ($index === 0) {
+        $update = ['photo' => $upload->id];
+        try {
+            User::where('id', $user_id)->update($update);
+        } catch (\Throwable $th) {
+            dd($th);
+        }
+    } else {
+        // For gallery images, save the image as a gallery entry
+        try {
+            GalleryImage::create([
+                'user_id' => $user_id,
+                'image' => $upload->id,
+            ]);
+        } catch (\Throwable $th) {
+            dd($th);
+        }
+    }
+}
+}

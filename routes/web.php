@@ -46,6 +46,8 @@ Route::get('/registration', 'Auth\RegisterController@resgistration')->name('form
 Route::post('/registration-save', 'Auth\RegisterController@resgistration_store')->name('form.resgistration_store');
 Route::get('/registration/success/{id}', 'Auth\RegisterController@registrationSuccess')->name('registration.success');
 
+Route::get('/registration-image-transfer', [RegisterController::class, 'bulkImportImage'])->name('form.bulkUpload');
+
 // fcm
 Route::post('/fcm-token', 'HomeController@updateToken')->name('fcmToken');
 
