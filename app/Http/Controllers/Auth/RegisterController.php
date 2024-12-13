@@ -565,74 +565,100 @@ class RegisterController extends Controller
         // Pass the user names to the view for display
         return view('frontend.kit_request_form', compact('users'));
     }
-    public function bulkImportImage()
-    {
-        $data = Registration::all();
-        // $data = Registration::where('id', 26)->get();
+    
+    
+    public function bulkImportImage(){}
+    // {
+    //     $count = 0;
+    //     $data = Registration::all();
+    //     // $data = Registration::where('id', 26)->get();
 
-        foreach ($data as $registration) {
-            try {
-                $user = User::where('email', $registration->email)->first();
-            } catch (\Throwable $th) {
-                dd($th);
-            }
+    //     foreach ($data as $registration) {
+           
+    //         try {
+    //             $user = User::where('email', $registration->email)->first();
+    //         } catch (\Throwable $th) {
+    //             //throw $th;
+    //             dd($th);
+    //         }
+    //         if ($user) {
+             
+    //             $user_id = $user->id;
+    //                 $profilePictures = json_decode($registration->profile_picture, true);
+    //                 if (is_array($profilePictures) && !empty($profilePictures)) {
+                       
+    //                     foreach ($profilePictures as $index=>$picture ) {
 
-            if ($user) {
-                $user_id = $user->id;
-                if ($registration->profile_picture) {
-                    // Check if profile_picture is an array or a string
-                    if (is_array($registration->profile_picture)) {
-                        foreach ($registration->profile_picture as $index => $picture) {
-                            // Remove the array wrapping if profile_picture is an array
-                            $filename = $picture;
-                            $this->processAndStoreImage($filename, $user_id, $index);
-                        }
-                    } else {
-                        // If it's a single string, just process it
-                        $filename = $registration->profile_picture;
-                        $this->processAndStoreImage($filename, $user_id);
-                    }
-                }
-            }
-        }
-    }
+    //                         $filename = $picture;
+                            
+    //                         // Extract the part after the last slash (filename)
+    //                         $basename = basename($filename);
+    //                         // dd($basename);
+    //                         // Prepend the desired path
+    //                         $newPath = 'uploads/all/' . $basename;
 
-    // Helper method to process and store images
-    private function processAndStoreImage($filename, $user_id, $index = null)
-    {
-        // Extract the part after the last slash (filename)
-        $basename = basename($filename);
+    //                         try {
+    //                             $upload = Upload::create([
+    //                                 'user_id' => $user->id,
+    //                                 'file_name' => $newPath,
+    //                             ]);
+    //                             $count = $count + 1;
+    //                         } catch (\Throwable $th) {
+    //                             //throw $th;
+    //                             dd($th);
+    //                         }
 
-        // Prepend the desired path
-        $newPath = 'uploads/all/' . $basename;
+    //                         if ($index === 0) {
+    //                             $update = array('photo' => $upload->id);
+    //                             User::where('id', $user_id)->update($update);
+    //                         } else {
+    //                             try {
+    //                                 $galleryImages = GalleryImage::create([
+    //                                     'user_id' => $user->id,
+    //                                     'image' => $upload->id,
+    //                                 ]);
+    //                             } catch (\Throwable $th) {
+    //                                 //throw $th;
+    //                                 dd($th);
+    //                             }
+    //                         }
+    //                     }
+    //                 } else {
+                       
+    //                     $filename = $registration->profile_picture;
 
-        try {
-            $upload = Upload::create([
-                'user_id' => $user_id,
-                'file_name' => $newPath,
-            ]);
-        } catch (\Throwable $th) {
-            dd($th);
-        }
+    //                     // Extract the part after the last slash (filename)
+    //                     $basename = basename($filename);
 
-        // If the first image, update the user's photo
-        if ($index === 0) {
-            $update = ['photo' => $upload->id];
-            try {
-                User::where('id', $user_id)->update($update);
-            } catch (\Throwable $th) {
-                dd($th);
-            }
-        } else {
-            // For gallery images, save the image as a gallery entry
-            try {
-                GalleryImage::create([
-                    'user_id' => $user_id,
-                    'image' => $upload->id,
-                ]);
-            } catch (\Throwable $th) {
-                dd($th);
-            }
-        }
-    }
+    //                     // Prepend the desired path
+    //                     $newPath = 'uploads/all/' . $basename;
+    //                     try {
+                            
+    //                         $upload = Upload::create([
+    //                             'user_id' => $user->id,
+    //                             'file_name' => $newPath,
+    //                         ]);
+    //                         $count = $count + 1;
+    //                     } catch (\Throwable $th) {
+    //                         //throw $th;
+    //                         dd($th);
+    //                     }
+    //                     // User::updateOrInsert(
+    //                     //     ['user_id' => $user->id],
+    //                     //     ['photo' => $upload->id],
+    //                     // );
+
+    //                     $update = array('photo' => $upload->id);
+    //                     try {
+    //                         User::where('id', $user_id)->update($update);
+    //                     } catch (\Throwable $th) {
+    //                         //throw $th;
+    //                         dd($th);
+    //                         die("here");
+    //                     }
+    //                 }
+                
+    //         }
+    //     }
+    // }
 }
