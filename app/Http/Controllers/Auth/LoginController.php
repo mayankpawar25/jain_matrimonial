@@ -252,7 +252,7 @@ class LoginController extends Controller
 
     public function showLoginForm()
     {
-        return view('frontend.user_login');
+        return view('frontend.user_login_with_otp');
     }
 
     public function logout(Request $request)

@@ -7,6 +7,7 @@ use App\Http\Controllers\ContactUsController;
 use App\Http\Controllers\DemoController;
 use App\Http\Controllers\HappyStoryController;
 use App\Http\Controllers\AttendanceController;
+use App\Http\Controllers\Auth\ForgotPasswordController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -86,12 +87,18 @@ Route::controller(AizUploadController::class)->group(function () {
 
 Auth::routes(['verify' => true]);
 
+Route::get('password/verify_otp', 'Auth\ForgotPasswordController@showOtpForm')->name('password.verify_otp');
+
+Route::post('password/verify_otp','Auth\ForgotPasswordController@sendLoginWithEmailOtp')->name('password.verify_otp');
+
 Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
 
 Route::get('/email/resend', 'Auth\VerificationController@resend')->name('verification.resend');
 Route::get('/verification-confirmation/{code}', 'Auth\VerificationController@verification_confirmation')->name('email.verification.confirmation');
 Route::get('/email_change/callback', 'HomeController@email_change_callback')->name('email_change.callback');
 Route::post('/password/reset/email/submit', 'HomeController@reset_password_with_code')->name('password.update');
+Route::post('/password/verify_otp/submit', 'HomeController@login_with_otp')->name('password.otpLogin');
+
 
 
 Route::get('/users/login', 'HomeController@login')->name('user.login');
