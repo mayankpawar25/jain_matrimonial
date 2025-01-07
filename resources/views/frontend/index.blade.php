@@ -38,7 +38,7 @@
                 $slider_images_small = json_decode(get_setting('home_slider_images_small'), true);  
             @endphp
             <div class="absolute-full">
-                <div class="aiz-carousel aiz-carousel-full h-100 d-none {{ get_setting('home_slider_images_small') != null ? 'd-md-block' : 'd-block' }}" data-fade='true' data-infinite='true' data-autoplay='true'>
+                <div style="top: 160px !important" class="aiz-carousel aiz-carousel-full h-100 d-none {{ get_setting('home_slider_images_small') != null ? 'd-md-block' : 'd-block' }}" data-fade='true' data-infinite='true' data-autoplay='true'>
                     @foreach ($slider_images as $key => $slider_image)
                         <img class="img-fit" src="{{ uploaded_asset($slider_image) }}">
                     @endforeach
@@ -330,13 +330,13 @@
                                         <div class="col-lg">
                                             <div class="form-group mb-3">
                                                 <label class="form-label"
-                                                    for="name">{{ translate('Age From') }}</label>
+                                                    for="name">{{ ('Age From') }}</label>
                                                 <input type="number" name="age_from" class="form-control">
                                             </div>
                                         </div>
                                         <div class="col-lg">
                                             <div class="form-group mb-3">
-                                                <label class="form-label" for="name">{{ translate('To') }}</label>
+                                                <label class="form-label" for="name">{{ ('To') }}</label>
                                                 <input type="number" name="age_to" class="form-control">
                                             </div>
                                         </div>
@@ -359,7 +359,7 @@
                                         <div class="col-lg">
                                             <div class="form-group mb-3">
                                                 <label class="form-label"
-                                                    for="name">{{ translate('Mother Tongue') }}</label>
+                                                    for="name">{{ ('Mother Tongue') }}</label>
                                                 @php $mother_tongues = \App\Models\MemberLanguage::all(); @endphp
                                                 <select name="mother_tongue" class="form-control aiz-selectpicker"
                                                     data-live-search="true" data-container="body">
