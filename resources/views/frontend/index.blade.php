@@ -381,7 +381,7 @@
                                                 </select>
                                             </div>
                                         </div> -->
-                                        <div class="col-lg">
+                                        <div class="col-lg mt-1">
                                             <button type="submit"
                                                 class="btn btn-block btn-primary mt-4">{{ translate('Search') }}</button>
                                         </div>
