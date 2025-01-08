@@ -1,5 +1,5 @@
 <!-- custom modal -->
-<div class="modal fade" id="myModal">
+<!-- <div class="modal fade" id="myModal">
     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -12,12 +12,14 @@
                 
                 <img src="{{ static_asset('assets/img/modal-bnr.png') }}" class="w-100 mb-3" alt="">
                 <h4>आपकी रुचि के लिए धन्यवाद! पंजीकरण अब बंद हो चुके हैं। हम आपको 15 दिसंबर 2024 को परिचय सम्मेलन में स्वागत करने के लिए उत्सुक हैं।</h4>
-                <!-- <a href="{{ route('form.resgistration') }}" class="btn btn-primary">Register Now</a> -->
+                <a href="{{ route('form.resgistration') }}" class="btn btn-primary">Register Now</a>
             </div>
             
         </div>
     </div>
-</div>
+</div> -->
+
+@extends('frontend.layouts.app')
 <style>
     .samiti-text h4 {
   color: var(--primary);
@@ -27,18 +29,21 @@
   padding: 16px 8px 0px 8px;
 } 
 </style>
-@extends('frontend.layouts.app')
 @section('content')
 
     <!-- Homepage Slider Section -->
     @if (get_setting('show_homepage_slider') == 'on' && get_setting('home_slider_images') != null)
-        <section class="position-relative overflow-hidden min-vh-100 d-flex home-slider-area">
+    @if (Auth::check() && auth()->user()->user_type == 'member')
+        <section class="position-relative overflow-hidden min-vh-100 d-flex home-slider-area slider-top-setting-login ">
+        @else
+        <section class="position-relative overflow-hidden min-vh-100 d-flex home-slider-area slider-top-setting-normal">
+        @endif
             @php 
                 $slider_images = json_decode(get_setting('home_slider_images'), true);  
                 $slider_images_small = json_decode(get_setting('home_slider_images_small'), true);  
             @endphp
             <div class="absolute-full">
-                <div style="top: 160px !important" class="aiz-carousel aiz-carousel-full h-100 d-none {{ get_setting('home_slider_images_small') != null ? 'd-md-block' : 'd-block' }}" data-fade='true' data-infinite='true' data-autoplay='true'>
+                <div class="aiz-carousel aiz-carousel-full h-100 d-none {{ get_setting('home_slider_images_small') != null ? 'd-md-block' : 'd-block' }}" data-fade='true' data-infinite='true' data-autoplay='true'>
                     @foreach ($slider_images as $key => $slider_image)
                         <img class="img-fit" src="{{ uploaded_asset($slider_image) }}">
                     @endforeach
@@ -320,7 +325,12 @@
                 </div>
 
                 <!-- search  -->
-                @if (Auth::check() && Auth::user()->user_type == 'member')
+               
+            </div>
+        </section>
+    @endif
+
+    @if (Auth::check() && Auth::user()->user_type == 'member')
                     <div class="p-4 bg-white rounded-top border-bottom"
                         style="box-shadow: 0 -25px 50px -12px rgb(0 0 0 / 25%);">
                         <div class="row">
@@ -328,20 +338,20 @@
                                 <form action="{{ route('member.listing') }}" method="get">
                                     <div class="row gutters-5">
                                         <div class="col-lg">
-                                            <div class="form-group mb-3">
+                                            <div class="">
                                                 <label class="form-label"
                                                     for="name">{{ ('Age From') }}</label>
                                                 <input type="number" name="age_from" class="form-control">
                                             </div>
                                         </div>
                                         <div class="col-lg">
-                                            <div class="form-group mb-3">
+                                            <div class="">
                                                 <label class="form-label" for="name">{{ ('To') }}</label>
                                                 <input type="number" name="age_to" class="form-control">
                                             </div>
                                         </div>
-                                        <div class="col-lg">
-                                            <div class="form-group mb-3">
+                                        <!-- <div class="col-lg">
+                                            <div class="">
                                                 <label class="form-label"
                                                     for="name">{{ translate('Religion') }}</label>
                                                 @php $religions = \App\Models\Religion::all(); @endphp
@@ -357,7 +367,7 @@
                                             </div>
                                         </div>
                                         <div class="col-lg">
-                                            <div class="form-group mb-3">
+                                            <div class="">
                                                 <label class="form-label"
                                                     for="name">{{ ('Mother Tongue') }}</label>
                                                 @php $mother_tongues = \App\Models\MemberLanguage::all(); @endphp
@@ -370,7 +380,7 @@
                                                     @endforeach
                                                 </select>
                                             </div>
-                                        </div>
+                                        </div> -->
                                         <div class="col-lg">
                                             <button type="submit"
                                                 class="btn btn-block btn-primary mt-4">{{ translate('Search') }}</button>
@@ -381,11 +391,6 @@
                         </div>
                     </div>
                 @endif
-
-            </div>
-        </section>
-    @endif
-
 
     <section class="pt-7 bg-white">
         <div class="container samiti-text text-center">
