@@ -108,7 +108,8 @@
                                             </div>
                                             <div class="ml-2 text-right">
                                                 <div class="opacity-60 fs-10 mb-1">
-                                                    {{ Carbon\Carbon::parse($chat->created_at)->diffForHumans() }}</div>
+                                                    {{ Carbon\Carbon::parse($chat->created_at)->diffForHumans() }}
+                                                </div>
                                             </div>
                                         </div>
                                     </a>
@@ -147,7 +148,7 @@
                         <li class="list-inline-item ml-4">
                             <a class="btn btn-primary bg-primary-grad text-white fw-600 py-1 border" href="{{ route('login') }}">{{ translate('Log In') }}</a>
                         </li>
-                            <!-- <li class="list-inline-item ml-3">
+                        <!-- <li class="list-inline-item ml-3">
                                 <a class="btn btn-sm btn-primary"
                                     href="{{ route('form.resgistration') }}">{{ translate('Registration') }}</a>
                             </li> -->
@@ -201,6 +202,47 @@
                                 <span class="text-primary-grad mb-n1">{{ translate('Happy Stories') }}</span>
                             </a>
                         </li> -->
+                       
+                        @if (Auth::check() && auth()->user()->user_type == 'member')
+
+                        <li class="d-inline-block d-lg-flex pb-1">
+                            <a href="{{ route('dashboard') }}"
+                                class="nav-link text-uppercase fw-700 fs-15 d-flex align-items-center bg-white py-2 {{ areActiveRoutes(['dashboard'],'text-primary-grad opacity-100') }}">
+                                <span class="text-primary-grad mb-n1">{{ translate('Dashboard') }}</span>
+                            </a>
+                        </li>
+                        <li class="d-inline-block d-lg-flex pb-1">
+                            <a href="{{ route('profile_settings') }}"
+                                class="nav-link text-uppercase fw-700 fs-15 d-flex align-items-center bg-white py-2 {{ areActiveRoutes(['profile_settings'],'text-primary-grad opacity-100') }}">
+                                <span class="text-primary-grad mb-n1">{{ translate('My Profile') }}</span>
+                            </a>
+                        </li>
+                        <li class="d-inline-block d-lg-flex pb-1">
+                            <a href="{{ route('my_interests.index') }}"
+                                class="nav-link text-uppercase fw-700 fs-15 d-flex align-items-center bg-white py-2 {{ areActiveRoutes(['express-interest.index'],'text-primary-grad opacity-100') }}">
+                                <span class="text-primary-grad mb-n1">{{ translate('My Interest') }}</span>
+                            </a>
+                        </li>
+                        <li class="d-inline-block d-lg-flex pb-1">
+                            <a href="{{route('my_shortlists')}}"
+                                class="nav-link text-uppercase fw-700 fs-15 d-flex align-items-center bg-white py-2 {{ areActiveRoutes(['my_shortlists'],'text-primary-grad opacity-100') }}">
+                                <span class="text-primary-grad mb-n1">{{ translate('Shortlist') }}</span>
+                            </a>
+                        </li>
+                        <li class="d-inline-block d-lg-flex pb-1">
+                            <a href="{{ route('all.messages') }}"
+                                class="nav-link text-uppercase fw-700 fs-15 d-flex align-items-center bg-white py-2 {{ areActiveRoutes(['all.messages'],'text-primary-grad opacity-100') }}">
+                                <span class="text-primary-grad mb-n1">{{ translate('Messaging') }}</span>
+                            </a>
+                        </li>
+                        <li class="d-inline-block d-lg-flex pb-1">
+                            <a href="{{ route('my_ignored_list') }}"
+                                class="nav-link text-uppercase fw-700 fs-15 d-flex align-items-center bg-white py-2 {{ areActiveRoutes(['my_ignored_list'],'text-primary-grad opacity-100') }}">
+                                <span class="text-primary-grad mb-n1">{{ translate('Ignored User List') }}</span>
+                            </a>
+                        </li>
+
+                        @endif
                         <li
                             class="d-inline-block d-lg-flex pb-1 {{ areActiveRoutes(['contact_us'],'bg-primary-grad') }}">
                             <a class="nav-link text-uppercase fw-700 fs-15 d-flex align-items-center bg-white py-2"
@@ -212,55 +254,6 @@
                 </div>
             </div>
         </div>
-        @if (Auth::check() && auth()->user()->user_type == 'member')
-        <div class="border-top d-none d-lg-block">
-            <div class="container">
-                <ul class="list-inline d-flex align-items-center mb-0">
-                    <li class="list-inline-item">
-                        <a href="{{ route('dashboard') }}"
-                            class="text-reset d-inline-block px-4 py-3 fw-600 {{ areActiveRoutes(['dashboard'],'text-primary-grad opacity-100') }}">
-                            <i class="las la-tachometer-alt mr-1"></i>
-                            <span>{{ translate('Dashboard') }}</span>
-                        </a>
-                    </li>
-                    <li class="list-inline-item">
-                        <a href="{{ route('profile_settings') }}"
-                            class="text-reset d-inline-block px-4 py-3 fw-600 {{ areActiveRoutes(['profile_settings'],'text-primary-grad opacity-100') }}">
-                            <i class="las la-user mr-1"></i>
-                            <span>{{ translate('My Profile') }}</span>
-                        </a>
-                    </li>
-                    <li class="list-inline-item">
-                        <a href="{{ route('my_interests.index') }}"
-                            class="text-reset d-inline-block px-4 py-3 fw-600 {{ areActiveRoutes(['express-interest.index'],'text-primary-grad opacity-100') }}">
-                            <i class="la la-heart-o mr-1"></i>
-                            <span>{{ translate('My Interest') }}</span>
-                        </a>
-                    </li>
-                    <li class="list-inline-item">
-                        <a href="{{route('my_shortlists')}}"
-                            class="text-reset d-inline-block px-4 py-3 fw-600 {{ areActiveRoutes(['my_shortlists'],'text-primary-grad opacity-100') }}">
-                            <i class="las la-list mr-1"></i>
-                            <span>{{ translate('Shortlist') }}</span>
-                        </a>
-                    </li>
-                    <li class="list-inline-item">
-                        <a href="{{ route('all.messages') }}"
-                            class="text-reset d-inline-block px-4 py-3 fw-600 {{ areActiveRoutes(['all.messages'],'text-primary-grad opacity-100') }}">
-                            <i class="las la-envelope mr-1"></i>
-                            <span>{{ translate('Messaging') }}</span>
-                        </a>
-                    </li>
-                    <li class="list-inline-item">
-                        <a href="{{ route('my_ignored_list') }}"
-                            class="text-reset d-inline-block px-4 py-3 fw-600 {{ areActiveRoutes(['my_ignored_list'],'text-primary-grad opacity-100') }}">
-                            <i class="las la-ban mr-1"></i>
-                            <span>{{ translate('Ignored User List') }}</span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        @endif
+
     </header>
 </div>

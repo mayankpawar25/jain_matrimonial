@@ -11909,3 +11909,20 @@ ul.social.colored [class*="apple"] {
 .border-1 {
     border: 1px solid !important;
 }
+.slider-top-setting-login{
+    margin-top: 172px;
+}
+.slider-top-setting-normal{
+    margin-top: 120px;
+}
+@media (max-width: 767px) {
+    .home-slider-area  .pt-11{
+        padding-top: 0rem;
+    }
+    .home-slider-area.min-vh-100 {
+        min-height: auto !important;
+    }
+    .slider-top-setting-login{
+        margin-top: 148px;
+    }
+}
