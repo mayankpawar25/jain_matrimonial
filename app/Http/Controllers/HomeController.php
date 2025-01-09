@@ -508,7 +508,7 @@ class HomeController extends Controller
             
         } else {
             flash("Verification code mismatch")->error();
-            return back()->withErrors(['otp' => 'Invalid OTP']);
+            return back()->withErrors(['otp' => 'Invalid OTP'])->withInput(); 
         }
     }
 

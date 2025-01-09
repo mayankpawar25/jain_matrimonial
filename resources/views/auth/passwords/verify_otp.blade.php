@@ -20,7 +20,7 @@
                                 </span>
                             @endif
                         </div> -->
-                        <input type="hidden" name="phone" value="{{ $phone }}"/>
+                        <input type="hidden" name="phone" value="{{ old('phone', $phone) }}"/>
                         <div class="form-group">
                             <input id="code" type="number" class="form-control{{ $errors->has('code') ? ' is-invalid' : '' }}" name="code" value="" placeholder="Code" required autofocus>
 
