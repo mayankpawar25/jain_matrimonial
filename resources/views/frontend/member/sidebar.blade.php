@@ -42,7 +42,7 @@
                         <span class="aiz-side-nav-text">{{ translate('Happy Story') }}</span>
                     </a>
                 </li>
-                <li class="aiz-side-nav-item">
+                <!-- <li class="aiz-side-nav-item">
                     <a href="javascript:void(0);" class="aiz-side-nav-link">
                         <i class="las la-shopping-basket aiz-side-nav-icon"></i>
                         <span class="aiz-side-nav-text">{{ translate('Packages') }}</span>
@@ -60,15 +60,15 @@
                             </a>
                         </li>
                     </ul>
-                </li>
+                </li> -->
 
                 @if (get_setting('wallet_system'))
-                    <li class="aiz-side-nav-item">
+                    <!-- <li class="aiz-side-nav-item">
                         <a href="{{ route('wallet.index') }}" class="aiz-side-nav-link">
                             <i class="las la-dollar-sign aiz-side-nav-icon"></i>
                             <span class="aiz-side-nav-text">{{ translate('My Wallet') }}</span>
                         </a>
-                    </li>
+                    </li> -->
                 @endif
 
                 @if (addon_activation('referral_system'))
@@ -167,12 +167,12 @@
                     </a>
                 </li>
 
-                <li class="aiz-side-nav-item">
+                <!-- <li class="aiz-side-nav-item">
                     <a href="{{ route('member.change_password') }}" class="aiz-side-nav-link">
                         <i class="las la-key aiz-side-nav-icon"></i>
                         <span class="aiz-side-nav-text">{{ translate('Change Password') }}</span>
                     </a>
-                </li>
+                </li> -->
                 <li class="aiz-side-nav-item">
                     <a href="{{ route('profile_settings') }}" class="aiz-side-nav-link">
                         <i class="las la-user aiz-side-nav-icon"></i>
@@ -190,12 +190,12 @@
                         @endif
                     </a>
                 </li>
-                <li class="aiz-side-nav-item">
+                <!-- <li class="aiz-side-nav-item">
                     <a href="javascript:void(0);" class="aiz-side-nav-link" onclick="account_delete()">
                         <i class="las la-trash aiz-side-nav-icon"></i>
                         <span class="aiz-side-nav-text">{{ translate('Delete Account') }}</span>
                     </a>
-                </li>
+                </li> -->
             </ul>
         </div>
         <div>

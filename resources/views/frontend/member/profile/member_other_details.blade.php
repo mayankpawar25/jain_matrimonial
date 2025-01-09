@@ -76,7 +76,7 @@
             <div class="form-group row">
                 <div class="col-md-6">
                     <label for="father_mobile_no_2">{{translate('Father Mobile No 2')}}</label>
-                    <input type="text" name="father_mobile_no_2" value="{{ !empty($member->member_other_detail->father_mobile_no_2) ? $member->member_other_detail->father_mobile_no_2 : '' }}" class="form-control" placeholder="{{translate('Father Mobile No 2')}}">
+                    <input type="text" name="father_mobile_no_2" value="{{ !empty($member->member_other_detail->father_mobile_no_2) ? $member->member_other_detail->father_mobile_no_2 : '' }}" class="form-control" placeholder="{{('Fathers Mobile No 2')}}">
                 </div>
                 <div class="col-md-6">
                     <label for="father_occupation">{{translate('Father Occupation')}}</label>

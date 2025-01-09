@@ -11,8 +11,8 @@
     <div class="card-body">
         <table class="table aiz-table">
           <tr>
-              <th>{{translate('designation')}}</th>
-              <th>{{translate('company')}}</th>
+              <th>{{translate('Designation')}}</th>
+              <th>{{translate('Company')}}</th>
               <th data-breakpoints="md">{{translate('Start')}}</th>
               <th data-breakpoints="md">{{translate('End')}}</th>
               <th data-breakpoints="md">{{translate('Status')}}</th>

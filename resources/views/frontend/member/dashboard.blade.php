@@ -13,7 +13,7 @@
         }
     @endphp
     <div class="row gutters-5 row-cols-xl-{{ $col }} row-cols-2">
-        <div class="col mx-auto mb-3" >
+        <!-- <div class="col mx-auto mb-3" >
             <div class="bg-light rounded overflow-hidden text-center p-3">
                 <i class="la la-heart-o la-2x mb-3 text-primary-grad"></i>
                 <div class="h4 fw-700 text-primary-grad">{{ get_remaining_package_value($user->id,'remaining_interest') }}</div>
@@ -33,7 +33,7 @@
                 <div class="h4 fw-700 text-center text-primary-grad">{{ get_remaining_package_value($user->id,'remaining_photo_gallery') }}</div>
                 <div class="opacity-50 text-center">{{ translate('Remaining') }} <br> {{ translate('Gallery Image Upload') }}</div>
             </div>
-        </div>
+        </div> -->
         @if($profile_picture_privacy == 'only_me')
         <div class="col mx-auto mb-3" >
             <div class="bg-light rounded overflow-hidden text-center p-3">
@@ -65,7 +65,7 @@
                         <img class="mw-100 mx-auto mb-4" src="{{ uploaded_asset($user->member->package->image) }}" height="130">
                         <h5 class="mb-3 h5 fw-600">{{$user->member->package->name}}</h5>
                     </div>
-                    <ul class="list-group list-group-raw fs-15 mb-4 pb-4 border-bottom">
+                    <!-- <ul class="list-group list-group-raw fs-15 mb-4 pb-4 border-bottom">
                         <li class="list-group-item py-2">
                             <i class="las la-check text-success mr-2"></i>
                             {{ $user->member->package->express_interest }} {{ translate('Express Interests') }}
@@ -107,8 +107,8 @@
                       @else
                           <span class="text-danger">{{translate('Expired')}}</span>
                       @endif
-                    </h4>
-                    <a href="{{ route('packages') }}" class="btn btn-success d-inline-block">{{ translate('Upgrade Package') }}</a>
+                    </h4> -->
+                    <!-- <a href="{{ route('packages') }}" class="btn btn-success d-inline-block">{{ translate('Upgrade Package') }}</a> -->
                 </div>
             </div>
         </div>

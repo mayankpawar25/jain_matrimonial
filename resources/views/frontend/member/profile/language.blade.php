@@ -7,7 +7,7 @@
             @csrf
             <div class="form-group row">
                 <div class="col-md-6">
-                    <label for="diet">{{translate('Mother Tongue')}}</label>
+                    <label for="diet">{{('Mother Tongue')}}</label>
                     <select class="form-control aiz-selectpicker" name="mothere_tongue" data-selected="{{ $member->member->mothere_tongue }}" data-live-search="true">
                         <option value="">{{translate('Select One')}}</option>
                         @foreach ($languages as $language)
