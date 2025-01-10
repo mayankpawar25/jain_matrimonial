@@ -8,25 +8,27 @@
                 <div class="bg-white rounded shadow-sm p-4 text-left">
                     <h1 class="h3 fw-600">{{ translate('Login with OTP') }}</h1>
                     <p class="mb-4 opacity-60">
-                        @if (addon_activation('otp_system'))
-                            {{translate('Enter your email address or phone number to recieve your Otp.')}}
-                        @else
-                            {{translate('Enter your email address to recieve your Otp.')}}
-                        @endif
+                        {{('Enter your Registered Mobile Number to recieve OTP.')}}
+
                     </p>
                     <form method="POST" action="{{ route('password.verify_otp') }}">
                         @csrf
                         <div class="form-group">
-                            @if (addon_activation('otp_system'))
-                                <input id="email" type="text" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required placeholder="{{ translate('Email or Phone') }}">
-                            @else
-                                <input type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" value="{{ old('email') }}" placeholder="{{ translate('Email') }}" name="email">
-                            @endif
 
-                            @if ($errors->has('email'))
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $errors->first('email') }}</strong>
-                                </span>
+                            <input 
+                            type="number" 
+                            class="form-control{{ $errors->has('phone') ? ' is-invalid' : '' }}" 
+                            value="{{ old('phone') }}" placeholder="{{ translate('Phone Number') }}" 
+                            name="phone"  
+                            maxlength="10"  
+                            minlength="10"
+                            oninput="if(this.value.length > 10) this.value = this.value.slice(0, 10);"
+                            >
+
+                            @if ($errors->has('phone'))
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $errors->first('phone') }}</strong>
+                            </span>
                             @endif
                         </div>
                         <div class="form-group text-right">
@@ -35,7 +37,7 @@
                             </button>
                         </div>
                     </form>
-                    <hr/>
+                    <hr />
                     <div class="mt-3 d-flex justify-content-center" style=" color:#0f0f0f !important;">
                         <a href="{{ route('home') }}" class="text-reset opacity-60">{{translate('Back to Dashboard')}}</a>
                     </div>

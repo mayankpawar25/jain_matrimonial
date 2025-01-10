@@ -11,18 +11,9 @@
                     <form method="POST" action="{{ route('password.otpLogin') }}">
                         @csrf
 
-                        <!-- <div class="form-group">
-                            <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ $email ?? old('email') }}" placeholder="{{ translate('Email') }}" required autofocus>
-
-                            @if ($errors->has('email'))
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $errors->first('email') }}</strong>
-                                </span>
-                            @endif
-                        </div> -->
-                        <input type="hidden" name="email" value="{{ $email }}"/>
+                        <input type="hidden" name="phone" value="{{ old('phone', $phone) }}"/>
                         <div class="form-group">
-                            <input id="code" type="text" class="form-control{{ $errors->has('code') ? ' is-invalid' : '' }}" name="code" value="" placeholder="Code" required autofocus>
+                            <input id="code" type="number"  maxlength="6" minlength="6"  oninput="if(this.value.length > 6) this.value = this.value.slice(0, 6);" class="form-control{{ $errors->has('code') ? ' is-invalid' : '' }}" name="code" value="" placeholder="Code" required autofocus>
 
                             @if ($errors->has('code'))
                                 <span class="invalid-feedback" role="alert">

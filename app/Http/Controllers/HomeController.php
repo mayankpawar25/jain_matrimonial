@@ -472,6 +472,7 @@ class HomeController extends Controller
         }
     }
 
+  
     public function login_with_otp(Request $request)
     { 
         if (($user = User::where('email', $request->email)->where('verification_code', $request->code)->first()) != null) {
@@ -491,6 +492,28 @@ class HomeController extends Controller
             return back()->withErrors(['otp' => 'Invalid OTP']);
         }
     }
+
+    public function login_with_whatsapp(Request $request)
+    { 
+        if (($user = User::where('phone', $request->phone)->where('verification_code', $request->code)->first()) != null) {
+            
+                $user->save();
+                auth()->login($user, true);
+
+                flash(translate('Logged in  successfully'))->success();
+
+                if (auth()->user()->user_type == 'admin' || auth()->user()->user_type == 'staff') {
+                    return redirect()->route('admin.dashboard');
+                }
+                return redirect()->route('home');
+            
+        } else {
+            flash("Verification code mismatch")->error();
+            return back()->withErrors(['otp' => 'Invalid OTP'])->withInput(); 
+        }
+    }
+
+
 
     function clearCache()
     {
