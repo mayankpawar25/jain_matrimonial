@@ -87,9 +87,12 @@ Route::controller(AizUploadController::class)->group(function () {
 
 Auth::routes(['verify' => true]);
 
-Route::get('password/verify_otp', 'Auth\ForgotPasswordController@showOtpForm')->name('password.verify_otp');
-// Route::post('password/verify_otp','Auth\ForgotPasswordController@sendLoginWithEmailOtp')->name('password.verify_otp');
-Route::post('password/verify_otp','Auth\ForgotPasswordController@sendLoginOtpWithWhatsapp')->name('password.verify_otp');
+Route::get('password/verify_otp', 'Auth\LoginController@showOtpForm')->name('password.verify_otp');
+// This route is for email based otp verifications
+// Route::post('password/verify_otp','Auth\LoginController@sendLoginWithEmailOtp')->name('password.verify_otp');
+
+// This route is for mobile based Whatsapp otp verifications
+Route::post('password/verify_otp','Auth\LoginController@sendLoginOtpWithWhatsapp')->name('password.verify_otp');
 
 Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
 

@@ -472,6 +472,7 @@ class HomeController extends Controller
         }
     }
 
+  
     public function login_with_otp(Request $request)
     { 
         if (($user = User::where('email', $request->email)->where('verification_code', $request->code)->first()) != null) {
@@ -511,6 +512,8 @@ class HomeController extends Controller
             return back()->withErrors(['otp' => 'Invalid OTP'])->withInput(); 
         }
     }
+
+
 
     function clearCache()
     {
