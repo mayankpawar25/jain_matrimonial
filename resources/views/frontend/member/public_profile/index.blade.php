@@ -1,9 +1,9 @@
 @extends('frontend.layouts.app')
 @section('content')
-    <section class="pt-6 bg-primary-grad text-white">
+    <section class="pt-6  text-white" style="background-color:var(--hov-primary)">
         <div class="container">
             <div class="row">
-                <div class="col-xl-8 offset-xl-4">
+                <div class="col-xl-8 offset-xl-4" style="background-color:var(--hov-primary)">
                     <div class="px-3 row align-items-center">
                         <div class="col-md-8 col-xxl-9">
                             <h1 class="fs-24 fw-600">
