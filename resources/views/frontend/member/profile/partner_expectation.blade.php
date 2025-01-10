@@ -43,7 +43,7 @@
 
             <div class="form-group row">
                 <div class="col-md-6">
-                    <label for="partner_marital_status">{{translate('Marital Status')}}</label>
+                    <label for="partner_marital_status">{{('Marital Status')}}</label>
                     <select class="form-control aiz-selectpicker" name="partner_marital_status" data-selected="{{ $member->partner_expectations->marital_status_id ?? "" }}" data-live-search="true" required>
                         <option value="">{{ translate('Choose One') }}</option>
                         @foreach ($marital_statuses as $marital_status)
