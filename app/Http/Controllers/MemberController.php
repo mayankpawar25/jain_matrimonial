@@ -40,6 +40,7 @@ use App\Models\Setting;
 use App\Models\Shortlist;
 use App\Models\SpiritualBackground;
 use App\Models\Staff;
+use App\Models\TransactionDetails;
 use App\Models\Upload;
 use App\Models\Wallet;
 use App\Models\User;
@@ -401,7 +402,10 @@ class MemberController extends Controller
     public function show_verification_info($id)
     {
         $user = User::findOrFail(decrypt($id));
-        return view('admin.members.verification_info', compact('user'));
+        $transactionDetails = TransactionDetails::where('user_id',$user->id)->first();
+        // $src = 
+        // dd(static_asset('assets/'.$transactionDetails->image));
+        return view('admin.members.verification_info', ['user' => $user, 'transactionDetails' => $transactionDetails]);
     }
 
     public function approve_verification($id)

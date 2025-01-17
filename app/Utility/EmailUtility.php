@@ -190,6 +190,27 @@ class EmailUtility
         }
     }
 
+    public static function account_opening_email_new($user_id = '')
+    {
+        $user           = User::where('id',$user_id)->first();
+        $subject        = get_email_template('account_opening_email_new','subject');
+        $account_type   = $user->membership == 1 ? 'Free' : 'Premium';
+        $email_body     = get_email_template('account_opening_email_new','body');
+        $email_body     = str_replace('[[name]]', $user->first_name.' '.$user->last_name, $email_body);
+        $email_body     = str_replace('[[sitename]]', get_setting('website_name'), $email_body);
+        $email_body     = str_replace('[[account_type]]', $account_type, $email_body);
+        $email_body     = str_replace('[[phone]]', $user->phone, $email_body);
+        $email_body     = str_replace('[[url]]', env('APP_URL'), $email_body);
+        $email_body     = str_replace('[[from]]', env('MAIL_FROM_NAME'), $email_body);
+
+        try{
+            Notification::send($user, new EmailNotification($subject, $email_body));
+        }
+        catch(\Exception $e){
+            // dd($e);
+        }
+    }
+
 }
 
 ?>

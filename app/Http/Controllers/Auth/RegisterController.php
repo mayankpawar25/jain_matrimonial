@@ -28,6 +28,7 @@ use App\Http\Controllers\OTPVerificationController;
 use App\Http\Controllers\AizUploadController;
 use App\Models\GalleryImage;
 use App\Models\RegistrationsExport;
+use App\Models\TransactionDetails;
 use App\Models\Upload;
 use Arr;
 use Carbon\Carbon;
@@ -91,9 +92,9 @@ class RegisterController extends Controller
                 'last_name' => ['required', 'string', 'max:255'],
                 'gender' => 'required',
                 'date_of_birth' => 'required|date',
-                'phone' => 'required_without:email|nullable|string|unique:users',
-                'email' => 'required_without:phone|nullable|email|unique:users',
-                'password' => ['required', 'string', 'min:8', 'confirmed'],
+                'phone' => 'required|nullable|string|unique:users',
+                'email' => 'required|nullable|email|unique:users',
+                // 'password' => ['required', 'string', 'min:8', 'confirmed'],
                 'g-recaptcha-response' => [
                     Rule::when(get_setting('google_recaptcha_activation') == 1, ['required', new RecaptchaRule()], ['sometimes'])
                 ],
@@ -565,100 +566,151 @@ class RegisterController extends Controller
         // Pass the user names to the view for display
         return view('frontend.kit_request_form', compact('users'));
     }
-    
-    
-    public function bulkImportImage(){}
-    // {
-    //     $count = 0;
-    //     $data = Registration::all();
-    //     // $data = Registration::where('id', 26)->get();
 
-    //     foreach ($data as $registration) {
-           
-    //         try {
-    //             $user = User::where('email', $registration->email)->first();
-    //         } catch (\Throwable $th) {
-    //             //throw $th;
-    //             dd($th);
-    //         }
-    //         if ($user) {
-             
-    //             $user_id = $user->id;
-    //                 $profilePictures = json_decode($registration->profile_picture, true);
-    //                 if (is_array($profilePictures) && !empty($profilePictures)) {
-                       
-    //                     foreach ($profilePictures as $index=>$picture ) {
+    public function registerNew(Request $request)
+    {
+        $directories = [
+            'img/photos/transaction_receipt',
+        ];
 
-    //                         $filename = $picture;
-                            
-    //                         // Extract the part after the last slash (filename)
-    //                         $basename = basename($filename);
-    //                         // dd($basename);
-    //                         // Prepend the desired path
-    //                         $newPath = 'uploads/all/' . $basename;
+        foreach ($directories as $directory) {
+            if (!file_exists(public_path($directory))) {
+                mkdir(public_path($directory), 0777, true);
+            }
+        }
 
-    //                         try {
-    //                             $upload = Upload::create([
-    //                                 'user_id' => $user->id,
-    //                                 'file_name' => $newPath,
-    //                             ]);
-    //                             $count = $count + 1;
-    //                         } catch (\Throwable $th) {
-    //                             //throw $th;
-    //                             dd($th);
-    //                         }
+        // Handle file uploads
+        $fileFields = ['transaction_receipt'];
+        $receipt_pic_path = [];
 
-    //                         if ($index === 0) {
-    //                             $update = array('photo' => $upload->id);
-    //                             User::where('id', $user_id)->update($update);
-    //                         } else {
-    //                             try {
-    //                                 $galleryImages = GalleryImage::create([
-    //                                     'user_id' => $user->id,
-    //                                     'image' => $upload->id,
-    //                                 ]);
-    //                             } catch (\Throwable $th) {
-    //                                 //throw $th;
-    //                                 dd($th);
-    //                             }
-    //                         }
-    //                     }
-    //                 } else {
-                       
-    //                     $filename = $registration->profile_picture;
 
-    //                     // Extract the part after the last slash (filename)
-    //                     $basename = basename($filename);
+        if ($request->hasFile('transaction_receipt')) {
+            $file = $request->file('transaction_receipt');
+            $fileName = 'transaction_' . time() . '.' . $file->getClientOriginalExtension();
+            $filePath = 'img/photos/transaction_receipt/' . $fileName;
+            $file->move(public_path('img/photos/transaction_receipt'), $fileName);
+            $receipt_pic_path = $filePath;
+        }
+       
+        $request['password'] = 'Test@1234';
+        // dd($request);
+        // if (filter_var($request->email, FILTER_VALIDATE_EMAIL)) {
+        //     if (User::where('email', $request->email)->first() != null) {
+        //         flash(translate('Email already Registered.'));
+        //         return back();
+        //     }
+        // } 
+        // if (User::where('phone', $request->phone)->first() != null) {         
+        //     flash(translate('Phone number already Registered.'));
+        //     return back();
+        // }
 
-    //                     // Prepend the desired path
-    //                     $newPath = 'uploads/all/' . $basename;
-    //                     try {
-                            
-    //                         $upload = Upload::create([
-    //                             'user_id' => $user->id,
-    //                             'file_name' => $newPath,
-    //                         ]);
-    //                         $count = $count + 1;
-    //                     } catch (\Throwable $th) {
-    //                         //throw $th;
-    //                         dd($th);
-    //                     }
-    //                     // User::updateOrInsert(
-    //                     //     ['user_id' => $user->id],
-    //                     //     ['photo' => $upload->id],
-    //                     // );
+        // $this->validator($request->all())->validate();
 
-    //                     $update = array('photo' => $upload->id);
-    //                     try {
-    //                         User::where('id', $user_id)->update($update);
-    //                     } catch (\Throwable $th) {
-    //                         //throw $th;
-    //                         dd($th);
-    //                         die("here");
-    //                     }
-    //                 }
-                
-    //         }
-    //     }
-    // }
+        $user = $this->createNew($request->all());
+
+        $transactionDetails = new TransactionDetails;
+        $transactionDetails->user_id = $user->id;
+        $transactionDetails->created_at= now();
+        $transactionDetails->updated_at= now();
+        // $transactionDetails->save();
+        // dd( $transactionDetails->user_id);
+
+        $transactionDetails->transaction_number= $request['transaction_number'];
+        $transactionDetails->image = $receipt_pic_path;
+        $transactionDetails->transaction_date = NOW();
+        $transactionDetails->save();
+
+        if (get_setting('member_verification') != 1) {
+            $this->guard()->login($user);
+        }
+
+        try {
+            $notify_type = 'member_registration';
+            $id = unique_notify_id();
+            $notify_by = $user->id;
+            $info_id = $user->id;
+            $message = translate('A new member has been registered to your system. Name: ') . $user->first_name . ' ' . $user->last_name;
+            $route = route('members.index', $user->membership);
+
+            // fcm 
+            if (get_setting('firebase_push_notification') == 1) {
+                $fcmTokens = User::where('user_type', 'admin')->whereNotNull('fcm_token')->pluck('fcm_token')->toArray();
+                Larafirebase::withTitle($notify_type)
+                    ->withBody($message)
+                    ->sendMessage($fcmTokens);
+            }
+            // end of fcm
+            Notification::send(User::where('user_type', 'admin')->first(), new DbStoreNotification($notify_type, $id, $notify_by, $info_id, $message, $route));
+        } catch (\Exception $e) {
+            // dd($e);
+        }
+        if (env('MAIL_USERNAME') != null && (get_email_template('account_opening_email_to_admin', 'status') == 1)) {
+            $admin = User::where('user_type', 'admin')->first();
+            EmailUtility::account_opening_email_to_admin($user, $admin);
+        }
+
+        if (get_setting('email_verification') == 0) {
+            if ($user->email != null || $user->phone != null) {
+                $user->email_verified_at = date('Y-m-d H:m:s');
+                $user->save();
+                flash(translate('Registration successfull.'))->success();
+            }
+        } else if ($user->email != null) {
+            event(new Registered($user));
+            flash(translate('Registration successfull. Please verify your email.'))->success();
+        } else {
+            flash(translate('Registration successfull. Please verify your phone number.'))->success();
+        }
+
+        return $this->registered($request, $user)
+            ?: redirect($this->redirectPath());
+    }
+
+    protected function createNew(array $data)
+    {
+        $approval = get_setting('member_verification') == 1 ? 0 : 1;
+        if (filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
+            $user = User::create([
+                'first_name' => $data['first_name'],
+                'last_name' => $data['last_name'],
+                'membership' => 9,
+                'email' => $data['email'],
+                'phone' => $data['phone'],
+                'password' => Hash::make($data['password']),
+                'code' => unique_code(),
+                'approved' => $approval,
+            ]);
+        }
+
+        $member = new Member;
+        $member->user_id = $user->id;
+        $member->save();
+
+        $member->gender = $data['gender'];
+        $member->on_behalves_id = $data['on_behalf'];
+        $member->birthday = date('Y-m-d', strtotime($data['date_of_birth']));
+
+        $package = Package::where('id', 9)->first();
+        $member->current_package_id = $package->id;
+        $member->remaining_interest = $package->express_interest;
+        $member->remaining_photo_gallery = $package->photo_gallery;
+        $member->remaining_contact_view = $package->contact;
+        $member->remaining_profile_image_view = $package->profile_image_view;
+        $member->remaining_gallery_image_view = $package->gallery_image_view;
+        $member->auto_profile_match = $package->auto_profile_match;
+        $member->package_validity = Date('Y-m-d', strtotime($package->validity . " days"));
+        $member->save();
+
+        // Account opening Email to member
+        if ($data['email'] != null && env('MAIL_USERNAME') != null) {
+            $account_opening_email_new = EmailTemplate::where('identifier', 'account_opening_email_new')->first();
+
+            if ($account_opening_email_new->status == 1) {
+                EmailUtility::account_opening_email_new($user->id);
+            }
+        }
+
+        return $user;
+    }
 }

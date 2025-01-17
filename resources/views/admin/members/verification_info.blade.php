@@ -8,7 +8,7 @@
                 <h5 class="mb-0 h6">{{ translate('Member Verification') }}</h5>
             </div>
             <div class="card-body row">
-                <div class="col-md-4">
+                <div class="col-md-6">
                     <h6 class="mb-4">{{ translate('User Info') }}</h6>
                     <p class="text-muted">
                         <strong>{{ translate('Code') }} :</strong>
@@ -26,9 +26,23 @@
                         <strong>{{translate('Phone')}} :</strong>
                         <span class="ml-2">{{ $user->phone }}</span>
                     </p>
+                    @if ($transactionDetails)
+                    <p class="text-muted">
+                        <strong>{{translate('Transaction Details')}} :</strong>
+                        <span class="ml-2">{{ $transactionDetails->transaction_number }}</span>
+                    </p>
+                    
+                    <p class="text-muted">
+                        <strong>{{translate('Uploaded Image')}} :</strong>
+                        <span class="ml-2">
+                            
+                        <img class="img-md" src="{{static_asset($transactionDetails->image) }}" width="300px" height="auto" alt="{{translate('photo')}}">
+                        </span>
+                    </p>
+                    @endif
                     <br>
                 </div>
-                <div class="col-md-8">
+                <div class="col-md-6">
                     <h6 class="mb-4">{{ translate('Verification Info') }}</h6>
                     @if ($user->verification_info != null)
                         <table class="table table-striped table-bordered" cellspacing="0" width="100%">

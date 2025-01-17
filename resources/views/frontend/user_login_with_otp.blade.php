@@ -38,9 +38,14 @@
                         </div>
                     </form>
                     <hr />
-                    <div class="mt-3 d-flex justify-content-center" style=" color:#0f0f0f !important;">
+                    <div class="mt-3 d-flex justify-content-center mb-2" style=" color:#0f0f0f !important;">
                         <a href="{{ route('home') }}" class="text-reset opacity-60">{{translate('Back to Dashboard')}}</a>
                     </div>
+                    <div class="text-center">
+                    <p class="text-muted mb-2 pb-2">{{ translate("or") }}</p>
+                    <span>Dont have an account?<a class="mt-2 ml1" href="{{ route('register') }}">{{ translate('Create an account') }}</a></span>
+                    
+                </div>
                 </div>
             </div>
         </div>

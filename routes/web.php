@@ -36,7 +36,8 @@ Route::controller(DemoController::class)->group(function () {
     Route::get('/demo/cron_2', 'cron_2');
 });
 
-
+//registerNew 
+Route::post('/registerNew', [RegisterController::class, 'registerNew'])->name('registerNew');
 
 // Route for handling the form submission
 Route::post('/attendance', [AttendanceController::class, 'submitForm'])->name('attendance.submit');
