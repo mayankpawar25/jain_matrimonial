@@ -42,6 +42,12 @@
                                     <span class="aiz-side-nav-text">{{ translate('Premium Members') }}</span>
                                 </a>
                             </li>
+                            <li class="aiz-side-nav-item">  
+                                <a href="{{ route('members.index', 9) }}"
+                                    class="aiz-side-nav-link  {{ areActiveRoutes(['members.edit', 'members.show']) }}">
+                                    <span class="aiz-side-nav-text">{{ translate('Paid Package Members') }}</span>
+                                </a>
+                            </li>
                         @endcan
 
                         @can('bulk_member_add')
