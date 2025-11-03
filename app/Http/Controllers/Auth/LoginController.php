@@ -15,6 +15,8 @@ use App\Models\Attitude;
 use App\Models\Astrology;
 use App\Models\Education;
 use App\Models\Lifestyle;
+use App\Rules\RecaptchaRule;
+use Illuminate\Validation\Rule;
 use App\Models\Recidency;
 use App\Models\Shortlist;
 use App\Models\ChatThread;
@@ -344,6 +346,9 @@ class LoginController extends Controller
     {
         $request->validate([
             'phone' => 'required|digits:10',
+            'g-recaptcha-response' => [
+                Rule::when(get_setting('google_recaptcha_activation') == 1, ['required', new RecaptchaRule()], ['sometimes'])
+            ],
         ]);
         $user = User::where('phone', $request->phone)->first();
 
@@ -357,7 +362,7 @@ class LoginController extends Controller
             ];
 
             try {
-                $response = $this->sendDataToFacebookApi($data);
+                $response = $this->sendDataToFacebookApiNewTemplate($data);
 
                 if ($response['success']) {
                     flash(translate('Message sent successfully'))->success();
@@ -444,6 +449,75 @@ class LoginController extends Controller
             'response' => json_decode($response, true)
         ];
     }
+    public function sendDataToFacebookApiNewTemplate($data)
+    {
+        // WhatsApp API credentials
+        $accessToken = 'EAAMEAC1XGNYBOypSHwqVOL8l26SLXGaq0mTd75wIrZCS8ZCb7KZCShwHMOWlsZBCI6O4QnLZAQ314hhj1jHr3eM4q7zJksb7ViWZBr02wpYJ8B4DLf30Cra5HPyrffPGbuZCjrT1ksaKoaGXN9Ycv13DToO5SPWV2tE6kFcLXZCEmvsdb5VnyxpH6LD9FadNG5sLoQZDZD';
+        $phoneNumberId = '447089238486115';
 
-    
+        // Prepare data for the API call
+        $apiData = [
+            "messaging_product" => "whatsapp",
+            "to" => $data['phoneNumber'],
+            "type" => "template",
+            "template" => [
+                "name" => "message_template_1",
+                "language" => [
+                    "code" => "en"
+                ],
+                "components" => [
+                    [
+                        "type" => "body",
+                        "parameters" => [       // Static text
+                            [
+                                "type" => "text",
+                                "text" => $data['otp']
+                            ]   // OTP value
+                        ]
+                    ],
+                    [
+                        "type" => "button",
+                        "sub_type" => "url",
+                        "index" => 0,
+                        "parameters" => [
+                            [
+                                "type" => "text",
+                                "text" => $data['otp']
+                            ]
+                        ]
+                    ],
+                ]
+            ]
+        ];
+        // dd($apiData);
+        // Set up cURL
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, "https://graph.facebook.com/v20.0/{$phoneNumberId}/messages");
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($apiData));
+        curl_setopt($ch, CURLOPT_HTTPHEADER, [
+            "Authorization: Bearer {$accessToken}",
+            "Content-Type: application/json"
+        ]);
+
+        // Execute cURL
+        $response = curl_exec($ch);
+        $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+
+        // Error handling
+        if (curl_errno($ch)) {
+            $error = curl_error($ch);
+            curl_close($ch);
+            throw new \Exception("cURL Error: $error");
+        }
+
+        curl_close($ch);
+
+        // Parse and return response
+        return [
+            'success' => $httpCode == 200 || $httpCode == 201, // Success on 200/201 response
+            'response' => json_decode($response, true)
+        ];
+    }
 }

@@ -31,6 +31,14 @@
                             </span>
                             @endif
                         </div>
+                        @if(get_setting('google_recaptcha_activation') == 1)
+                            	<div class="form-group">
+                                    <div class="g-recaptcha" data-sitekey="{{ env('CAPTCHA_KEY') }}"></div>
+                                        @error('g-recaptcha-response')
+                                            <span class="invalid-feedback" role="alert">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                        @endif
                         <div class="form-group text-right">
                             <button class="btn btn-primary btn-block" type="submit">
                                 {{ ('Send OTP') }}
@@ -51,4 +59,10 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('script')
+	@if(get_setting('google_recaptcha_activation') == 1)
+		@include('partials.recaptcha')
+	@endif
 @endsection

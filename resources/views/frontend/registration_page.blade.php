@@ -9,7 +9,7 @@
 
 
 <!-- resources/views/form.blade.php -->
-<div class="     mt-2  ">
+<!-- <div class="     mt-2  ">
 <div class="container">
     <div class="row">
         <div class="col-md-8 offset-md-2">
@@ -19,9 +19,9 @@
         </div>
     </div>
 </div>
-</div>
-<div class="py-5 mt-5 py-lg-5 mt-2 d-none">
-    <div class="containter">
+</div> -->
+<div class="py-5 mt-5 py-lg-5 mt-2 ">
+    <div class="container">
         <div class="row">
             <div class="form-wizard p-4 bg-white shadow rounded">
                 <h1 class="text-center mb-2" style="font-weight: bold; color: #ee2098;">अपनी जानकारी यहाँ डाले</h1>
@@ -36,9 +36,25 @@
                         <h5 class="form-label" style="font-weight: bold; color: #000000;">प्रत्याशी की जानकारी</h5>
 
                         <!-- Form Fields -->
-                        <div class="mb-3">
-                            <label for="name" class="form-label">प्रत्यशी का नाम</label>
-                            <input type="text" class="form-control" name="name" id="name" placeholder="" required>
+                        <div class="row ">
+                            <div class="col-md-8 mb-3">
+                                <label for="name" class="form-label">प्रत्यशी का नाम</label>
+                                <input type="text" class="form-control" name="name" id="name" placeholder="" required>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label">लिंग</label>
+                                <div class="d-flex justify-content-start form-control">
+                                    <div class="form-check mr-3">
+                                        <input class="form-check-input " type="radio" name="gender" id="yes"
+                                            value="yes">
+                                        <label class="form-check-label " for="yes">युवक</label>
+                                    </div>
+                                    <div class="form-check ">
+                                        <input class="form-check-input" type="radio" name="gender" id="no" value="no">
+                                        <label class="form-check-label" for="no">युवती</label>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div class="row ">
                             <div class="col-md-4 mb-3">
@@ -47,7 +63,7 @@
                                     required>
                             </div>
                             <div class="col-md-4 mb-3">
-                                <label for="mobile" class="form-label">मोबाइल नंबर</label>
+                                <label for="mobile" class="form-label">प्रत्याशी का मोबाइल नंबर</label>
                                 <input type="tel" class="form-control" pattern="^(?:\+?[0-9]{1,3})?0?[0-9]{10}$"
                                     name="mobile" id="mobile" placeholder="" maxlength="10" required>
                             </div>
@@ -133,7 +149,7 @@
                                     <input type="number" class="form-control mr-1" id="height-feet" name="height_feet"
                                         placeholder="फीट" min="0" max="10" required>
                                     <input type="text" class="form-control" id="height-inches" name="height_inches"
-                                        placeholder="इंच" >
+                                        placeholder="इंच">
                                 </div>
                             </div>
                             <div class="col-md-3 mb-3">
@@ -156,25 +172,25 @@
                             </div>
                         </div>
                         <div class="row ">
-                            <div class="col-md-9 mb-3">
+                            <div class="col-md-12 mb-3">
                                 <label for="residence" class="form-label">निवास</label>
                                 <input type="text" class="form-control" id="residence" name="residence" required>
                             </div>
-                            <div class="col-md-3 mb-3">
-                                <label class="form-label">शारीरिक दोष</label>
-                                <div class="d-flex form-control justify-content-start">
-                                    <div class="form-check mr-3">
-                                        <input class="form-check-input" type="radio" name="dosh" id="dosh-yes"
-                                            value="yes">
-                                        <label class="form-check-label" for="dosh-yes">हाँ</label>
+                            <!-- <div class="col-md-3 mb-3">
+                                    <label class="form-label">शारीरिक दोष</label>
+                                    <div class="d-flex form-control justify-content-start">
+                                        <div class="form-check mr-3">
+                                            <input class="form-check-input" type="radio" name="dosh" id="dosh-yes"
+                                                value="yes">
+                                            <label class="form-check-label" for="dosh-yes">हाँ</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="dosh" id="dosh-no"
+                                                value="no">
+                                            <label class="form-check-label" for="dosh-no">नहीं</label>
+                                        </div>
                                     </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="dosh" id="dosh-no"
-                                            value="no">
-                                        <label class="form-check-label" for="dosh-no">नहीं</label>
-                                    </div>
-                                </div>
-                            </div>
+                                </div> -->
                         </div>
                         <div class="row ">
                             <div class="col-md-3 mb-3">
@@ -292,68 +308,68 @@
 
                         <div class="container my-5">
                             <label for="profile" class="form-label">फोटो अपलोड</label>
-                            <div class = "row ml-0">
-                                    <div class=" column-md-4 custom-upload-box mr-3" style="position: relative;">
-                                        <input type="file" accept="image/*" class="form-control" id="image-input-1" name="profile_picture[]" required>
-                                        <svg height="50" width="50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                            <div class="row ml-0">
+                                <div class=" column-md-4 custom-upload-box mr-3" style="position: relative;">
+                                    <input type="file" accept="image/*" class="form-control" id="image-input-1" name="profile_picture[]" required>
+                                    <svg height="50" width="50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
                                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                         stroke-linejoin="round">
                                         <path d="M12 3v12"></path>
                                         <path d="M6 9l6-6 6 6"></path>
                                         <path d="M6 21h12a2 2 0 0 0 2-2v-6H4v6a2 2 0 0 0 2 2z"></path>
-                                        </svg>
-                                        <img id="preview-image-1" src="#" alt="Image Preview" style="display: none; max-width: 100%; height: auto; margin-top: 10px;">
-                                        <button type="button" id="remove-image-1" class="remove-image" style="display:none;" title="Remove Image">
+                                    </svg>
+                                    <img id="preview-image-1" src="#" alt="Image Preview" style="display: none; max-width: 100%; height: auto; margin-top: 10px;">
+                                    <button type="button" id="remove-image-1" class="remove-image" style="display:none;" title="Remove Image">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="red"
-                                        class="bi bi-x-circle" viewBox="0 0 16 16">
-                                        <path
-                                            d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zm3.646 9.354a.5.5 0 0 1-.707 0L8 8.707l-2.939 2.939a.5.5 0 1 1-.707-.707l2.939-2.939L4.354 5.354a.5.5 0 1 1 .707-.707L8 7.293l2.939-2.939a.5.5 0 1 1 .707.707L8.707 8l2.939 2.939a.5.5 0 0 1 0 .707z">
-                                        </path>
+                                            class="bi bi-x-circle" viewBox="0 0 16 16">
+                                            <path
+                                                d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zm3.646 9.354a.5.5 0 0 1-.707 0L8 8.707l-2.939 2.939a.5.5 0 1 1-.707-.707l2.939-2.939L4.354 5.354a.5.5 0 1 1 .707-.707L8 7.293l2.939-2.939a.5.5 0 1 1 .707.707L8.707 8l2.939 2.939a.5.5 0 0 1 0 .707z">
+                                            </path>
                                         </svg>
-                                        </button>
-                                    </div>
+                                    </button>
+                                </div>
 
-                                    <!-- Second Image Upload (Initially Hidden) -->
-                                    <div class="column-md-4 custom-upload-box mr-3" style="position: relative; display: none;" id="extra-image-box-2">
-                                        <input type="file" accept="image/*" class="form-control" id="image-input-2" name="profile_picture[]"> 
-                                        <svg height="50" width="50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                <!-- Second Image Upload (Initially Hidden) -->
+                                <div class="column-md-4 custom-upload-box mr-3" style="position: relative; display: none;" id="extra-image-box-2">
+                                    <input type="file" accept="image/*" class="form-control" id="image-input-2" name="profile_picture[]">
+                                    <svg height="50" width="50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
                                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                         stroke-linejoin="round">
                                         <path d="M12 3v12"></path>
                                         <path d="M6 9l6-6 6 6"></path>
                                         <path d="M6 21h12a2 2 0 0 0 2-2v-6H4v6a2 2 0 0 0 2 2z"></path>
-                                        </svg>
-                                        <img id="preview-image-2" src="#" alt="Image Preview" style="display: none; max-width: 100%; height: auto; margin-top: 10px;">
-                                        <button type="button" id="remove-image-2" class="remove-image" style="display:none;" title="Remove Image">
+                                    </svg>
+                                    <img id="preview-image-2" src="#" alt="Image Preview" style="display: none; max-width: 100%; height: auto; margin-top: 10px;">
+                                    <button type="button" id="remove-image-2" class="remove-image" style="display:none;" title="Remove Image">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="red"
-                                        class="bi bi-x-circle" viewBox="0 0 16 16">
-                                        <path
-                                            d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zm3.646 9.354a.5.5 0 0 1-.707 0L8 8.707l-2.939 2.939a.5.5 0 1 1-.707-.707l2.939-2.939L4.354 5.354a.5.5 0 1 1 .707-.707L8 7.293l2.939-2.939a.5.5 0 1 1 .707.707L8.707 8l2.939 2.939a.5.5 0 0 1 0 .707z">
-                                        </path>
+                                            class="bi bi-x-circle" viewBox="0 0 16 16">
+                                            <path
+                                                d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zm3.646 9.354a.5.5 0 0 1-.707 0L8 8.707l-2.939 2.939a.5.5 0 1 1-.707-.707l2.939-2.939L4.354 5.354a.5.5 0 1 1 .707-.707L8 7.293l2.939-2.939a.5.5 0 1 1 .707.707L8.707 8l2.939 2.939a.5.5 0 0 1 0 .707z">
+                                            </path>
                                         </svg>
-                                        </button>
-                                    </div>
+                                    </button>
+                                </div>
 
-                                    <!-- Third Image Upload (Initially Hidden) -->
-                                    <div class="column-md-4 custom-upload-box" style="position: relative; display: none;" id="extra-image-box-3">
-                                        <input type="file" accept="image/*" class="form-control" id="image-input-3" name="profile_picture[]">
-                                        <svg height="50" width="50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                <!-- Third Image Upload (Initially Hidden) -->
+                                <div class="column-md-4 custom-upload-box" style="position: relative; display: none;" id="extra-image-box-3">
+                                    <input type="file" accept="image/*" class="form-control" id="image-input-3" name="profile_picture[]">
+                                    <svg height="50" width="50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
                                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                         stroke-linejoin="round">
                                         <path d="M12 3v12"></path>
                                         <path d="M6 9l6-6 6 6"></path>
                                         <path d="M6 21h12a2 2 0 0 0 2-2v-6H4v6a2 2 0 0 0 2 2z"></path>
-                                        </svg>
-                                        <img id="preview-image-3" src="#" alt="Image Preview" style="display: none; max-width: 100%; height: auto; margin-top: 10px;">
-                                        <button type="button" id="remove-image-3" class="remove-image" style="display:none;" title="Remove Image">
+                                    </svg>
+                                    <img id="preview-image-3" src="#" alt="Image Preview" style="display: none; max-width: 100%; height: auto; margin-top: 10px;">
+                                    <button type="button" id="remove-image-3" class="remove-image" style="display:none;" title="Remove Image">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="red"
-                                        class="bi bi-x-circle" viewBox="0 0 16 16">
-                                        <path
-                                            d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zm3.646 9.354a.5.5 0 0 1-.707 0L8 8.707l-2.939 2.939a.5.5 0 1 1-.707-.707l2.939-2.939L4.354 5.354a.5.5 0 1 1 .707-.707L8 7.293l2.939-2.939a.5.5 0 1 1 .707.707L8.707 8l2.939 2.939a.5.5 0 0 1 0 .707z">
-                                        </path>
+                                            class="bi bi-x-circle" viewBox="0 0 16 16">
+                                            <path
+                                                d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zm3.646 9.354a.5.5 0 0 1-.707 0L8 8.707l-2.939 2.939a.5.5 0 1 1-.707-.707l2.939-2.939L4.354 5.354a.5.5 0 1 1 .707-.707L8 7.293l2.939-2.939a.5.5 0 1 1 .707.707L8.707 8l2.939 2.939a.5.5 0 0 1 0 .707z">
+                                            </path>
                                         </svg>
-                                        </button>
-                                    </div>
+                                    </button>
+                                </div>
                             </div>
                         </div>
 
@@ -659,70 +675,70 @@
 
 
     const paymentSelect = document.getElementById('payment');
-const extraImageBox2 = document.getElementById('extra-image-box-2');
-const extraImageBox3 = document.getElementById('extra-image-box-3');
+    const extraImageBox2 = document.getElementById('extra-image-box-2');
+    const extraImageBox3 = document.getElementById('extra-image-box-3');
 
-function setupImageInput(inputId, previewId, removeButtonId) {
-    const imageInput = document.getElementById(inputId);
-    const previewImage = document.getElementById(previewId);
-    const removeButton = document.getElementById(removeButtonId);
+    function setupImageInput(inputId, previewId, removeButtonId) {
+        const imageInput = document.getElementById(inputId);
+        const previewImage = document.getElementById(previewId);
+        const removeButton = document.getElementById(removeButtonId);
 
-    imageInput.addEventListener('change', function (event) {
-        const file = event.target.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = function (e) {
-                previewImage.src = e.target.result;
-                previewImage.style.display = 'block';
-                removeButton.style.display = 'inline-block';
-            };
-            reader.readAsDataURL(file);
-        } else {
+        imageInput.addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    previewImage.src = e.target.result;
+                    previewImage.style.display = 'block';
+                    removeButton.style.display = 'inline-block';
+                };
+                reader.readAsDataURL(file);
+            } else {
+                resetPreview(previewImage, removeButton);
+            }
+        });
+
+        removeButton.addEventListener('click', function() {
             resetPreview(previewImage, removeButton);
+            imageInput.value = '';
+        });
+    }
+
+    function resetPreview(previewImage, removeButton) {
+        previewImage.src = '#';
+        previewImage.style.display = 'none';
+        removeButton.style.display = 'none';
+    }
+
+    // Initialize image input handlers
+    setupImageInput('image-input-1', 'preview-image-1', 'remove-image-1');
+    setupImageInput('image-input-2', 'preview-image-2', 'remove-image-2');
+    setupImageInput('image-input-3', 'preview-image-3', 'remove-image-3');
+
+    // Show/Hide additional image inputs based on selected listing type
+    paymentSelect.addEventListener('change', function() {
+        if (paymentSelect.value !== 'General Listing') {
+            extraImageBox2.style.display = 'flex';
+            extraImageBox3.style.display = 'flex';
+        } else {
+            extraImageBox2.style.display = 'none';
+            extraImageBox3.style.display = 'none';
+            resetPreview(document.getElementById('preview-image-2'), document.getElementById('remove-image-2'));
+            resetPreview(document.getElementById('preview-image-3'), document.getElementById('remove-image-3'));
         }
     });
 
-    removeButton.addEventListener('click', function () {
-        resetPreview(previewImage, removeButton);
-        imageInput.value = '';
-    });
-}
-
-function resetPreview(previewImage, removeButton) {
-    previewImage.src = '#';
-    previewImage.style.display = 'none';
-    removeButton.style.display = 'none';
-}
-
-// Initialize image input handlers
-setupImageInput('image-input-1', 'preview-image-1', 'remove-image-1');
-setupImageInput('image-input-2', 'preview-image-2', 'remove-image-2');
-setupImageInput('image-input-3', 'preview-image-3', 'remove-image-3');
-
-// Show/Hide additional image inputs based on selected listing type
-paymentSelect.addEventListener('change', function () {
-    if (paymentSelect.value !== 'General Listing') {
-        extraImageBox2.style.display = 'flex';
-        extraImageBox3.style.display = 'flex';
-    } else {
-        extraImageBox2.style.display = 'none';
-        extraImageBox3.style.display = 'none';
-        resetPreview(document.getElementById('preview-image-2'), document.getElementById('remove-image-2'));
-        resetPreview(document.getElementById('preview-image-3'), document.getElementById('remove-image-3'));
-    }
-});
-
     // Second image payment upload
-    document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('DOMContentLoaded', function() {
         const imageInput = document.getElementById('image-inputs');
         const previewImage = document.getElementById('preview-images');
         const removeButton = document.getElementById('remove-images');
 
-        imageInput.addEventListener('change', function (event) {
+        imageInput.addEventListener('change', function(event) {
             const file = event.target.files[0];
             if (file) {
                 const reader = new FileReader();
-                reader.onload = function (e) {
+                reader.onload = function(e) {
                     previewImage.src = e.target.result;
                     previewImage.style.display = 'block'; // Show the image
                     removeButton.style.display = 'inline-block'; // Show the remove button
@@ -735,7 +751,7 @@ paymentSelect.addEventListener('change', function () {
         });
 
         // Remove button functionality for payment image upload
-        removeButton.addEventListener('click', function () {
+        removeButton.addEventListener('click', function() {
             resetPreview(previewImage, removeButton);
             imageInput.value = ''; // Reset the file input value
         });
@@ -858,7 +874,7 @@ paymentSelect.addEventListener('change', function () {
                 }
 
                 // if (field.id === 'height-inches') {
-                    
+
                 //     const inches = parseFloat(field.value);
                 //     if(typeof inches === 'number'){
                 //         if(inches % 1 === 0 || inches.toString().match(/^\d+(\.\d{1,2})?$/)){
@@ -877,7 +893,7 @@ paymentSelect.addEventListener('change', function () {
                 //             field.classList.add('is-invalid'); 
                 //         }
                 //     }
-                   
+
                 // }
             });
 
@@ -901,13 +917,13 @@ paymentSelect.addEventListener('change', function () {
         }
     }
 
-    document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('DOMContentLoaded', function() {
         const form = document.getElementById('registration-form');
         const submitButton = document.getElementById('submitButton');
         const loader = document.getElementById('loader');
         const buttonText = document.getElementById('buttonText');
 
-        form.addEventListener('submit', function (event) {
+        form.addEventListener('submit', function(event) {
             event.preventDefault(); // Prevent default form submission
 
             // Disable the submit button and show the loader
@@ -922,9 +938,9 @@ paymentSelect.addEventListener('change', function () {
     });
 
 
-    document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('bank_transfer_div').style.display = 'none';
-        document.getElementById('payment_mode').addEventListener('change', function () {
+        document.getElementById('payment_mode').addEventListener('change', function() {
             var paymentMode = this.value;
 
             // Hide both divs initially

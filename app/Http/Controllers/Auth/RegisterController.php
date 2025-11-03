@@ -328,6 +328,15 @@ class RegisterController extends Controller
         $registration->name = $request->input('name');
         $registration->email = $request->input('email');
         $registration->mobile = $request->input('mobile');
+
+        $genderValue = $request->input('gender'); // from your radio: yes / no
+        if ($genderValue === 'yes') {
+            $gender = 'male';     // युवक
+        } else {
+            $gender = 'female';   // युवती
+        };
+        $registration->gender = $gender;
+
         $registration->marriage = $request->input('marriage');
         $registration->doc_date = Carbon::createFromFormat('d-m-Y', $request->input('doc_date'))->format('Y-m-d');
         $registration->time = $request->input('time');
@@ -344,7 +353,7 @@ class RegisterController extends Controller
         $registration->complexion = $request->input('complexion');
         $registration->category = $request->input('category');
         $registration->residence = $request->input('residence');
-        $registration->dosh = $request->input('dosh');
+        // $registration->dosh = $request->input('dosh');
         $registration->education = $request->input('education');
         $registration->occupation = $request->input('occupation');
         $registration->name_of_org = $request->input('name_of_org');
@@ -375,11 +384,6 @@ class RegisterController extends Controller
         // Save the registration record
         $result = $registration->save();
 
-        // if ($result) {
-        //     flash(translate('Registration successful!'))->success();
-        // } else {
-        //     flash(translate('Oops!!! Something went wrong'))->error();
-        // }
 
         if ($result) {
             // Redirect to a new view with the registration ID
@@ -501,38 +505,83 @@ class RegisterController extends Controller
             }
             try {
 
-                // // Data to be encrypted
-                $data = [
-                    'id' => $registration->id,
-                    'name' => $registration->name,
-                    'mobile' => $registration->mobile,
+                $accessToken = 'EAAMEAC1XGNYBOypSHwqVOL8l26SLXGaq0mTd75wIrZCS8ZCb7KZCShwHMOWlsZBCI6O4QnLZAQ314hhj1jHr3eM4q7zJksb7ViWZBr02wpYJ8B4DLf30Cra5HPyrffPGbuZCjrT1ksaKoaGXN9Ycv13DToO5SPWV2tE6kFcLXZCEmvsdb5VnyxpH6LD9FadNG5sLoQZDZD';
+                $phoneNumberId = '447089238486115';
+
+                $to = $registration->mobile;
+                if (! str_starts_with($to, '+')) {
+                    $digitsOnly = preg_replace('/\D+/', '', $to);
+                    if (strlen($digitsOnly) === 10) {
+                        $to = '+91' . $digitsOnly;
+                    }
+                }
+
+                $templateName = 'registration_success';
+                $languageCode = 'en'; // change if your template uses another language
+                $registrationNumber =  $registration->id;
+
+                // Prepare payload
+                $apiData = [
+                    'messaging_product' => 'whatsapp',
+                    'to' => $to,
+                    'type' => 'template',
+                    'template' => [
+                        'name' => $templateName,
+                        'language' => ['code' => $languageCode],
+                        'components' => [
+                            [
+                                'type' => 'body',
+                                'parameters' => [
+                                    ['type' => 'text', 'text' => $registration->name],
+                                    ['type' => 'text', 'text' => $registrationNumber],
+                                ]
+                            ]
+                        ]
+                    ]
                 ];
 
-                $iv = random_bytes(16); // Generate a random IV (Initialization Vector)
-
-                // Encode the result and send it to your Node.js API
-                $encryptedData = json_encode([
-                    'iv' => base64_encode($iv),
-                    'value' => base64_encode(json_encode($data))
+                // --- Execute cURL call ---
+                $ch = curl_init();
+                curl_setopt($ch, CURLOPT_URL, "https://graph.facebook.com/v20.0/{$phoneNumberId}/messages");
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                curl_setopt($ch, CURLOPT_POST, true);
+                curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($apiData));
+                curl_setopt($ch, CURLOPT_HTTPHEADER, [
+                    "Authorization: Bearer {$accessToken}",
+                    "Content-Type: application/json"
                 ]);
 
+                $fbResponseRaw = curl_exec($ch);
+                $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 
-
-                // // Send encrypted data to Node.js
-                $response = Http::post('https://bot.djsgfshaadi.com/api/receive-registration', [
-                    'encrypted_data' => $encryptedData,
-                ]);
-
-                // // Optionally, log the response for debugging
-                if ($response->successful()) {
-                    $sentIds[] = $registration->id;
-                    Session::put('sent_ids', $sentIds);
-                    // flash(translate('Data sent successfully:'))->success();
+                if (curl_errno($ch)) {
+                    $error = curl_error($ch);
+                    curl_close($ch);
+                    \Log::error('WhatsApp cURL Error: ' . $error, ['registration_id' => $registration->id]);
+                    flash(translate('WhatsApp send failed (cURL error): ' . $error))->error();
                 } else {
-                    // flash(translate('Failed to send data to Node.js API:'))->error();
+                    curl_close($ch);
+                    $fbResponse = json_decode($fbResponseRaw, true);
+
+                    if ($httpCode == 200 || $httpCode == 201) {
+                        \Log::info('WhatsApp message sent successfully', ['response' => $fbResponse]);
+
+                        // Add ID to sent session
+                        $sentIds[] = $registration->id;
+                        Session::put('sent_ids', array_unique($sentIds));
+
+                        // flash(translate('WhatsApp message sent successfully!'))->success();
+                    } else {
+                        \Log::warning('WhatsApp API Error', [
+                            'http_code' => $httpCode,
+                            'response' => $fbResponse
+                        ]);
+                        // flash(translate('WhatsApp API returned an error.'))->error();
+                    }
                 }
             } catch (\Exception $e) {
-                // flash(translate('Exception occurred while sending data to Node.js API:' . $e->getMessage()))->error();
+                \Log::error('Exception in registrationSuccess: ' . $e->getMessage(), ['registration_id' => $registration->id]);
+                flash(translate('Error sending WhatsApp message: ') . $e->getMessage())->error();
             }
             // $sentIds[] = $registration->id;
             // Session::put('sent_ids', $sentIds);
@@ -591,7 +640,7 @@ class RegisterController extends Controller
             $file->move(public_path('img/photos/transaction_receipt'), $fileName);
             $receipt_pic_path = $filePath;
         }
-       
+
         $request['password'] = 'Test@1234';
         // dd($request);
         // if (filter_var($request->email, FILTER_VALIDATE_EMAIL)) {
@@ -611,12 +660,12 @@ class RegisterController extends Controller
 
         $transactionDetails = new TransactionDetails;
         $transactionDetails->user_id = $user->id;
-        $transactionDetails->created_at= now();
-        $transactionDetails->updated_at= now();
+        $transactionDetails->created_at = now();
+        $transactionDetails->updated_at = now();
         // $transactionDetails->save();
         // dd( $transactionDetails->user_id);
 
-        $transactionDetails->transaction_number= $request['transaction_number'];
+        $transactionDetails->transaction_number = $request['transaction_number'];
         $transactionDetails->image = $receipt_pic_path;
         $transactionDetails->transaction_date = NOW();
         $transactionDetails->save();
