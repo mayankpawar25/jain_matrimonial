@@ -516,9 +516,9 @@ class RegisterController extends Controller
                     }
                 }
 
-                $templateName = 'registration_success';
-                $languageCode = 'en'; // change if your template uses another language
-                $registrationNumber =  $registration->id;
+                $templateName = 'registration_success_msg';
+                $languageCode = 'hi'; // change if your template uses another language
+                $registrationNumber =  "DJSGF-".(100 + $registration->id);
 
                 // Prepare payload
                 $apiData = [

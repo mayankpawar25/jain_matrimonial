@@ -11,7 +11,7 @@
                 <img src="{{ static_asset('assets/img/success-img.png') }}" style="max-width: 150px;" alt="">
                 <h1 class="mt-5" style="font-weight: 600; color: #ee2098;"><strong>{{ $registration->name }}, </strong> आपका रजिस्ट्रेशन सफलता पूर्वक हो गया है!</h1>
                 <br>
-                <h4>आपका रजिस्ट्रेशन नंबर है : <strong>#DJSGF-100{{ $registration->id }}</strong><br> <br>
+                <h4>आपका रजिस्ट्रेशन नंबर है : <strong>#DJSGF-{{ 100 + $registration->id }}</strong><br> <br>
                 कृपया यह नंबर अपने पास सुरक्षित रखे.</h4><br>
                 <h4>रजिस्ट्रेशन दिनांक : <strong>{{ \Carbon\Carbon::parse($registration->created_at)->format('d-m-Y H:i:s') }}</strong><br> <br>
                 </h4>
