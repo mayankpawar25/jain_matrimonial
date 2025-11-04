@@ -338,6 +338,7 @@ class RegisterController extends Controller
             $receipt_pic_path = $filePath;
         }
 
+
         $height = '';
         if (!empty($request->input('height_feet'))) {
             $height = $request->input('height_feet') . "'' ";
@@ -345,6 +346,8 @@ class RegisterController extends Controller
         if (!empty($request->input('height_feet'))) {
             $height .= $request->input('height_inches') . "'";
         }
+
+        $rawTime = $request->input('time');
 
         // Create a new Registration record
         $registration = new Registration();
@@ -358,13 +361,14 @@ class RegisterController extends Controller
             $gender = 'male';     // युवक
         } else {
             $gender = 'female';   // युवती
-        };
+        }
+        ;
         $registration->gender = $gender;
 
         $registration->marriage = $request->input('marriage');
         $registration->doc_date = Carbon::createFromFormat('d-m-Y', $request->input('doc_date'))->format('Y-m-d');
-        $registration->time = $request->input('time');
-        $registration->ampm = $request->input('ampm');
+        $registration->time = Carbon::parse($rawTime)->format('H:i:s');
+        $registration->ampm = Carbon::parse($rawTime)->format('A');
         $registration->citizenship = $request->input('citizenship');
         $registration->place_of_birth = $request->input('place_of_birth');
         $registration->state = $request->input('state');
@@ -533,7 +537,7 @@ class RegisterController extends Controller
                 $phoneNumberId = '447089238486115';
 
                 $to = $registration->mobile;
-                if (! str_starts_with($to, '+')) {
+                if (!str_starts_with($to, '+')) {
                     $digitsOnly = preg_replace('/\D+/', '', $to);
                     if (strlen($digitsOnly) === 10) {
                         $to = '+91' . $digitsOnly;
@@ -542,7 +546,7 @@ class RegisterController extends Controller
 
                 $templateName = 'registration_success_msg';
                 $languageCode = 'hi'; // change if your template uses another language
-                $registrationNumber =  "DJSGF-" . (100 + $registration->id);
+                $registrationNumber = "DJSGF-" . (100 + $registration->id);
 
                 // Prepare payload
                 $apiData = [
