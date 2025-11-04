@@ -11915,6 +11915,10 @@ ul.social.colored [class*="apple"] {
 .slider-top-setting-normal{
     margin-top: 120px;
 }
+.slider-top-setting-normal .absolute-full{
+    position: relative;
+}
+
 @media (max-width: 767px) {
     .home-slider-area  .pt-11{
         padding-top: 0rem;

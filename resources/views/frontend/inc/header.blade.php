@@ -140,14 +140,14 @@
                                 </span>
                             </a>
                         </li> -->
-                        <li class="list-inline-item">
+                        <!-- <li class="list-inline-item">
                             <a href="{{ route('logout') }}"
                                 class="btn btn-primary bg-primary-grad text-white fw-600 py-1 border">{{translate('Logout')}}</a>
-                        </li>
+                        </li>-->
                         @else
-                        <li class="list-inline-item ml-4">
+                        <!-- <li class="list-inline-item ml-4">
                             <a class="btn btn-primary bg-primary-grad text-white fw-600 py-1 border" href="{{ route('login') }}">{{ translate('Log In') }}</a>
-                        </li>
+                        </li>  -->
                         <li class="list-inline-item ml-3">
                                 <a class="btn btn-sm btn-primary"
                                     href="{{ route('form.resgistration') }}">{{ translate('Registration') }}</a>
@@ -164,7 +164,7 @@
             <div class="container">
                 <div class="d-lg-flex justify-content-between text-center text-lg-left">
                     <div class="logo">
-                        <a href="{{ route('home') }}" class="d-inline-block py-15px">
+                        <a href="{{ route('home') }}" class="d-inline-block py-2">
                             @if(get_setting('header_logo') != null)
                             <img src="{{ uploaded_asset(get_setting('header_logo')) }}" alt="{{ env('APP_NAME') }}"
                                 class="mw-100 h-30px h-md-40px" height="40">

@@ -70,11 +70,11 @@
 
     @if (Auth::check() && auth()->user()->user_type == 'member')
 
-        <section class="position-relative overflow-hidden min-vh-100 d-flex home-slider-area slider-top-setting-login ">
+        <section class="position-relative overflow-hidden  d-flex home-slider-area slider-top-setting-login ">
 
         @else
 
-        <section class="position-relative overflow-hidden min-vh-100 d-flex home-slider-area slider-top-setting-normal">
+        <section class="position-relative overflow-hidden  d-flex home-slider-area slider-top-setting-normal">
 
         @endif
 
@@ -786,7 +786,7 @@
 
 
 
-    <section class="pt-7 bg-white">
+    <section class="pt-4 bg-white">
 
         <div class="container samiti-text text-center">
 
@@ -955,7 +955,7 @@
 
     @if (get_setting('show_premium_member_section') == 'on')
 
-        <section class="pt-7 bg-white">
+        <section class="pt-3 bg-white">
 
             <div class="container">
 
@@ -1005,7 +1005,7 @@
 
     @if (get_setting('show_home_banner1_section') == 'on' && get_setting('home_banner1_images') != null)
 
-        <section class="pt-7 bg-white">
+        <section class="pt-3 bg-white">
 
             <div class="container">
 
@@ -1051,7 +1051,7 @@
 
     @if (get_setting('show_how_it_works_section') == 'on' && get_setting('how_it_works_steps_titles') != null)
 
-        <section class="py-7 bg-white">
+        <section class="py-3 bg-white">
 
             <div class="container">
 
@@ -1195,7 +1195,7 @@
 
     @if (get_setting('show_trusted_by_millions_section') == 'on')
 
-        <section class="bg-center bg-cover min-vh-100 py-7 text-white d-flex align-items-center bg-fixed"
+        <section class="bg-center bg-cover  py-7 text-white d-flex align-items-center bg-fixed"
 
             style="background-image: url('{{ uploaded_asset(get_setting('trusted_by_millions_background_image')) }}')">
 
@@ -1205,7 +1205,7 @@
 
                     <div class="col-xl-8 mx-auto">
 
-                        <div class="text-center pb-12">
+                        <div class="text-center pb-5">
 
                             <h2 class="fw-600">{{ get_setting('trusted_by_millions_title') }}</h2>
 
@@ -1267,7 +1267,7 @@
 
     @if (get_setting('show_new_member_section') == 'on')
 
-        <section class="py-7 bg-white">
+        <section class="py-3 bg-white">
 
             <div class="container">
 
@@ -1313,7 +1313,7 @@
 
     @if (get_setting('show_happy_story_section') == 'on')
 
-        <section class="py-7 bg-dark text-white">
+        <section class="py-3 bg-dark text-white">
 
             <div class="container">
 
@@ -1407,7 +1407,7 @@
 
     @if (get_setting('show_homapege_package_section') == 'on')
 
-        <section class="py-7 bg-white">
+        <section class="py-3 bg-white">
 
             <div class="container">
 
@@ -1565,7 +1565,7 @@
 
     @if (get_setting('show_homepage_review_section') == 'on' && get_setting('homepage_reviews') != null)
 
-        <section class="py-7 bg-cover bg-center text-white"
+        <section class="py-3 bg-cover bg-center text-white"
 
             style="background-image: url('{{ uploaded_asset(get_setting('homepage_review_section_background_image')) }}');">
 
@@ -1629,7 +1629,7 @@
 
     @if (get_setting('show_blog_section') == 'on')
 
-        <section class="py-7 bg-white text-white">
+        <section class="py-3 bg-white text-white">
 
             <div class="container">
 

@@ -274,6 +274,30 @@ class RegisterController extends Controller
     public function resgistration_store(Request $request)
     {
 
+
+        $existingEmail = Registration::where('email', $request->email)
+            // ->orWhere('mobile', $request->mobile)
+            ->first();
+
+        if ($existingEmail) {
+            // Show toast / alert
+            flash(translate('यह ईमेल पहले से पंजीकृत है!'))->error();
+
+            // Redirect back with old input
+            return redirect()->back()->withInput();
+        }
+
+        $existingMobile = Registration::orWhere('mobile', $request->mobile)
+            ->first();
+
+        if ($existingMobile) {
+            // Show toast / alert
+            flash(translate('यह मोबाइल नंबर पहले से पंजीकृत है!'))->error();
+
+            // Redirect back with old input
+            return redirect()->back()->withInput();
+        }
+
         // Create necessary directories if they don't exist
         $directories = [
             'img/photos/profile',
@@ -518,7 +542,7 @@ class RegisterController extends Controller
 
                 $templateName = 'registration_success_msg';
                 $languageCode = 'hi'; // change if your template uses another language
-                $registrationNumber =  "DJSGF-".(100 + $registration->id);
+                $registrationNumber =  "DJSGF-" . (100 + $registration->id);
 
                 // Prepare payload
                 $apiData = [
