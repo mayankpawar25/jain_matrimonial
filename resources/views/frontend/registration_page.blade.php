@@ -596,6 +596,8 @@
             });
         }
 
+        // Commented out to prevent automatic translation on page load
+        /*
         document.addEventListener("DOMContentLoaded", function () {
             setupHindiTranslation("name", 1200);           // 1.2 second delay
             setupHindiTranslation("place_of_birth", 1200); // 1.2 second delay
@@ -624,6 +626,7 @@
             setupHindiTranslation("contact", 1200); // 1.2 second delay
             setupHindiTranslation("social_group", 1200); // 1.2 second delay
         });
+        */
     </script>
     <script>
         document.addEventListener("DOMContentLoaded", function () {
