@@ -14,16 +14,16 @@
 
     <!-- resources/views/form.blade.php -->
     <!-- <div class="     mt-2  ">
-                                                                                                    <div class="container">
-                                                                                                        <div class="row">
-                                                                                                            <div class="col-md-8 offset-md-2">
-                                                                                                            <img src="{{ static_asset('assets/img/modal-bnr.png') }}" class="w-100 mb-3" alt="">
-                                                                                                            <h1 class="text-center mb-2 mt-5 mb-5" style="font-weight: bold; color: #ee2098;">आपकी रुचि के लिए धन्यवाद! पंजीकरण अब बंद हो चुके हैं। हम आपको 15 दिसंबर 2024 को परिचय सम्मेलन में स्वागत करने के लिए उत्सुक हैं।</h1>
+                                                                                                        <div class="container">
+                                                                                                            <div class="row">
+                                                                                                                <div class="col-md-8 offset-md-2">
+                                                                                                                <img src="{{ static_asset('assets/img/modal-bnr.png') }}" class="w-100 mb-3" alt="">
+                                                                                                                <h1 class="text-center mb-2 mt-5 mb-5" style="font-weight: bold; color: #ee2098;">आपकी रुचि के लिए धन्यवाद! पंजीकरण अब बंद हो चुके हैं। हम आपको 15 दिसंबर 2024 को परिचय सम्मेलन में स्वागत करने के लिए उत्सुक हैं।</h1>
 
+                                                                                                                </div>
                                                                                                             </div>
                                                                                                         </div>
-                                                                                                    </div>
-                                                                                                    </div> -->
+                                                                                                        </div> -->
     <div class="py-5 mt-5 py-lg-5 mt-2 ">
         <div class="container">
             <div class="row">
@@ -177,25 +177,35 @@
                                 </div>
                             </div>
                             <div class="row ">
-                                <div class="col-md-12 mb-3">
+                                <div class="col-md-8 mb-3">
                                     <label for="residence" class="form-label">निवास</label>
                                     <input type="text" class="form-control" id="residence" name="residence" required>
                                 </div>
+                                <div class="col-md-4 mb-3">
+                                    <label class="form-label">निवास का विवरण</label>
+
+                                    <select class="form-select form-control" id="residence_category"
+                                        name="residence_category" required>
+                                        <option value="स्वयं" selected>स्वयं</option>
+                                        <option value="पैतृक">पैतृक</option>
+                                        <option value="किराया">किराया</option>
+                                    </select>
+                                </div>
                                 <!-- <div class="col-md-3 mb-3">
-                                                                                                                                        <label class="form-label">शारीरिक दोष</label>
-                                                                                                                                        <div class="d-flex form-control justify-content-start">
-                                                                                                                                            <div class="form-check mr-3">
-                                                                                                                                                <input class="form-check-input" type="radio" name="dosh" id="dosh-yes"
-                                                                                                                                                    value="yes">
-                                                                                                                                                <label class="form-check-label" for="dosh-yes">हाँ</label>
+                                                                                                                                            <label class="form-label">शारीरिक दोष</label>
+                                                                                                                                            <div class="d-flex form-control justify-content-start">
+                                                                                                                                                <div class="form-check mr-3">
+                                                                                                                                                    <input class="form-check-input" type="radio" name="dosh" id="dosh-yes"
+                                                                                                                                                        value="yes">
+                                                                                                                                                    <label class="form-check-label" for="dosh-yes">हाँ</label>
+                                                                                                                                                </div>
+                                                                                                                                                <div class="form-check">
+                                                                                                                                                    <input class="form-check-input" type="radio" name="dosh" id="dosh-no"
+                                                                                                                                                        value="no">
+                                                                                                                                                    <label class="form-check-label" for="dosh-no">नहीं</label>
+                                                                                                                                                </div>
                                                                                                                                             </div>
-                                                                                                                                            <div class="form-check">
-                                                                                                                                                <input class="form-check-input" type="radio" name="dosh" id="dosh-no"
-                                                                                                                                                    value="no">
-                                                                                                                                                <label class="form-check-label" for="dosh-no">नहीं</label>
-                                                                                                                                            </div>
-                                                                                                                                        </div>
-                                                                                                                                    </div> -->
+                                                                                                                                        </div> -->
                             </div>
                             <div class="row ">
                                 <div class="col-md-3 mb-3">
@@ -233,7 +243,7 @@
                                 <div class="col-md-3 mb-3">
                                     <label for="mob" class="form-label">मोबाइल नंबर</label>
                                     <input type="tel" class="form-control" pattern="^(?:\+?[0-9]{1,3})?0?[0-9]{10}$"
-                                        name="father_mobile" id="father_mobile" placeholder="" maxlength="10" >
+                                        name="father_mobile" id="father_mobile" placeholder="" maxlength="10">
                                 </div>
                                 <div class="col-md-3 mb-3">
                                     <label for="father_occupation" class="form-label">व्यवसाय</label>
@@ -254,7 +264,7 @@
                                 <div class="col-md-3 mb-3">
                                     <label for="mob2" class="form-label">मोबाइल नंबर</label>
                                     <input type="tel" class="form-control" pattern="^(?:\+?[0-9]{1,3})?0?[0-9]{10}$"
-                                        name="mother_mobile" id="mother_mobile" placeholder="" maxlength="10" >
+                                        name="mother_mobile" id="mother_mobile" placeholder="" maxlength="10">
                                 </div>
                                 <div class="col-md-3 mb-3">
                                     <label for="mother_occupation" class="form-label">व्यवसाय</label>

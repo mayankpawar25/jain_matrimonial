@@ -81,8 +81,8 @@
                             <tr>
                                 <th>{{('निवास')}}</th>
                                 <td>{{ $member->residence }}</td>
-                                <th></th>
-                                <td></td>
+                                <th>{{('निवास का विवरण')}}</th>
+                                <td>{{ $member->residence_category }}</td>
                                 <th>{{('शिक्षा')}}</th>
                                 <td>{{ $member->education }}</td>
                             </tr>

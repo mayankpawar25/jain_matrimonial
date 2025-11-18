@@ -55,6 +55,7 @@
                                 <th data-breakpoints="md">{{('वर्ण')}}</th>
                                 <th data-breakpoints="md">{{'श्रेणी'}}</th>
                                 <th data-breakpoints="md">{{('निवास')}}</th>
+                                <th data-breakpoints="md">{{('निवास का विवरण')}}</th>
                                 <!-- <th data-breakpoints="md">{{('Dosh')}}</th> -->
                                 <th data-breakpoints="md">{{('शिक्षा')}}</th>
                                 <th data-breakpoints="md">{{('व्यवसाय')}}</th>
@@ -118,7 +119,7 @@
                                     </td>
                                     <td>{{ $member->email }}</td>
                                     <td>{{ $member->mobile }}</td>
-                                    <td>{{ $member->gender === 'male' ?  'युवक':'युवती' }}</td>
+                                    <td>{{ $member->gender === 'male' ? 'युवक' : 'युवती' }}</td>
                                     <td>{{ $member->marriage === 'no' ? 'नहीं' : 'हाँ' }}</td>
                                     <td>{{ \Carbon\Carbon::parse($member->doc_date)->format('d-m-Y') }}</td>
                                     <td>{{ $member->time }}</td>
@@ -134,6 +135,7 @@
                                     <td>{{ $member->complexion }}</td>
                                     <td>{{ $member->category }}</td>
                                     <td>{{ $member->residence }}</td>
+                                    <td>{{ $member->residence_category }}</td>
                                     <!-- <td>{{ $member->dosh }}</td> -->
                                     <td>{{ $member->education }}</td>
                                     <td>{{ $member->occupation }}</td>
