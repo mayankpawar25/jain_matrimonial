@@ -357,7 +357,7 @@ class RegisterController extends Controller
         $registration->mobile = $request->input('mobile');
 
         $genderValue = $request->input('gender'); // from your radio: yes / no
-        if ($genderValue === 'yes') {
+        if ($genderValue === 'male') {
             $gender = 'male';     // युवक
         } else {
             $gender = 'female';   // युवती
