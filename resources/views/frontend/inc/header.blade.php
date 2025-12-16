@@ -149,8 +149,8 @@
                             <a class="btn btn-primary bg-primary-grad text-white fw-600 py-1 border" href="{{ route('login') }}">{{ translate('Log In') }}</a>
                         </li>  -->
                         <li class="list-inline-item ml-3">
-                                <a class="btn btn-sm btn-primary"
-                                    href="{{ route('form.resgistration') }}">{{ translate('Registration') }}</a>
+                                <a class="btn btn-sm btn-primary blink-animation"
+                                    href="{{ route('form.resgistration') }}"><strong>{{ translate('Registration') }}</strong></a>
                             </li>
                         @endif
                     </ul>
