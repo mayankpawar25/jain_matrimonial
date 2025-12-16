@@ -380,7 +380,7 @@ class RegisterController extends Controller
         $registration->height = $height;
         $registration->complexion = $request->input('complexion');
         $registration->category = $request->input('category');
-        $registration->residence = $request->input('residence');
+        $registration->residence = $request->input('residence') || '';
         $registration->residence_category = $request->input('residence_category');
         // $registration->dosh = $request->input('dosh');
         $registration->education = $request->input('education');

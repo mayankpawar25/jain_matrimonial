@@ -177,11 +177,11 @@
                                 </div>
                             </div>
                             <div class="row ">
-                                <div class="col-md-8 mb-3">
+                                <!-- <div class="col-md-8 mb-3">
                                     <label for="residence" class="form-label">निवास</label>
                                     <input type="text" class="form-control" id="residence" name="residence" required>
-                                </div>
-                                <div class="col-md-4 mb-3">
+                                </div> -->
+                                <div class="col-md-12 mb-3">
                                     <label class="form-label">निवास का विवरण</label>
 
                                     <select class="form-select form-control" id="residence_category"
