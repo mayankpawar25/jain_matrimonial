@@ -186,7 +186,7 @@
                                 </li>
                             @endcan
 
-                            @can('deleted_member_show')
+                            @can('registered_members_show')
                                 <li class="aiz-side-nav-item">
                                     <a href="{{ route('registered_members') }}" class="aiz-side-nav-link">
                                         <span class="aiz-side-nav-text">{{ translate('Registered Members') }}</span>
