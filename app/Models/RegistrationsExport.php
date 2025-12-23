@@ -19,68 +19,121 @@ class RegistrationsExport implements FromCollection, WithHeadings, WithStyles, W
     /**
      * @return \Illuminate\Support\Collection
      */
-    public function collection()
-    {
-        return Registration::select(
-            'id',
-            'name', 
-            'doc_date',
-            'time', 
-            'place_of_birth', 
-            'education', 
-            'occupation', 
-            'name_of_org',
-            'height', 
-            'weight', 
-            'complexion', 
-            'gotra_self', 
-            'gotra_mama', 
-            'caste',
-            'subCaste', 
-            'category',
-            'marriage', 
-            'fatherName',
-            'father_mobile', 
-            'father_occupation', 
-            'father_income', 
-            'mothername', 
-            'mother_mobile', 
-            'mother_occupation', 
-            'mother_income', 
-            'residence', 
-            'permanent_address', 
-            'sibling', 
-            'married_brother', 
-            'unmarried_brother', 
-            'married_sister',
-            'unmarried_sister', 
-            'contact', 
-            'email', 
-            'mobile', 
-            'citizenship',
-            'state', 
-            'dosh', // Added field for 'dosh'
-            'annual_income',
-            'social_group',
-            'profile_picture', 
-            'payment_picture', 
-            'payment_type', 
-            'total_payment', 
-            'is_courier', 
-            'payment_mode'
-        )->get()
-        ->map(function ($registration) {
-            // Format doc_date
-            if ($registration->doc_date) {
-                $registration->doc_date = Carbon::parse($registration->doc_date)->format('d-m-Y');
-            }
-            
-            // Generate full URL for profile picture using static_asset
-            $registration->profile_picture = static_asset($registration->profile_picture);
-            $registration->payment_picture = static_asset($registration->payment_picture);
-            return $registration;
-        });
-    }
+  public function collection()
+{
+    return Registration::select(
+        'id',
+        'name',
+        'doc_date',
+        'time',
+        'place_of_birth',
+        'education',
+        'occupation',
+        'annual_income',
+        'height',
+        'weight',
+        'complexion',
+        'gotra_self',
+        'gotra_mama',
+        'caste',
+        'subCaste',
+        'category',
+        'marriage',
+        'fatherName',
+        'father_mobile',
+        'father_occupation',
+        'father_income',
+        'mothername',
+        'mother_mobile',
+        'mother_occupation',
+        'mother_income',
+        'residence',
+        'permanent_address',
+        'sibling',
+        'married_brother',
+        'unmarried_brother',
+        'married_sister',
+        'unmarried_sister',
+        'contact',
+        'email',
+        'mobile',
+        'citizenship',
+        'state',
+        'dosh',
+        'social_group',
+        'profile_picture',
+        'payment_picture',
+        'payment_type',
+        'total_payment',
+        'is_courier',
+        'payment_mode'
+    )->get()->map(function ($r) {
+        $height = $r->height;
+
+// Fix common wrong quote order: 5"2' → 5'2"
+if ($height) {
+    $height = str_replace(['"', "'"], ['INCH', 'FEET'], $height);
+    $height = str_replace(['FEET', 'INCH'], ["'", '"'], $height);
+}
+
+        return [
+            $r->id,
+            $r->name,
+
+            // DOB / Time / Place
+            Carbon::parse($r->doc_date)->format('d-m-Y')
+                . ' , ' . $r->time
+                . ' , ' . $r->place_of_birth,
+
+            $r->education,
+
+            // Occupation / Income
+            trim($r->occupation . ' , ' . $r->annual_income),
+
+            // Height / Weight / Complexion
+            trim($height . ' ,, ' . $r->weight . ' / ' . $r->complexion),
+
+            $r->gotra_self,
+            $r->gotra_mama,
+
+            // Caste / SubCaste
+            trim($r->caste . ' , ' . $r->subCaste),
+
+            $r->category,
+            $r->marriage === 'no' ? 'नहीं' : 'हाँ',
+
+            // Father
+            trim($r->fatherName . ' , ' . $r->father_mobile),
+            trim($r->father_occupation . ' , ' . $r->father_income),
+
+            // Mother
+            trim($r->mothername . ' , ' . $r->mother_mobile),
+            trim($r->mother_occupation . ' , ' . $r->mother_income),
+
+            $r->residence,
+            $r->permanent_address,
+            $r->sibling,
+            $r->married_brother,
+            $r->unmarried_brother,
+            $r->married_sister,
+            $r->unmarried_sister,
+            $r->contact,
+            $r->email,
+            $r->mobile,
+            $r->citizenship,
+            $r->state,
+            $r->dosh,
+            $r->social_group,
+            static_asset($r->profile_picture),
+            static_asset($r->payment_picture),
+            $r->payment_type,
+            $r->total_payment,
+            $r->is_courier == 1 ? 'Yes' : 'No',
+            $r->payment_mode,
+        ];
+    });
+}
+
 
     // Customizing the styles of the heading row
     public function styles(Worksheet $sheet)
@@ -110,55 +163,45 @@ class RegistrationsExport implements FromCollection, WithHeadings, WithStyles, W
         ];
     }
 
-    public function headings(): array
-    {
+   public function headings(): array
+{
     return [
-    'ID',                           // id
-    'प्रत्यशी का नाम',              // name
-    'जन्म तिथि',                   // doc_date
-    'समय',                         // time
-    'जन्म स्थान',                  // place_of_birth
-    'शिक्षा',                      // education
-    'व्यवसाय',                     // occupation
-    'सस्थान का नाम',               // name_of_org
-    'ऊंचाई',                       // height
-    'वज़न',                        // weight
-    'वर्ण',                        // complexion
-    'गोत्र स्व',                   // gotra_self
-    'गोत्र मामा',                  // gotra_mama
-    'जाति',                        // caste
-    'उपजाति',                     // subCaste
-    'श्रेणी',                      // category
-    'मांगलिक',                    // marriage
-    'पिता का नाम',                // fatherName
-    'पिता का मोबाइल नंबर',        // father_mobile
-    'पिता का व्यवसाय',            // father_occupation
-    'पिता की वार्षिक आय',         // father_income
-    'माँ का नाम',                 // mothername
-    'माँ का मोबाइल नंबर',         // mother_mobile
-    'माँ का व्यवसाय',             // mother_occupation
-    'माँ की वार्षिक आय',          // mother_income
-    'निवास',                      // residence
-    'स्थायी पता',                 // permanent_address
-    'भाई /बहन का विवरण',          // sibling
-    'विवाहित भाई',                // married_brother
-    'अविवाहित भाई',               // unmarried_brother
-    'विवाहित बहन',                // married_sister
-    'अविवाहित बहन',               // unmarried_sister
-    'सम्पर्क सूत्र',              // contact
-    'ईमेल आईडी',                  // email
-    'प्रत्याशी का मोबाइल नंबर',   // mobile
-    'नागरिकता',                   // citizenship
-    'राज्य',                      // state
-    'दोष',                        // dosh
-    'वार्षिक आय',                 // annual_income
-    'सोशल ग्रुप',                 // social_group
-    'Image',                      // profile_picture
-    'Payment Picture',            // payment_picture
-    'भुगतान',                     // payment_type
-    'कुल भुगतान',                 // total_payment
-    'कूरियर द्वारा स्मारिका',     // is_courier
-    'पेमेंट मॉड',                 // payment_mode
-];
-    }
+        'ID',
+        'प्रत्यशी का नाम',
+        'जन्म तिथि / समय / जन्म स्थान',
+        'शिक्षा',
+        'व्यवसाय / वार्षिक आय',
+        'ऊंचाई / वज़न / वर्ण',
+        'गोत्र स्व',
+        'गोत्र मामा',
+        'जाति / उपजाति',
+        'श्रेणी',
+        'मांगलिक',
+        'पिता का नाम / मोबाइल',
+        'पिता का व्यवसाय / आय',
+        'माँ का नाम / मोबाइल',
+        'माँ का व्यवसाय / आय',
+        'निवास',
+        'स्थायी पता',
+        'भाई /बहन का विवरण',
+        'विवाहित भाई',
+        'अविवाहित भाई',
+        'विवाहित बहन',
+        'अविवाहित बहन',
+        'सम्पर्क सूत्र',
+        'ईमेल आईडी',
+        'प्रत्याशी का मोबाइल नंबर',
+        'नागरिकता',
+        'राज्य',
+        'दोष',
+        'सोशल ग्रुप',
+        'Image',
+        'Payment Picture',
+        'भुगतान',
+        'कुल भुगतान',
+        'कूरियर द्वारा स्मारिका',
+        'पेमेंट मॉड',
+    ];
+}
+
 }
