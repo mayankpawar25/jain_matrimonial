@@ -189,15 +189,14 @@
         </div>
     </div>
     <!-- Image Modal -->
-    <div class="modal fade " id="imageModal" tabindex="-1" role="dialog" aria-labelledby="imageModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content" style="background : transparent; border: none">
-                <div class="modal-body" style="overflow : hidden; max-height : 100%">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+    <div class="modal fade" id="imageModal" tabindex="-1" role="dialog" aria-labelledby="imageModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content" style="background: transparent; border: none; box-shadow: none;">
+                <div class="modal-body position-relative text-center p-0">
+                    <button type="button" class="close position-absolute" data-dismiss="modal" aria-label="Close" style="top: -30px; right: 0; color: #fff; opacity: 1; z-index: 1051; text-shadow: 0 1px 2px #000; font-size: 2rem;">
                         <span aria-hidden="true">&times;</span>
                     </button>
-                    <img id="modalImage" src="" class="img-fluid w-100" alt="{{ translate('image') }}">
+                    <img id="modalImage" src="" class="img-fluid" style="max-height: 85vh; width: auto; box-shadow: 0 5px 15px rgba(0,0,0,0.5);" alt="{{ translate('image') }}">
                 </div>
             </div>
         </div>
