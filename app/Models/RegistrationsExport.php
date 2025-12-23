@@ -24,6 +24,7 @@ class RegistrationsExport implements FromCollection, WithHeadings, WithStyles, W
     return Registration::select(
         'id',
         'name',
+        'gender',
         'doc_date',
         'time',
         'place_of_birth',
@@ -79,7 +80,7 @@ if ($height) {
         return [
             $r->id,
             $r->name,
-
+            $r->gender === "male" ?"युवक":"युवती",
             // DOB / Time / Place
             Carbon::parse($r->doc_date)->format('d-m-Y')
                 . ' , ' . $r->time
@@ -168,6 +169,7 @@ if ($height) {
     return [
         'ID',
         'प्रत्यशी का नाम',
+        'लिंग',
         'जन्म तिथि / समय / जन्म स्थान',
         'शिक्षा',
         'व्यवसाय / वार्षिक आय',
