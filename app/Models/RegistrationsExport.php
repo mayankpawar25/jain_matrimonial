@@ -30,6 +30,7 @@ class RegistrationsExport implements FromCollection, WithHeadings, WithStyles, W
         'place_of_birth',
         'education',
         'occupation',
+        'name_of_org',
         'annual_income',
         'height',
         'weight',
@@ -90,6 +91,7 @@ if ($height) {
 
             // Occupation / Income
             trim($r->occupation . ' , ' . $r->annual_income),
+            $r->name_of_org,
 
             // Height / Weight / Complexion
             trim($height . ' ,, ' . $r->weight . ' / ' . $r->complexion),
@@ -173,6 +175,7 @@ if ($height) {
         'जन्म तिथि / समय / जन्म स्थान',
         'शिक्षा',
         'व्यवसाय / वार्षिक आय',
+        'सस्थान का नाम',
         'ऊंचाई / वज़न / वर्ण',
         'गोत्र स्व',
         'गोत्र मामा',
