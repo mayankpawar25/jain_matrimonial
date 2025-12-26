@@ -64,8 +64,7 @@
                             <div class="row ">
                                 <div class="col-md-4 mb-3">
                                     <label for="email" class="form-label">ईमेल आईडी</label>
-                                    <input type="email" class="form-control" name="email" id="email" placeholder=""
-                                        required>
+                                    <input type="email" class="form-control" name="email" id="email" placeholder="">
                                 </div>
                                 <div class="col-md-4 mb-3">
                                     <label for="mobile" class="form-label">प्रत्याशी का मोबाइल नंबर</label>

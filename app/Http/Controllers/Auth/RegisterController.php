@@ -275,17 +275,17 @@ class RegisterController extends Controller
     {
 
 
-        $existingEmail = Registration::where('email', $request->email)
-            // ->orWhere('mobile', $request->mobile)
-            ->first();
+        // $existingEmail = Registration::where('email', $request->email)
+        //     // ->orWhere('mobile', $request->mobile)
+        //     ->first();
 
-        if ($existingEmail) {
-            // Show toast / alert
-            flash(translate('यह ईमेल पहले से पंजीकृत है!'))->error();
+        // if ($existingEmail) {
+        //     // Show toast / alert
+        //     flash(translate('यह ईमेल पहले से पंजीकृत है!'))->error();
 
-            // Redirect back with old input
-            return redirect()->back()->withInput();
-        }
+        //     // Redirect back with old input
+        //     return redirect()->back()->withInput();
+        // }
 
         $existingMobile = Registration::orWhere('mobile', $request->mobile)
             ->first();
