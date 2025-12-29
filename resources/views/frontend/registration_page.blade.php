@@ -65,7 +65,7 @@
                                 <div class="col-md-4 mb-3">
                                     <label for="email" class="form-label">ईमेल आईडी</label>
                                     <input type="email" class="form-control" name="email" id="email" placeholder=""
-                                        required>
+                                        >
                                 </div>
                                 <div class="col-md-4 mb-3">
                                     <label for="mobile" class="form-label">प्रत्याशी का मोबाइल नंबर</label>
@@ -930,13 +930,14 @@
                     // Additional validation for specific field types
                     if (field.type === 'email') {
                         const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                        if (!emailPattern.test(field.value)) {
+                        if (field.value!== "" && !emailPattern.test(field.value)) {
                             isValid = false;
                             field.classList.add('is-invalid'); // Highlight invalid email
                             if (!firstInvalidField) {
                                 firstInvalidField = field; // Capture the first invalid email field
                             }
-                        } else {
+                        }else
+                        {
                             field.classList.remove('is-invalid');
                         }
                     }
