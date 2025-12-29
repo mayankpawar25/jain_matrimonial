@@ -364,6 +364,7 @@ class RegisterController extends Controller
         }
         ;
         $registration->gender = $gender;
+  
 
         $registration->marriage = $request->input('marriage');
         $registration->doc_date = Carbon::createFromFormat('d-m-Y', $request->input('doc_date'))->format('Y-m-d');
@@ -409,15 +410,16 @@ class RegisterController extends Controller
         $registration->total_payment = $request->input('total_payment');
         $registration->is_courier = $request->input('is_courier') == null ? 0 : $request->input('is_courier');
         $registration->payment_mode = $request->input('payment_mode');
-
         // Save the registration record
         $result = $registration->save();
 
 
         if ($result) {
+
             // Redirect to a new view with the registration ID
             return redirect()->route('registration.success', ['id' => $registration->id]);
         } else {
+
             flash(translate('Oops!!! Something went wrong'))->error();
             return redirect()->route('form.registration');
         }
