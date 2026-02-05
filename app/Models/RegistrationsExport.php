@@ -50,6 +50,7 @@ class RegistrationsExport implements FromCollection, WithHeadings, WithStyles, W
         'mother_occupation',
         'mother_income',
         'residence',
+        'residence_category',
         'permanent_address',
         'sibling',
         'married_brother',
@@ -114,6 +115,7 @@ if ($height) {
             trim($r->mother_occupation . ' , ' . $r->mother_income),
 
             $r->residence,
+            $r->residence_category,
             $r->permanent_address,
             $r->sibling,
             $r->married_brother,
@@ -187,6 +189,7 @@ if ($height) {
         'माँ का नाम / मोबाइल',
         'माँ का व्यवसाय / आय',
         'निवास',
+        'निवास का विवरण',
         'स्थायी पता',
         'भाई /बहन का विवरण',
         'विवाहित भाई',

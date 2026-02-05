@@ -794,4 +794,179 @@ class RegisterController extends Controller
 
         return $user;
     }
+
+    public function moveToMainMember($id)
+    {
+        $registration = Registration::findOrFail($id);
+        
+        \Log::info('Migrating Registration ID: ' . $id);
+        \Log::info('Registration Data:', $registration->toArray());
+
+        // Check if user already exists
+        if (User::where('email', $registration->email)->exists() || User::where('phone', $registration->mobile)->exists()) {
+            \Log::warning('User already exists with email/phone', ['email' => $registration->email, 'phone' => $registration->mobile]);
+            flash(translate('User with this email or phone already exists!'))->error();
+            return back();
+        }
+
+        // Split Name
+        $nameParts = explode(' ', $registration->name, 2);
+        $firstName = $nameParts[0];
+        $lastName = isset($nameParts[1]) ? $nameParts[1] : '';
+
+        // Handle Profile Picture
+        $photoPath = null;
+        $profilePictures = json_decode($registration->profile_picture, true);
+        if (is_array($profilePictures) && count($profilePictures) > 0) {
+            $photoPath = $profilePictures[0];
+        } elseif (!empty($registration->profile_picture)) {
+            $photoPath = $registration->profile_picture;
+        }
+
+        // Create User
+        $user = User::create([
+            'first_name' => $firstName,
+            'last_name' => $lastName,
+            'email' => $registration->email,
+            'phone' => $registration->mobile,
+            'password' => Hash::make('12345678'), // Default password or generate random
+            'code' => unique_code(),
+            'approved' => 1, // Auto-approve?
+            'membership' => 8, // Default membership
+            'email_verified_at' => now(),
+            'photo' => $photoPath,
+        ]);
+        \Log::info('User Created ID: ' . $user->id);
+
+        // Create Member
+        $member = new Member;
+        $member->user_id = $user->id;
+        $member->gender = ($registration->gender == 'male') ? 1 : 2; 
+
+        $member->on_behalves_id = 1; // Default to Self
+        $member->birthday = $registration->doc_date;
+        $member->introduction = ""; // Initialize introduction to avoid null errors in view
+        
+        // Lookup Caste (We now store this in SpiritualBackground)
+        $caste = \App\Models\Caste::where('name', $registration->caste)->first();
+        $subCaste = \App\Models\SubCaste::where('name', $registration->subCaste)->first();
+        
+        // Package Assignment (Free/Default)
+        $package = Package::where('id', 1)->first();
+        if($package){
+            $member->current_package_id = $package->id;
+            $member->remaining_interest = $package->express_interest;
+            $member->remaining_photo_gallery = $package->photo_gallery;
+            $member->remaining_contact_view = $package->contact;
+            $member->remaining_profile_image_view = $package->profile_image_view;
+            $member->remaining_gallery_image_view = $package->gallery_image_view;
+            $member->auto_profile_match = $package->auto_profile_match;
+            $member->package_validity = Date('Y-m-d', strtotime($package->validity . " days"));
+        }
+        $member->save();
+        \Log::info('Member Created for User ID: ' . $user->id);
+
+        // Spiritual Background (Caste)
+        if ($caste || $subCaste) {
+            $spiritual = new \App\Models\SpiritualBackground;
+            $spiritual->user_id = $user->id;
+            if ($caste) $spiritual->caste_id = $caste->id;
+            if ($subCaste) $spiritual->sub_caste_id = $subCaste->id;
+            $spiritual->save();
+        }
+
+        // Member Other Details (For Additional Info section in view)
+        $other_detail = new \App\Models\MemberOtherDetail;
+        $other_detail->user_id = $user->id;
+        $other_detail->manglik = $registration->marriage === 'no' ? 'yes' : 'no';
+        $other_detail->self_gotra = $registration->gotra_self;
+        $other_detail->qualification = $registration->education;
+        $other_detail->occupation = $registration->occupation;
+        $other_detail->organization_name = $registration->name_of_org;
+        $other_detail->annual_income = $registration->annual_income;
+        $other_detail->permanent_address = $registration->permanent_address;
+        $other_detail->save();
+
+        // Family
+        $family = new Family;
+        $family->user_id = $user->id;
+        $family->father = $registration->fatherName;
+        $family->mother = $registration->mothername;
+        $family->save();
+
+        // Physical Attributes
+        $physical = new PhysicalAttribute;
+        $physical->user_id = $user->id;
+        $physical->height = (float) $registration->height; // Ensure basic format
+        $physical->weight = (float) $registration->weight;
+        $physical->complexion = $registration->complexion;
+        $physical->save();
+
+        // Astrology (Dosh, Gotra)
+        if($registration->dosh || $registration->gotra_self){
+            $astrology = new Astrology;
+            $astrology->user_id = $user->id;
+            $astrology->manglik = $registration->marriage === 'no' ? 'yes' : 'no'; // 'marriage' field logic needs verification
+            $astrology->gotra = $registration->gotra_self;
+            $astrology->save();
+        }
+
+        // Education
+        if($registration->education){
+            $education = new Education;
+            $education->user_id = $user->id;
+            $education->degree = $registration->education;
+            $education->present = 1; // Assuming current?
+            $education->save();
+        }
+
+        // Career
+        if($registration->occupation){
+            $career = new Career;
+            $career->user_id = $user->id;
+            $career->designation = $registration->occupation;
+            $career->company = $registration->name_of_org;
+            $career->income = $registration->annual_income; // Assuming text or number match
+            $career->present = 1;
+            $career->save();
+        }
+
+        // Address
+        if($registration->permanent_address){
+            $address = new Address;
+            $address->user_id = $user->id;
+            $address->street = $registration->permanent_address;
+            $address->type = 'permanent';
+            $address->save();
+        }
+
+        // Residency (Residence Category)
+        if($registration->residence_category || $registration->residence || $registration->citizenship){
+            $recidency = new Recidency;
+            $recidency->user_id = $user->id;
+
+            // Lookup Country for Citizenship
+            $birthCountry = \App\Models\Country::where('name', 'like', '%' . $registration->citizenship . '%')->first();
+            if ($birthCountry) {
+                $recidency->birth_country_id = $birthCountry->id;
+            }
+
+            // Lookup Country for Residence
+            if ($registration->residence && $registration->residence != '0') {
+                 $resCountry = \App\Models\Country::where('name', 'like', '%' . $registration->residence . '%')->first();
+                 if ($resCountry) {
+                     $recidency->residency_country_id = $resCountry->id;
+                 }
+            }
+            
+            $recidency->immigration_status = $registration->residence_category;
+            $recidency->save();
+        }
+        
+        // Send Email ??
+        // EmailUtility::account_opening_email($user->id, '12345678');
+
+        flash(translate('Member moved to main database successfully! Default password is "12345678"'))->success();
+        return back();
+    }
 }

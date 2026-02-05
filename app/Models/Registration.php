@@ -30,6 +30,7 @@ class Registration extends Model
         'complexion', 
         'category',
         'residence', 
+        'residence_category',
         'dosh', // Added field for 'dosh'
         'education', 
         'occupation', 

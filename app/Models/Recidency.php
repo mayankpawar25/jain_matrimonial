@@ -14,4 +14,12 @@ class Recidency extends Model
     {
         return $this->belongsTo(User::class);
     }
+    
+    protected $fillable = [
+        'user_id',
+        'birth_country_id',
+        'residency_country_id',
+        'immigration_status',
+        'grow_up_country_id'
+    ];
 }

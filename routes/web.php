@@ -27,6 +27,7 @@ Route::get('/form', function () {
 })->name('form.view');
 
 Route::get('registrations/export', [RegisterController::class, 'exportRegistrations'])->name('registrations.export');
+Route::get('registrations/move-to-member/{id}', [RegisterController::class, 'moveToMainMember'])->name('registrations.move_to_member');
 
 // Route::get('/resgistration', 'RegisterController@resgistration');
 

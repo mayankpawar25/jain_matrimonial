@@ -115,7 +115,13 @@
                                         @endif
                                     </td>
 
-                                    <td><a href="{{ route('registered_member_details', $member->id) }}">{{ $member->name }}</a>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <a href="{{ route('registered_member_details', $member->id) }}" class="mr-2">{{ $member->name }}</a>
+                                            <a href="{{ route('registrations.move_to_member', $member->id) }}" class="btn btn-xs btn-outline-success" onclick="return confirm('Are you sure you want to move this member to the main database? Login password will be 12345678')">
+                                                <i class="las la-exchange-alt"></i> {{ translate('Migrate') }}
+                                            </a>
+                                        </div>
                                     </td>
                                     <td>{{ $member->email }}</td>
                                     <td>{{ $member->mobile }}</td>

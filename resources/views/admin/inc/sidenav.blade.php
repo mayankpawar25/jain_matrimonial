@@ -37,7 +37,7 @@
                                 </a>
                             </li>
                             <li class="aiz-side-nav-item">
-                                <a href="{{ route('members.index', 2) }}"
+                                <a href="{{ route('members.index', 8) }}"
                                     class="aiz-side-nav-link  {{ areActiveRoutes(['members.edit', 'members.show']) }}">
                                     <span class="aiz-side-nav-text">{{ translate('Premium Members') }}</span>
                                 </a>

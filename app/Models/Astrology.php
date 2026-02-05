@@ -12,8 +12,9 @@ class Astrology extends Model
     protected $fillable = [
         'user_id',
         'time_of_birth',
-        'city_of_birth' 
-
+        'city_of_birth',
+        'manglik',
+        'gotra'
     ];
     public function user()
     {
