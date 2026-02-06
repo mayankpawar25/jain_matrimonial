@@ -6,7 +6,9 @@
                 <h1 class="h3">{{translate('Registrations')}}</h1>
             </div>
             <div class="col-md-6 d-flex justify-content-end">
-                <a href="{{ route('registrations.export') }}" class="btn btn-primary ">Export to Excel</a>
+                <a href="{{ route('members.bulk_migrate') }}" class="btn btn-info mr-2">{{ translate('Bulk Migrate') }}</a>
+                <a href="{{ route('registrations.export') }}"
+                    class="btn btn-primary ">{{ translate('Export to Excel') }}</a>
             </div>
         </div>
     </div>
@@ -189,14 +191,18 @@
         </div>
     </div>
     <!-- Image Modal -->
-    <div class="modal fade" id="imageModal" tabindex="-1" role="dialog" aria-labelledby="imageModalLabel" aria-hidden="true">
+    <div class="modal fade" id="imageModal" tabindex="-1" role="dialog" aria-labelledby="imageModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content" style="background: transparent; border: none; box-shadow: none;">
                 <div class="modal-body position-relative text-center p-0">
-                    <button type="button" class="close position-absolute" data-dismiss="modal" aria-label="Close" style="top: -30px; right: 0; color: #fff; opacity: 1; z-index: 1051; text-shadow: 0 1px 2px #000; font-size: 2rem;">
+                    <button type="button" class="close position-absolute" data-dismiss="modal" aria-label="Close"
+                        style="top: -30px; right: 0; color: #fff; opacity: 1; z-index: 1051; text-shadow: 0 1px 2px #000; font-size: 2rem;">
                         <span aria-hidden="true">&times;</span>
                     </button>
-                    <img id="modalImage" src="" class="img-fluid" style="max-height: 85vh; width: auto; box-shadow: 0 5px 15px rgba(0,0,0,0.5);" alt="{{ translate('image') }}">
+                    <img id="modalImage" src="" class="img-fluid"
+                        style="max-height: 85vh; width: auto; box-shadow: 0 5px 15px rgba(0,0,0,0.5);"
+                        alt="{{ translate('image') }}">
                 </div>
             </div>
         </div>

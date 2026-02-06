@@ -38,6 +38,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function 
     // Member Manage
     Route::resource('members', MemberController::class);
     Route::controller(MemberController::class)->group(function () {
+        Route::get('/members/bulk-migrate', 'bulkMigrateRegistrations')->name('members.bulk_migrate');
+        Route::post('/members/process-bulk-migration', 'processBulkMigration')->name('members.process_bulk_migration');
         Route::get('/members/member_list/{id}', 'index')->name('members.index');
         Route::post('/members/block', 'block')->name('members.block');
         Route::post('/members/blocking_reason', 'blocking_reason')->name('members.blocking_reason');
@@ -92,7 +94,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function 
     Route::get('/wallet-manual-payment-accept/{id}', 'WalletController@wallet_manual_payment_accept')->name('wallet_manual_payment_accept');
 
     Route::resource('/happy-story', HappyStoryController::class);
-    Route::post('/happy-story/update-story-status',[HappyStoryController::class, 'approval_status'])->name('happy_story_approval.status');
+    Route::post('/happy-story/update-story-status', [HappyStoryController::class, 'approval_status'])->name('happy_story_approval.status');
 
     //Blog Section
     Route::resource('blog-category', 'BlogCategoryController');
@@ -170,20 +172,20 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function 
         // Firebase Push Notification Setting
         Route::get('/settings/firebase/fcm', 'fcm_settings')->name('settings.fcm');
         Route::post('/settings/firebase/fcm', 'fcm_settings_update')->name('settings.fcm.update');
-    
+
         Route::get('/general-settings', 'general_settings')->name('general_settings');
         Route::get('/smtp-settings', 'smtp_settings')->name('smtp_settings');
-    
+
         Route::get('/payment-methods-settings', 'payment_method_settings')->name('payment_method_settings');
         Route::post('/payment_method_update', 'payment_method_update')->name('payment_method.update');
-    
+
         Route::get('/third-party-settings', 'third_party_settings')->name('third_party_settings');
         Route::post('/third-party-settings/update', 'third_party_settings_update')->name('third_party_settings.update');
-    
+
         Route::get('/social-media-login-settings', 'social_media_login_settings')->name('social_media_login');
-    
+
         Route::get('//member-profile-sections', 'member_profile_sections_configuration')->name('member_profile_sections_configuration');
-    
+
         // env Update
         Route::post('/env_key_update', 'env_key_update')->name('env_key_update.update');
 
@@ -191,7 +193,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function 
         Route::post('/verification/form/update', 'member_verification_form_update')->name('member_verification_form.update');
 
     });
-   
+
 
     // Currency settings
     Route::resource('currencies', 'CurrencyController');

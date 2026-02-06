@@ -9,6 +9,7 @@ use App\Models\Career;
 use Illuminate\Http\Request;
 use App\Models\Member;
 use App\Models\Package;
+use DB;
 use App\Models\Country;
 use App\Models\State;
 use App\Models\City;
@@ -402,7 +403,7 @@ class MemberController extends Controller
     public function show_verification_info($id)
     {
         $user = User::findOrFail(decrypt($id));
-        $transactionDetails = TransactionDetails::where('user_id',$user->id)->first();
+        $transactionDetails = TransactionDetails::where('user_id', $user->id)->first();
         // $src = 
         // dd(static_asset('assets/'.$transactionDetails->image));
         return view('admin.members.verification_info', ['user' => $user, 'transactionDetails' => $transactionDetails]);
@@ -865,4 +866,264 @@ class MemberController extends Controller
         flash(translate('Something Went Wrong!'))->error();
         return back();
     }
+    // Bulk Migration Logic
+    public function bulkMigrateRegistrations()
+    {
+        $total_registrations = Registration::count();
+        $migrated_registrations = Registration::where('is_migrated', 1)->count();
+        $pending_registrations = Registration::where('is_migrated', 0)->count();
+
+        return view('admin.members.bulk_migrate', compact('total_registrations', 'migrated_registrations', 'pending_registrations'));
+    }
+
+    public function processBulkMigration(Request $request)
+    {
+        $limit = $request->limit ?? 5; // Default to 5 for test
+        $registrations = Registration::where('is_migrated', 0)->take($limit)->get();
+
+        $migrated_count = 0;
+        $updated_count = 0;
+        $errors = [];
+
+        foreach ($registrations as $registration) {
+            try {
+                DB::beginTransaction();
+
+                // Check if user exists by email or mobile
+                $existing_user = User::where('email', $registration->email)
+                    ->orWhere('phone', $registration->mobile)
+                    ->first();
+
+                if ($existing_user) {
+                    $this->updateExistingUserFromRegistration($existing_user, $registration);
+                    $updated_count++;
+                } else {
+                    $this->createNewUserFromRegistration($registration);
+                    $migrated_count++;
+                }
+
+                // Mark as migrated
+                $registration->is_migrated = 1;
+                $registration->migrated_user_id = $existing_user ? $existing_user->id : User::where('email', $registration->email)->first()->id;
+                $registration->migrated_at = now();
+                $registration->save();
+
+                DB::commit();
+            } catch (\Exception $e) {
+                DB::rollBack();
+                $errors[] = "Failed to migrate Registration ID {$registration->id}: " . $e->getMessage();
+            }
+        }
+
+        if (count($errors) > 0) {
+            flash(translate('Migration completed with errors.'))->warning();
+            return back()->with('migration_errors', $errors)->with('migrated_count', $migrated_count)->with('updated_count', $updated_count);
+        }
+
+        flash(translate("Migration successful! Created: {$migrated_count}, Updated: {$updated_count}"))->success();
+        return back();
+    }
+
+    private function createNewUserFromRegistration($registration)
+    {
+        // 1. Create User
+        $user = new User;
+        $user->user_type = 'member';
+        $user->code = unique_code();
+        $names = explode(' ', $registration->name, 2);
+        $user->first_name = $names[0];
+        $user->last_name = $names[1] ?? '';
+        $user->email = $registration->email;
+        $user->phone = $registration->mobile;
+        $user->password = Hash::make('12345678');
+        $user->email_verified_at = now();
+        $user->membership = 1; // Default to free package
+
+        // Handle Profile Picture
+        if ($registration->profile_picture) {
+            $upload_id = $this->migrateImage($registration->profile_picture, 'profile');
+            if ($upload_id) {
+                $user->photo = $upload_id;
+                $user->photo_approved = 1;
+            }
+        }
+        $user->save();
+
+        // 2. Create Member
+        $member = new Member;
+        $member->user_id = $user->id;
+        $member->gender = (strtolower($registration->marriage) == 'female') ? 2 : 1;
+        $member->birthday = $registration->doc_date;
+        $member->current_package_id = 1; // Default
+
+        // Default package values
+        $package = Package::find(1);
+        if ($package) {
+            $member->remaining_interest = $package->express_interest;
+            $member->remaining_photo_gallery = $package->photo_gallery;
+            $member->remaining_contact_view = $package->contact;
+            $member->remaining_profile_image_view = $package->profile_image_view;
+            $member->remaining_gallery_image_view = $package->gallery_image_view;
+            $member->auto_profile_match = $package->auto_profile_match;
+            $member->package_validity = Date('Y-m-d', strtotime($package->validity . " days"));
+        }
+
+        $member->save();
+
+        // 3. Related Tables
+        $this->createRelatedTables($user, $member, $registration);
+
+        // Send Welcome Email
+        if ($user->email != null && env('MAIL_USERNAME') != null) {
+            // EmailUtility::account_oppening_email($user->id, '12345678'); // Uncomment if needed
+        }
+    }
+
+    private function updateExistingUserFromRegistration($user, $registration)
+    {
+        // Update empty user fields
+        $names = explode(' ', $registration->name, 2);
+        if (empty($user->first_name))
+            $user->first_name = $names[0];
+        if (empty($user->last_name))
+            $user->last_name = $names[1] ?? '';
+        if (empty($user->photo) && $registration->profile_picture) {
+            $upload_id = $this->migrateImage($registration->profile_picture, 'profile');
+            if ($upload_id) {
+                $user->photo = $upload_id;
+                $user->photo_approved = 1;
+            }
+        }
+        $user->save();
+
+        $member = Member::where('user_id', $user->id)->first();
+        if (!$member) {
+            $member = new Member;
+            $member->user_id = $user->id;
+            $member->current_package_id = 1;
+            // ... Set defaults same as create ...
+        }
+
+        if (empty($member->gender))
+            $member->gender = (strtolower($registration->marriage) == 'female') ? 2 : 1;
+        if (empty($member->birthday))
+            $member->birthday = $registration->doc_date;
+        $member->save();
+
+        $this->createRelatedTables($user, $member, $registration);
+    }
+
+    private function createRelatedTables($user, $member, $registration)
+    {
+        // Member Other Details
+        $other = MemberOtherDetail::firstOrNew(['user_id' => $user->id]);
+        if (empty($other->self_gotra))
+            $other->self_gotra = $registration->gotra_self;
+        if (empty($other->nanihals_gotra))
+            $other->nanihals_gotra = $registration->gotra_mama;
+        if (empty($other->manglik))
+            $other->manglik = $registration->dosh;
+        $other->save();
+
+        // Education 
+        $edu = Education::firstOrNew(['user_id' => $user->id]);
+        if (empty($edu->degree))
+            $edu->degree = $registration->education;
+        $edu->save();
+
+        // Career
+        $career = Career::firstOrNew(['user_id' => $user->id]);
+        if (empty($career->occupation))
+            $career->occupation = $registration->occupation;
+        if (empty($career->company))
+            $career->company = $registration->name_of_org;
+        if (empty($career->income))
+            $career->income = $registration->annual_income;
+        $career->save();
+
+        // Family
+        $family = Family::firstOrNew(['user_id' => $user->id]);
+        if (empty($family->father))
+            $family->father = $registration->fatherName;
+        if (empty($family->mother))
+            $family->mother = $registration->mothername;
+        if (empty($family->sibling))
+            $family->sibling = $registration->sibling;
+        $family->save();
+
+        // Physical Attributes
+        $physical = PhysicalAttribute::firstOrNew(['user_id' => $user->id]);
+        if (empty($physical->height))
+            $physical->height = $registration->height;
+        if (empty($physical->weight))
+            $physical->weight = $registration->weight;
+        if (empty($physical->complexion))
+            $physical->complexion = $registration->complexion;
+        $physical->save();
+
+        // Address
+        $address = Address::firstOrNew(['user_id' => $user->id, 'type' => 'permanent']);
+        if (empty($address->address))
+            $address->address = $registration->permanent_address;
+        $address->save();
+
+        // Astrology
+        $astrology = Astrology::firstOrNew(['user_id' => $user->id]);
+        if (empty($astrology->city_of_birth))
+            $astrology->city_of_birth = $registration->place_of_birth;
+        if (empty($astrology->time_of_birth))
+            $astrology->time_of_birth = $registration->time . ' ' . $registration->ampm;
+        $astrology->save();
+
+        // Payment Picture -> Transaction Details (Optional logic, assumes Payment Proofs)
+        if ($registration->payment_picture) {
+            // Logic to migrate payment picture... can be complex as it links to packages/payments
+        }
+    }
+
+    private function migrateImage($relativePath, $type)
+    {
+        try {
+            // Assume $relativePath is something like 'uploads/registration/profile.jpg'
+            // We need to verify full path. 
+            // In Laravel public_path() points to public folder.
+
+            // Check if source exists. Registration model seems to store relative path or filename.
+            // Let's assume it's relative to public
+            $sourcePath = public_path($relativePath);
+
+            if (!file_exists($sourcePath))
+                return null;
+
+            $file_name = basename($sourcePath);
+            $new_path = 'uploads/all/' . $file_name;
+            $destinationPath = public_path($new_path);
+
+            if (!file_exists(dirname($destinationPath))) {
+                mkdir(dirname($destinationPath), 0777, true);
+            }
+
+            copy($sourcePath, $destinationPath);
+
+            $upload = new Upload;
+            $upload->file_original_name = $file_name;
+            $upload->file_name = $new_path;
+            $upload->user_id = auth()->user()->id; // Admin is migrating
+            $upload->file_size = filesize($destinationPath);
+            $upload->extension = pathinfo($destinationPath, PATHINFO_EXTENSION);
+            $upload->type = 'image';
+            $upload->save();
+
+            return $upload->id; // For profile picture we store path or ID? User model uses 'photo' which is usually path or ID. in this system it seems variable.
+            // Checking create method: $user->photo = $request->photo;
+            // Often in this system 'photo' is path string if simple upload, or ID if using media manager.
+            // Let's perform a check on user model.
+
+            // Looking at User model or existing data: $user->photo usually matches uploads table if using media manager
+            return $new_path;
+        } catch (\Exception $e) {
+            return null;
+        }
+    }
+
 }

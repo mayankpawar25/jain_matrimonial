@@ -6,7 +6,8 @@
         @csrf
         <div class="form-group">
             <label for="diet">{{translate('Mother Tongue')}}</label>
-            <select class="form-control aiz-selectpicker" name="mothere_tongue" data-selected="{{ $member->member->mothere_tongue }}" data-live-search="true">
+            <select class="form-control aiz-selectpicker" name="mothere_tongue"
+                data-selected="{{ $member->member->mothere_tongue ?? '' }}" data-live-search="true">
                 <option value="">{{translate('Select One')}}</option>
                 @foreach ($languages as $language)
                     <option value="{{$language->id}}"> {{ $language->name }} </option>
@@ -18,11 +19,12 @@
         </div>
         <div class="form-group">
             <label for="drink">{{translate('Known Languages')}}</label>
-            @php $known_languages = !empty($member->member->known_languages) ? json_decode($member->member->known_languages) : [] ; @endphp
+            @php $known_languages = ($member->member && !empty($member->member->known_languages)) ? json_decode($member->member->known_languages) : []; @endphp
             <select class="form-control aiz-selectpicker" name="known_languages[]" data-live-search="true" multiple>
                 <option value="">{{translate('Select')}}</option>
                 @foreach ($languages as $language)
-                    <option value="{{$language->id}}" @if(in_array($language->id, $known_languages)) selected @endif >{{ $language->name }} </option>
+                    <option value="{{$language->id}}" @if(in_array($language->id, $known_languages)) selected @endif>
+                        {{ $language->name }} </option>
                 @endforeach
             </select>
             @error('known_languages')
