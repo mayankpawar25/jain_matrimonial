@@ -36,7 +36,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function 
     Route::get('/contact-us/destroy/{id}', 'ContactUsController@destroy')->name('contact-us.delete');
 
     // Member Manage
-    Route::resource('members', MemberController::class);
+    // IMPORTANT: Custom routes must be defined BEFORE the resource route to prevent conflicts
     Route::controller(MemberController::class)->group(function () {
         Route::get('/members/bulk-migrate', 'bulkMigrateRegistrations')->name('members.bulk_migrate');
         Route::post('/members/process-bulk-migration', 'processBulkMigration')->name('members.process_bulk_migration');
@@ -65,6 +65,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function 
         Route::post('/members/package_do_update/{id}', 'package_do_update')->name('members.package_do_update');
         Route::post('/members/wallet-balance-update', 'member_wallet_balance_update')->name('member.wallet_balance_update');
     });
+    Route::resource('members', MemberController::class);
 
 
     Route::get('/reported-members/{id}', 'ReportedUserController@reported_members')->name('reported_members');

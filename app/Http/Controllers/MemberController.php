@@ -107,13 +107,17 @@ class MemberController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request, $id)
+    public function index(Request $request, $id = null)
     {
         CoreComponentRepository::instantiateShopRepository();
         CoreComponentRepository::initializeCache();
 
         $sort_search = null;
-        $members = User::latest()->where('user_type', 'member')->where('membership', $id);
+        $members = User::latest()->where('user_type', 'member');
+
+        if ($id != null) {
+            $members = $members->where('membership', $id);
+        }
 
         if ($request->has('search')) {
             $sort_search = $request->search;
@@ -952,7 +956,14 @@ class MemberController extends Controller
         // 2. Create Member
         $member = new Member;
         $member->user_id = $user->id;
-        $member->gender = (strtolower($registration->marriage) == 'female') ? 2 : 1;
+        $member->gender = 1; // Default
+        if (!empty($registration->gender)) {
+            $gender = strtolower(trim($registration->gender));
+            if ($gender == 'male' || $gender == 'm')
+                $member->gender = 1;
+            elseif ($gender == 'female' || $gender == 'f')
+                $member->gender = 2;
+        }
         $member->birthday = $registration->doc_date;
         $member->current_package_id = 1; // Default
 
@@ -1004,8 +1015,16 @@ class MemberController extends Controller
             // ... Set defaults same as create ...
         }
 
-        if (empty($member->gender))
-            $member->gender = (strtolower($registration->marriage) == 'female') ? 2 : 1;
+        if (empty($member->gender)) {
+            $member->gender = 1; // Default
+            if (!empty($registration->gender)) {
+                $gender = strtolower(trim($registration->gender));
+                if ($gender == 'male' || $gender == 'm')
+                    $member->gender = 1;
+                elseif ($gender == 'female' || $gender == 'f')
+                    $member->gender = 2;
+            }
+        }
         if (empty($member->birthday))
             $member->birthday = $registration->doc_date;
         $member->save();
@@ -1023,6 +1042,8 @@ class MemberController extends Controller
             $other->nanihals_gotra = $registration->gotra_mama;
         if (empty($other->manglik))
             $other->manglik = $registration->dosh;
+        if (empty($other->permanent_address))
+            $other->permanent_address = $registration->permanent_address;
         $other->save();
 
         // Education 
@@ -1033,12 +1054,10 @@ class MemberController extends Controller
 
         // Career
         $career = Career::firstOrNew(['user_id' => $user->id]);
-        if (empty($career->occupation))
-            $career->occupation = $registration->occupation;
+        if (empty($career->designation))
+            $career->designation = $registration->occupation;
         if (empty($career->company))
-            $career->company = $registration->name_of_org;
-        if (empty($career->income))
-            $career->income = $registration->annual_income;
+            $career->company = $registration->occupation; // Store occupation as company for now
         $career->save();
 
         // Family
@@ -1053,26 +1072,34 @@ class MemberController extends Controller
 
         // Physical Attributes
         $physical = PhysicalAttribute::firstOrNew(['user_id' => $user->id]);
-        if (empty($physical->height))
-            $physical->height = $registration->height;
-        if (empty($physical->weight))
-            $physical->weight = $registration->weight;
+        if (empty($physical->height)) {
+            // Sanitize height - extract numeric value from strings like "5'' " or "5.5"
+            $height = preg_replace('/[^0-9.]/', '', $registration->height);
+            $physical->height = !empty($height) ? (float) $height : null;
+        }
+        if (empty($physical->weight)) {
+            // Sanitize weight - extract numeric value
+            $weight = preg_replace('/[^0-9.]/', '', $registration->weight);
+            $physical->weight = !empty($weight) ? (float) $weight : null;
+        }
         if (empty($physical->complexion))
             $physical->complexion = $registration->complexion;
         $physical->save();
-
-        // Address
-        $address = Address::firstOrNew(['user_id' => $user->id, 'type' => 'permanent']);
-        if (empty($address->address))
-            $address->address = $registration->permanent_address;
-        $address->save();
 
         // Astrology
         $astrology = Astrology::firstOrNew(['user_id' => $user->id]);
         if (empty($astrology->city_of_birth))
             $astrology->city_of_birth = $registration->place_of_birth;
-        if (empty($astrology->time_of_birth))
-            $astrology->time_of_birth = $registration->time . ' ' . $registration->ampm;
+        if (empty($astrology->time_of_birth)) {
+            // Convert time from "09:31:00 AM" format to "09:31:00" (24-hour format)
+            $timeString = $registration->time . ' ' . $registration->ampm;
+            try {
+                $time24 = date('H:i:s', strtotime($timeString));
+                $astrology->time_of_birth = $time24;
+            } catch (\Exception $e) {
+                $astrology->time_of_birth = $registration->time; // Fallback to just time
+            }
+        }
         $astrology->save();
 
         // Payment Picture -> Transaction Details (Optional logic, assumes Payment Proofs)
@@ -1084,18 +1111,46 @@ class MemberController extends Controller
     private function migrateImage($relativePath, $type)
     {
         try {
-            // Assume $relativePath is something like 'uploads/registration/profile.jpg'
-            // We need to verify full path. 
-            // In Laravel public_path() points to public folder.
+            // Handle JSON formatted paths (e.g. ["img/path.jpg"])
+            if (str_starts_with($relativePath, '[') || str_starts_with($relativePath, '"')) {
+                $decoded = json_decode($relativePath, true);
+                if (is_array($decoded) && !empty($decoded)) {
+                    $relativePath = $decoded[0];
+                } elseif (is_string($decoded)) {
+                    $relativePath = $decoded;
+                } else {
+                    // Try calculating raw string if json_decode fails or returns weird stuff
+                    $relativePath = trim($relativePath, '[]"\'');
+                }
+            }
 
-            // Check if source exists. Registration model seems to store relative path or filename.
-            // Let's assume it's relative to public
-            $sourcePath = public_path($relativePath);
+            // Check multiple potential source paths
+            $potentialPaths = [
+                public_path($relativePath), // As provided
+                public_path('img/photos/profile/' . $relativePath), // Common profile pic location
+                public_path('uploads/registration/' . $relativePath), // Another potential location
+            ];
 
-            if (!file_exists($sourcePath))
+            \Log::info("Migrating image: $relativePath. Checking paths: " . json_encode($potentialPaths));
+
+            $sourcePath = null;
+            foreach ($potentialPaths as $path) {
+                if (file_exists($path)) {
+                    $sourcePath = $path;
+                    \Log::info("Found image at: $path");
+                    break;
+                }
+            }
+
+            if (!$sourcePath) {
+                \Log::warning("Image not found for: $relativePath");
                 return null;
+            }
 
             $file_name = basename($sourcePath);
+            // Ensure unique filename to prevent overwrites if multiple users have "profile.jpg"
+            $file_name = time() . '_' . $file_name;
+
             $new_path = 'uploads/all/' . $file_name;
             $destinationPath = public_path($new_path);
 
