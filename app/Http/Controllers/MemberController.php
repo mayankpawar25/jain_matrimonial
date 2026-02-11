@@ -121,7 +121,11 @@ class MemberController extends Controller
 
         if ($request->has('search')) {
             $sort_search = $request->search;
-            $members = $members->where('code', $sort_search)->orwhere('first_name', 'like', '%' . $sort_search . '%')->orWhere('last_name', 'like', '%' . $sort_search . '%');
+            $members = $members->where(function ($query) use ($sort_search) {
+                $query->where('code', $sort_search)
+                    ->orwhere('first_name', 'like', '%' . $sort_search . '%')
+                    ->orWhere('last_name', 'like', '%' . $sort_search . '%');
+            });
         }
 
         $members = $members->paginate(10);
@@ -941,7 +945,7 @@ class MemberController extends Controller
         $user->phone = $registration->mobile;
         $user->password = Hash::make('12345678');
         $user->email_verified_at = now();
-        $user->membership = 1; // Default to free package
+        $user->membership = 2; // Default to free package
 
         // Handle Profile Picture
         if ($registration->profile_picture) {

@@ -87,6 +87,8 @@
                                 <th>{{translate('Phone Number')}}</th>
                                 <td>{{ $member->phone }}</td>
                             @endif
+                             <th>{{translate('Phone Number')}}</th>
+                                <td>{{ $member->phone }}</td>
                         </tr>
                         <tr>
                     <th>{{translate(' Marital Status ')}}</th>

@@ -31,19 +31,19 @@
                     <ul class="aiz-side-nav-list level-2">
                         @can('show_members')
                             <li class="aiz-side-nav-item">
-                                <a href="{{ route('members.index', 1) }}"
+                                <a href="{{ route('members.index_filtered', 1) }}"
                                     class="aiz-side-nav-link  {{ areActiveRoutes(['members.edit', 'members.show']) }}">
                                     <span class="aiz-side-nav-text">{{ translate('Free Members') }}</span>
                                 </a>
                             </li>
                             <li class="aiz-side-nav-item">
-                                <a href="{{ route('members.index', 2) }}"
+                                <a href="{{ route('members.index_filtered', 2) }}"
                                     class="aiz-side-nav-link  {{ areActiveRoutes(['members.edit', 'members.show']) }}">
                                     <span class="aiz-side-nav-text">{{ translate('Premium Members') }}</span>
                                 </a>
                             </li>
                             <li class="aiz-side-nav-item">  
-                                <a href="{{ route('members.index', 9) }}"
+                                <a href="{{ route('members.index_filtered', 9) }}"
                                     class="aiz-side-nav-link  {{ areActiveRoutes(['members.edit', 'members.show']) }}">
                                     <span class="aiz-side-nav-text">{{ translate('Paid Package Members') }}</span>
                                 </a>

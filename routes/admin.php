@@ -40,7 +40,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function 
     Route::controller(MemberController::class)->group(function () {
         Route::get('/members/bulk-migrate', 'bulkMigrateRegistrations')->name('members.bulk_migrate');
         Route::post('/members/process-bulk-migration', 'processBulkMigration')->name('members.process_bulk_migration');
-        Route::get('/members/member_list/{id}', 'index')->name('members.index');
+        Route::get('/members/member_list/{id}', 'index')->name('members.index_filtered');
         Route::post('/members/block', 'block')->name('members.block');
         Route::post('/members/blocking_reason', 'blocking_reason')->name('members.blocking_reason');
         Route::get('/members/login/{id}', 'login')->name('members.login');
