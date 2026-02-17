@@ -150,7 +150,7 @@
                         </li>  -->
                         <li class="list-inline-item ml-3">
                                 <a class="btn btn-sm btn-primary blink-animation"
-                                    href="{{ route('form.resgistration') }}"><strong>{{ translate('Registration') }}</strong></a>
+                                    href="{{ route('register')  }}"><strong>{{ translate('Registration') }}</strong></a>
                             </li>
                         @endif
                     </ul>
