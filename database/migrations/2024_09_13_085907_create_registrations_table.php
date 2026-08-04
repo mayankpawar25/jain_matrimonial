@@ -13,30 +13,39 @@ return new class extends Migration
      */
     public function up()
     {
+        // Existing installs already have this table, with columns added by hand
+        // since this migration was written. Mirror that shape for fresh installs.
+        if (Schema::hasTable('registrations')) {
+            return;
+        }
+
         Schema::create('registrations', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('email')->unique();
+            $table->string('email');
             $table->string('mobile');
+            $table->string('gender', 10)->nullable();
             $table->string('marriage');
             $table->date('doc_date');
             $table->time('time');
             $table->string('ampm')->nullable();
-            $table->string('citizenship')->nullable();
+            $table->string('citizenship', 255);
             $table->string('place_of_birth');
             $table->string('state');
             $table->string('gotra_self');
             $table->string('gotra_mama');
-            $table->string('caste');
+            $table->string('caste')->nullable();
             $table->string('subCaste');
             $table->string('weight');
             $table->string('height');
             $table->string('complexion');
-            $table->string('category');
+            $table->string('category', 255);
             $table->string('residence');
             $table->string('dosh')->nullable(); // Added 'dosh' field
             $table->string('education')->nullable();
             $table->string('occupation')->nullable();
+            $table->string('name_of_org')->nullable();
+            $table->string('annual_income')->nullable();
             $table->string('fatherName')->nullable();
             $table->string('father_mobile')->nullable(); // Updated field for father's mobile
             $table->string('father_occupation')->nullable(); // Updated field for father's occupation
@@ -53,11 +62,13 @@ return new class extends Migration
             $table->string('unmarried_sister')->nullable();
             $table->string('contact');
             $table->string('social_group')->nullable();
-            $table->string('profile_picture')->nullable(); // Added field for profile picture
-            $table->string('payment_picture')->nullable(); // Added field for payment picture
+            $table->text('profile_picture')->nullable(); // Added field for profile picture
+            $table->text('payment_picture')->nullable(); // Added field for payment picture
             $table->string('payment_type')->nullable(); // Added field for payment type
             $table->string('total_payment')->nullable(); // Added field for total payment
-            $table->boolean('is_courier')->default(false); // Added field for courier option
+            $table->boolean('is_courier')->nullable()->default(false); // Added field for courier option
+            $table->integer('is_attendance')->default(0);
+            $table->integer('is_kit')->default(0);
             $table->string('payment_mode')->nullable(); // Added field for payment mode
             $table->timestamps();
         });
